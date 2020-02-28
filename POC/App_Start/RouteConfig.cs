@@ -15,7 +15,7 @@ namespace POC
                 defaults: new
                 {
                     controller = "Todo",
-                    action = "List"
+                    action = "Index"
                 }
             );
         }

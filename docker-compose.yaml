@@ -1,6 +1,8 @@
 version: '3.7'
 services:        
     poc_app:
+        image: poc-app
+        restart: always
         build:
             context: .
             dockerfile: Dockerfile.App
@@ -12,6 +14,8 @@ services:
             poc_network:
                 ipv4_address: 172.28.1.1
     poc_service:
+        image: poc-service
+        restart: always
         build:
             context: .
             dockerfile: Dockerfile.Service
@@ -26,6 +30,7 @@ services:
                 ipv4_address: 172.28.1.2
     poc_db:
         image: microsoft/mssql-server-windows-developer
+        restart: always
         ports:
             - "1433:1433"
         environment:
