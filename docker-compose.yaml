@@ -1,0 +1,43 @@
+version: '3.7'
+services:        
+    poc_app:
+        build:
+            context: .
+            dockerfile: Dockerfile.App
+        depends_on:
+            - "poc_service"
+        environment: 
+            - "TodoServiceUrl=http://172.28.1.2/TodoService.svc"
+        networks:
+            poc_network:
+                ipv4_address: 172.28.1.1
+    poc_service:
+        build:
+            context: .
+            dockerfile: Dockerfile.Service
+        depends_on:
+            - "poc_db"
+        environment:
+            - "TodoDbHost=172.28.1.3"
+            - "TodoDbPort=1433"
+            - "TodoDbSaPassword=@dam93!Nis1323"
+        networks:
+            poc_network:
+                ipv4_address: 172.28.1.2
+    poc_db:
+        image: microsoft/mssql-server-windows-developer
+        ports:
+            - "1433:1433"
+        environment:
+            - "sa_password=@dam93!Nis1323"
+            - "ACCEPT_EULA=Y"
+        networks:
+            poc_network:
+                ipv4_address: 172.28.1.3
+networks:
+    poc_network:
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.28.0.0/16
+         

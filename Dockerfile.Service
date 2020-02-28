@@ -1,0 +1,4 @@
+FROM adamm93/iis-remote-wcf
+
+COPY ./POC.Serivce.Publish/ /inetpub/wwwroot/
+
