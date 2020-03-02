@@ -1,11 +1,11 @@
 version: '3.7'
 services:        
-    poc_app:
-        image: poc-app
+    poc_mvc:
+        image: poc-mvc
         restart: always
         build:
             context: .
-            dockerfile: Dockerfile.App
+            dockerfile: POC.Mvc.dockerfile
         depends_on:
             - "poc_service"
         environment: 
@@ -18,7 +18,7 @@ services:
         restart: always
         build:
             context: .
-            dockerfile: Dockerfile.Service
+            dockerfile: POC.Service.dockerfile
         depends_on:
             - "poc_db"
         environment:
