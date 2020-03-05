@@ -1,0 +1,103 @@
+﻿@{
+    ViewBag.Title = "Todo - List";
+}
+
+@using POC.Web.Models
+
+@model TodoListViewModel
+
+<table class="table table-striped">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Completed</th>
+            <th scope="col">Created at</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var todo in Model.Items)
+        {
+        <tr>
+            <th scope="row">@todo.Index.</th>
+            <td>@todo.Title</td>
+            <td>@(todo.IsComleted ? "Yes" : "No")</td>
+            <td>@todo.CreatedAt</td>
+
+            @if (todo.IsComleted)
+            {
+                <td><button class="btn btn-default open-task" data-id="@todo.Id">Open</button></td>
+            }
+
+            else
+            {
+                <td><button class="btn btn-default complete-task" data-id="@todo.Id">Complete</button></td>
+            }
+
+            <td><button class="btn btn-danger delete-task" data-id="@todo.Id">Delete</button></td>
+        </tr>
+        }
+    </tbody>
+</table>
+@{ Html.RenderAction("Add"); }
+
+<script type="text/javascript">
+
+    $(".complete-task").click((event) => {
+        $.ajax({
+            url: '@Url.RouteUrl(new { controller = "Todo", action = "Complete"})',
+            data: { id: event.target.dataset["id"] },
+            type: 'POST',
+            success: function (response) {
+
+                if (response.success) {
+                    location.reload()
+                }
+
+                throw "error"
+            },
+            failure: function (reponse) {
+                throw "error"
+            }
+        })
+    });
+
+    $(".open-task").click((event) => {
+        $.ajax({
+            url: '@Url.RouteUrl(new { controller = "Todo", action = "Open"})',
+            data: { id: event.target.dataset["id"] },
+            type: 'POST',
+            success: function (response) {
+
+                if (response.success) {
+                    location.reload()
+                }
+
+                throw "error"
+            },
+            failure: function (reponse) {
+                throw "error"
+            }
+        })
+    });
+
+    $(".delete-task").click((event) => {
+        $.ajax({
+            url: '@Url.RouteUrl(new { controller = "Todo", action = "Delete"})',
+            data: { id: event.target.dataset["id"] },
+            type: 'POST',
+            success: function (response) {
+
+                if (response.success) {
+                    location.reload()
+                }
+
+                throw "error"
+            },
+            failure: function (reponse) {
+                throw "error"
+            }
+        })
+    });
+
+</script>

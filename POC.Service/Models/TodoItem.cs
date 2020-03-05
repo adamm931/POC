@@ -21,6 +21,10 @@ namespace POC.Service.Models
 
         public DateTime CreatedAt { get; set; }
 
+        public Guid UserTodoItemsId { get; set; }
+
+        public UserTodoItems UserTodoItems { get; set; }
+
         private TodoItem()
         {
         }

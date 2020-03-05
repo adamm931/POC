@@ -16,7 +16,7 @@ namespace POC.Service.Data
                 : (ITodosProvider)TodoItemContext.Create();
         }
 
-        public static ITodosAsyncProvider GetAsyncProvider()
+        public static ITodosProvider GetAsyncProvider()
         {
             var type = ConfigurationManager.AppSettings["UseFakeProvider"];
 
@@ -24,7 +24,7 @@ namespace POC.Service.Data
 
             return useFake
                 ? new InMemoryTodosProvider()
-                : (ITodosAsyncProvider)TodoItemContext.Create();
+                : (ITodosProvider)TodoItemContext.Create();
         }
     }
 }

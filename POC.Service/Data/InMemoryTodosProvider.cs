@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace POC.Service.Data
 {
-    public class InMemoryTodosProvider : ITodosProvider, ITodosAsyncProvider
+    public class InMemoryTodosProvider : ITodosProvider
     {
         private static readonly List<TodoItem> _todos = new List<TodoItem>
             {
@@ -33,6 +33,11 @@ namespace POC.Service.Data
             throw new NotImplementedException();
         }
 
+        public Task<TodoItem> AddTodoAsync(string name, string user)
+        {
+            throw new NotImplementedException();
+        }
+
         public TodoItem CompleteTodo(Guid guid)
         {
             var item = _todos.FirstOrDefault(todo => todo.Id == guid);
@@ -47,6 +52,11 @@ namespace POC.Service.Data
             return await Task.Run(() => CompleteTodo(guid));
         }
 
+        public Task<TodoItem> CompleteTodoAsync(Guid guid, string user)
+        {
+            throw new NotImplementedException();
+        }
+
         public void DeleteTodo(Guid guid)
         {
             _todos.RemoveAll(todo => todo.Id == guid);
@@ -57,6 +67,11 @@ namespace POC.Service.Data
             await Task.Run(() => DeleteTodo(guid));
         }
 
+        public Task DeleteTodoAsync(Guid guid, string user)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<TodoItem> ListTodos()
         {
             return _todos;
@@ -65,6 +80,11 @@ namespace POC.Service.Data
         public async Task<List<TodoItem>> ListTodosAsync()
         {
             return await Task.Run(() => ListTodos());
+        }
+
+        public Task<List<TodoItem>> ListTodosAsync(string user)
+        {
+            throw new NotImplementedException();
         }
 
         public TodoItem OpenTodo(Guid guid)
@@ -79,6 +99,11 @@ namespace POC.Service.Data
         public async Task<TodoItem> OpenTodoAsync(Guid guid)
         {
             return await Task.Run(() => OpenTodo(guid));
+        }
+
+        public Task<TodoItem> OpenTodoAsync(Guid guid, string user)
+        {
+            throw new NotImplementedException();
         }
     }
 }

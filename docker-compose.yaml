@@ -1,15 +1,16 @@
 version: '3.7'
 services:        
-    poc_mvc:
-        image: poc-mvc
+    poc_web:
+        image: poc-web
         restart: always
         build:
             context: .
-            dockerfile: POC.Mvc.dockerfile
+            dockerfile: POC.Web.dockerfile
         depends_on:
             - "poc_service"
         environment: 
             - "TodoServiceUrl=http://172.28.1.2/TodoService.svc"
+            - "IdentityUrl=http://172.28.1.5"
         networks:
             poc_network:
                 ipv4_address: 172.28.1.1
@@ -39,6 +40,35 @@ services:
         networks:
             poc_network:
                 ipv4_address: 172.28.1.3
+    poc_identity_service:
+        image: poc-identity-service
+        restart: always
+        build:
+            context: .
+            dockerfile: POC.Identity.Service.dockerfile
+        depends_on:
+            - "poc_service"
+        environment: 
+            - "TodoDbHost=172.28.1.3"
+            - "TodoDbPort=1433"
+            - "TodoDbSaPassword=@dam93!Nis1323"
+        networks:
+            poc_network:
+                ipv4_address: 172.28.1.4
+    poc_identity_web:
+        image: poc-identity-web
+        restart: always
+        build:
+            context: .
+            dockerfile: POC.Identity.Web.dockerfile
+        depends_on:
+            - "poc_identity_service"
+        environment: 
+            - "IdentityServiceUrl=http://172.28.1.4/IdentityService.svc"
+            - "IdentityRedirectUrl=http://172.28.1.1"
+        networks:
+            poc_network:
+                ipv4_address: 172.28.1.5
 networks:
     poc_network:
         ipam:

@@ -7,59 +7,33 @@ using System.Threading.Tasks;
 
 namespace POC.Service
 {
-    public class TodoService : ITodoServiceAsync
+    public class TodoService : ITodoService
     {
-        private readonly ITodosProvider TodosProvider = TodosProviderResolver.GetProvider();
-        private readonly ITodosAsyncProvider TodosAsyncProvider = TodosProviderResolver.GetAsyncProvider();
+        private readonly ITodosProvider TodosAsyncProvider = TodosProviderResolver.GetAsyncProvider();
 
-        //public TodoItem Add(string name)
-        //{
-        //    return TodosProvider.AddTodo(name);
-        //}
-
-        public async Task<TodoItem> AddAsync(string name)
+        public async Task<TodoItem> AddAsync(string name, string user)
         {
-            return await TodosAsyncProvider.AddTodoAsync(name);
+            return await TodosAsyncProvider.AddTodoAsync(name, user);
         }
 
-        //public TodoItem Complete(Guid guid)
-        //{
-        //    return TodosProvider.CompleteTodo(guid);
-        //}
-
-        public async Task<TodoItem> CompleteAsync(Guid guid)
+        public async Task<TodoItem> CompleteAsync(Guid guid, string user)
         {
-            return await TodosAsyncProvider.CompleteTodoAsync(guid);
+            return await TodosAsyncProvider.CompleteTodoAsync(guid, user);
         }
 
-        //public void Delete(Guid guid)
-        //{
-        //    TodosProvider.DeleteTodo(guid);
-        //}
-
-        public async Task DeleteAsync(Guid guid)
+        public async Task DeleteAsync(Guid guid, string user)
         {
-            await TodosAsyncProvider.DeleteTodoAsync(guid);
+            await TodosAsyncProvider.DeleteTodoAsync(guid, user);
         }
 
-        //public List<TodoItem> List()
-        //{
-        //    return TodosProvider.ListTodos();
-        //}
-
-        public async Task<List<TodoItem>> ListAsync()
+        public async Task<List<TodoItem>> ListAsync(string user)
         {
-            return await TodosAsyncProvider.ListTodosAsync();
+            return await TodosAsyncProvider.ListTodosAsync(user);
         }
 
-        //public TodoItem Open(Guid guid)
-        //{
-        //    return TodosProvider.OpenTodo(guid);
-        //}
-
-        public async Task<TodoItem> OpenAsync(Guid guid)
+        public async Task<TodoItem> OpenAsync(Guid guid, string user)
         {
-            return await TodosAsyncProvider.OpenTodoAsync(guid);
+            return await TodosAsyncProvider.OpenTodoAsync(guid, user);
 
         }
     }

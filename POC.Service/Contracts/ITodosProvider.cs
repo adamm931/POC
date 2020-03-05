@@ -1,21 +1,20 @@
 ﻿using POC.Service.Models;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace POC.Service.Contracts
 {
     public interface ITodosProvider
     {
-        TodoItem AddTodo(string name);
+        Task<TodoItem> AddTodoAsync(string name, string user);
 
-        TodoItem CompleteTodo(Guid guid);
+        Task<TodoItem> CompleteTodoAsync(Guid guid, string user);
 
-        TodoItem OpenTodo(Guid guid);
+        Task<TodoItem> OpenTodoAsync(Guid guid, string user);
 
-        void DeleteTodo(Guid guid);
+        Task DeleteTodoAsync(Guid guid, string user);
 
-        List<TodoItem> ListTodos();
+        Task<List<TodoItem>> ListTodosAsync(string user);
     }
-
-
 }

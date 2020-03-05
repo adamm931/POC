@@ -9,38 +9,19 @@ namespace POC.Service.Contracts
     [ServiceContract]
     public interface ITodoService
     {
-        [OperationContract(Action = "Add", ReplyAction = "Add")]
-        TodoItem Add(string name);
+        [OperationContract]
+        Task<TodoItem> AddAsync(string name, string user);
 
-        [OperationContract(Action = "Complete", ReplyAction = "Complete")]
-        TodoItem Complete(Guid guid);
+        [OperationContract]
+        Task<TodoItem> CompleteAsync(Guid guid, string user);
 
-        [OperationContract(Action = "Open", ReplyAction = "Open")]
-        TodoItem Open(Guid guid);
+        [OperationContract]
+        Task<TodoItem> OpenAsync(Guid guid, string user);
 
-        [OperationContract(Action = "Delete", ReplyAction = "Delete")]
-        void Delete(Guid guid);
+        [OperationContract]
+        Task DeleteAsync(Guid guid, string user);
 
-        [OperationContract(Action = "List", ReplyAction = "List")]
-        List<TodoItem> List();
-    }
-
-    [ServiceContract]
-    public interface ITodoServiceAsync// : ITodoService
-    {
-        [OperationContract(Action = "Add", ReplyAction = "Add")]
-        Task<TodoItem> AddAsync(string name);
-
-        [OperationContract(Action = "Complete", ReplyAction = "Complete")]
-        Task<TodoItem> CompleteAsync(Guid guid);
-
-        [OperationContract(Action = "Open", ReplyAction = "Open")]
-        Task<TodoItem> OpenAsync(Guid guid);
-
-        [OperationContract(Action = "Delete", ReplyAction = "Delete")]
-        Task DeleteAsync(Guid guid);
-
-        [OperationContract(Action = "List", ReplyAction = "List")]
-        Task<List<TodoItem>> ListAsync();
+        [OperationContract]
+        Task<List<TodoItem>> ListAsync(string user);
     }
 }
