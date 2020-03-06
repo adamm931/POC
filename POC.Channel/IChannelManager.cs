@@ -1,7 +1,13 @@
-﻿namespace POC.Channel
+﻿using POC.Identity.Service.Contracts;
+using POC.Service.Contracts;
+
+namespace POC.Channel
 {
     public interface IChannelManager
     {
-        TService GetChannel<TService>(IAddress address);
+        ITodoService GetTodoService();
+
+        IIdentityService GetIdentityService();
+
     }
 }

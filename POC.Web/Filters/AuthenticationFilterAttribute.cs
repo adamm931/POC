@@ -1,6 +1,5 @@
-﻿using POC.Channel;
+﻿using POC.Common;
 using POC.Web.AuthenticationService;
-using POC.Web.Common;
 using System.Web.Mvc;
 
 namespace POC.Web.Filters
@@ -38,8 +37,8 @@ namespace POC.Web.Filters
                 return;
             }
 
-            var authenticationRedirectAddress = new EnviromentLocatedAddress(IdentityDefaults.IdentityUrl);
-            filterContext.Result = new RedirectResult(authenticationRedirectAddress.Url);
+            var url = EnviromentVariablesFetcher.GetVaraiable(EnviromentVariables.IdentityUrl);
+            filterContext.Result = new RedirectResult(url);
         }
     }
 }

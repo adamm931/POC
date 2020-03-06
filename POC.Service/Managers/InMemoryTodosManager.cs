@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace POC.Service.Data
+namespace POC.Service.Managers
 {
-    public class InMemoryTodosProvider : ITodosProvider
+    public class InMemoryTodosManager : ITodoManager
     {
         private static readonly List<TodoItem> _todos = new List<TodoItem>
             {
@@ -34,6 +34,11 @@ namespace POC.Service.Data
         }
 
         public Task<TodoItem> AddTodoAsync(string name, string user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task AddUser(string user)
         {
             throw new NotImplementedException();
         }

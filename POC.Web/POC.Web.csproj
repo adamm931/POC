@@ -120,9 +120,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Common\IdentityDefaults.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\TodoController.cs" />
+    <Compile Include="Extensions\HttpContextExtensions.cs" />
     <Compile Include="Filters\AuthenticationFilterAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -197,6 +197,10 @@
     <ProjectReference Include="..\POC.Channel\POC.Channel.csproj">
       <Project>{34C77B64-9DC1-44BB-AD46-EDE44E3958ED}</Project>
       <Name>POC.Channel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\POC.Common\POC.Common.csproj">
+      <Project>{0FAEE2E1-706A-4EEC-A81C-D7A0AD32763E}</Project>
+      <Name>POC.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\POC.Service\POC.Service.csproj">
       <Project>{cc2072e1-8cf9-4fcf-ac57-4a5354ce0439}</Project>

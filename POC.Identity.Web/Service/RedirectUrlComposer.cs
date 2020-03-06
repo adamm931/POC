@@ -1,5 +1,4 @@
-﻿using POC.Channel;
-using POC.Identity.Web.Common;
+﻿using POC.Common;
 
 namespace POC.Identity.Web.Service
 {
@@ -7,8 +6,7 @@ namespace POC.Identity.Web.Service
     {
         public string ComposeUrl(string user)
         {
-            var address = new EnviromentLocatedAddress(IdentityDefaults.IdentityRedirectUrl);
-            var baseUrl = address.Url;
+            var baseUrl = EnviromentVariablesFetcher.GetVaraiable(EnviromentVariables.IdentityRedirectUrl);
 
             if (!baseUrl.EndsWith("/"))
             {

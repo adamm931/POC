@@ -9,6 +9,33 @@ namespace POC.Identity.Service
 {
     internal class IdentityService : IIdentityService
     {
+        public async Task<ServiceResponse<CheckUsernameServiceResponse>> CheckUsernameAsync(CheckUsernameServiceRequest serviceRequest)
+        {
+            try
+            {
+                var userService = UserServiceProvider.GetUserService();
+
+                var request = new CheckUsernameRequest
+                {
+                    Username = serviceRequest.Username
+                };
+
+                var response = await userService.CheckUsernameAsync(request);
+
+                var serviceReponse = new CheckUsernameServiceResponse
+                {
+                    IsAvailable = response.IsAvailable
+                };
+
+                return ServiceResponse<CheckUsernameServiceResponse>.Success(serviceReponse);
+            }
+
+            catch (Exception exception)
+            {
+                return ServiceResponse<CheckUsernameServiceResponse>.Fail(exception);
+            }
+        }
+
         public async Task<ServiceResponse<UserLoginServiceResponse>> LoginAsync(UserLoginServiceRequest serviceRequest)
         {
             try
@@ -33,7 +60,30 @@ namespace POC.Identity.Service
 
             catch (Exception e)
             {
-                return ServiceResponse<UserLoginServiceResponse>.Fail(e.ToString());
+                return ServiceResponse<UserLoginServiceResponse>.Fail(e);
+            }
+        }
+
+        public async Task<ServiceResponse> SignupAsync(SignupUserServiceRequest serviceRequest)
+        {
+            try
+            {
+                var userService = UserServiceProvider.GetUserService();
+
+                var request = new SignupUserRequest
+                {
+                    Username = serviceRequest.Username,
+                    Password = serviceRequest.Password
+                };
+
+                await userService.SignupAsync(request);
+
+                return ServiceResponse.Success();
+            }
+
+            catch (Exception exception)
+            {
+                return ServiceResponse.Fail(exception);
             }
         }
     }

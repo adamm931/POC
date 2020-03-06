@@ -23,5 +23,8 @@ namespace POC.Service.Contracts
 
         [OperationContract]
         Task<List<TodoItem>> ListAsync(string user);
+
+        [OperationContract]
+        Task AddUserAsync(string user);
     }
 }

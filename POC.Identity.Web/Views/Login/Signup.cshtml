@@ -1,23 +1,29 @@
 ﻿@{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "Signup";
 }
 
 @using POC.Identity.Web.Models;
-@model  UserLoginModel
+@model  UserSignupModel
 
 
-@using (Html.BeginForm("Index", "Login", FormMethod.Post))
-{<div class="form-group">
+@using (Html.BeginForm("Signup", "Login", FormMethod.Post))
+{
+    <div class="form-group">
         @Html.LabelFor(model => model.Username)
         @Html.TextBoxFor(model => model.Username, new { placeholder = "Enter username", @class = "form-control" })
     </div>
-    <div class="form-group">
 
+    <div class="form-group">
         @Html.LabelFor(model => model.Password)
         @Html.PasswordFor(model => model.Password, new { placeholder = "Enter password", @class = "form-control" })
     </div>
-    <button type="submit" class="btn btn-primary">Login</button>
-    @Html.ActionLink("Signup", "Signup", new { controller = "Login" }, new { @class = "btn btn-default" })
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ConfirmPassword)
+        @Html.PasswordFor(model => model.ConfirmPassword, new { placeholder = "Confirm password", @class = "form-control" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Signup</button>
 
     if (!Model.IsSuccess)
     {

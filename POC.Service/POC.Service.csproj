@@ -76,12 +76,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configurations\TodoItemConfiguration.cs" />
-    <Compile Include="Constants\EnviromentVariables.cs" />
     <Compile Include="Contracts\ITodoService.cs" />
-    <Compile Include="Contracts\ITodosProvider.cs" />
+    <Compile Include="Contracts\ITodoManager.cs" />
     <Compile Include="Data\TodoItemContext.cs" />
-    <Compile Include="Data\InMemoryTodosProvider.cs" />
-    <Compile Include="Data\TodosProviderResolver.cs" />
+    <Compile Include="Managers\InMemoryTodosManager.cs" />
+    <Compile Include="Managers\TodoManagerFactory.cs" />
+    <Compile Include="Managers\TodosManager.cs" />
     <Compile Include="Models\TodoItem.cs" />
     <Compile Include="Models\UserTodoItems.cs" />
     <Compile Include="TodoService.svc.cs">
@@ -89,9 +89,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />

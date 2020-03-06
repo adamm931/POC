@@ -23,14 +23,14 @@ services:
         depends_on:
             - "poc_db"
         environment:
-            - "TodoDbHost=172.28.1.3"
-            - "TodoDbPort=1433"
-            - "TodoDbSaPassword=@dam93!Nis1323"
+            - "DbHost=172.28.1.3"
+            - "DbPort=1433"
+            - "DbPassword=@dam93!Nis1323"
         networks:
             poc_network:
                 ipv4_address: 172.28.1.2
     poc_db:
-        image: microsoft/mssql-server-windows-developer
+        image: microsoft/mssql-server-windows-express
         restart: always
         ports:
             - "1433:1433"
@@ -47,11 +47,11 @@ services:
             context: .
             dockerfile: POC.Identity.Service.dockerfile
         depends_on:
-            - "poc_service"
+            - "poc_db"
         environment: 
-            - "TodoDbHost=172.28.1.3"
-            - "TodoDbPort=1433"
-            - "TodoDbSaPassword=@dam93!Nis1323"
+            - "DbHost=172.28.1.3"
+            - "DbPort=1433"
+            - "DbPassword=@dam93!Nis1323"
         networks:
             poc_network:
                 ipv4_address: 172.28.1.4
@@ -63,7 +63,9 @@ services:
             dockerfile: POC.Identity.Web.dockerfile
         depends_on:
             - "poc_identity_service"
-        environment: 
+            - "poc_service"
+        environment:
+            - "TodoServiceUrl=http://172.28.1.2/TodoService.svc"        
             - "IdentityServiceUrl=http://172.28.1.4/IdentityService.svc"
             - "IdentityRedirectUrl=http://172.28.1.1"
         networks:

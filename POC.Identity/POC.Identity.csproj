@@ -56,6 +56,9 @@
     <Compile Include="Data\Entities\UserLogin.cs" />
     <Compile Include="Data\TodoIdentityContext.cs" />
     <Compile Include="Internal\UserService.cs" />
+    <Compile Include="Models\CheckUsernameRequest.cs" />
+    <Compile Include="Models\CheckUsernameResponse.cs" />
+    <Compile Include="Models\SignupUserRequest.cs" />
     <Compile Include="Models\UserLoginRequest.cs" />
     <Compile Include="Models\UserLoginResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

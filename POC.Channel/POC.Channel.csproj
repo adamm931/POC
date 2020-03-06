@@ -42,10 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EnviromentLocatedAddress.cs" />
-    <Compile Include="IChannelAddress.cs" />
     <Compile Include="ChannelManager.cs" />
-    <Compile Include="ChannelManagerDefaults.cs" />
     <Compile Include="IChannelManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

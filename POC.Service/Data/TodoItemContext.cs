@@ -1,15 +1,11 @@
 ﻿using POC.Common;
-using POC.Service.Contracts;
 using POC.Service.Models;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace POC.Service.Data
 {
-    public class TodoItemContext : DbContext, ITodosProvider
+    public class TodoItemContext : DbContext
     {
         public virtual DbSet<TodoItem> Todos { get; set; }
 
@@ -38,9 +34,9 @@ namespace POC.Service.Data
             var builder = new SqlServerConnectionStringBuilder();
 
             var variables = new ConnectionStringVariables(
-                EnviromentConnectionStringVariable.Host("TodoDbHost"),
-                EnviromentConnectionStringVariable.Port("TodoDbPort"),
-                EnviromentConnectionStringVariable.Password("TodoDbSaPassword"),
+                EnviromentConnectionStringVariable.Host(EnviromentVariables.DbHost),
+                EnviromentConnectionStringVariable.Port(EnviromentVariables.DbPort),
+                EnviromentConnectionStringVariable.Password(EnviromentVariables.DbPassword),
                 InlineConnectionStringVariable.User("sa"),
                 InlineConnectionStringVariable.DbName("TodoItemsDb"));
 
@@ -79,74 +75,6 @@ namespace POC.Service.Data
 
                 context.UserTodoItems.AddRange(userTodoItems);
             }
-        }
-
-        #endregion
-
-        #region ITodosProvider
-
-        public async Task<TodoItem> AddTodoAsync(string name, string user)
-        {
-            var userTodos = await GetUserTodos(user);
-
-            var todo = userTodos.AddTodo(name);
-
-            await SaveChangesAsync();
-
-            return todo;
-        }
-
-        public async Task<TodoItem> CompleteTodoAsync(Guid guid, string user)
-        {
-            var userTodos = await GetUserTodos(user);
-
-            var todo = userTodos?.CompleteTodo(guid);
-
-            await SaveChangesAsync();
-
-            return todo;
-        }
-
-        public async Task<TodoItem> OpenTodoAsync(Guid guid, string user)
-        {
-            var userTodos = await GetUserTodos(user);
-
-            var todo = userTodos?.OpenTodo(guid);
-
-            await SaveChangesAsync();
-
-            return todo;
-        }
-
-        public async Task DeleteTodoAsync(Guid guid, string user)
-        {
-            var userTodos = await GetUserTodos(user);
-
-            var deletedTodo = userTodos?.DeleteTodo(guid);
-
-            Todos.Remove(deletedTodo);
-
-            await SaveChangesAsync();
-        }
-
-        public async Task<List<TodoItem>> ListTodosAsync(string user)
-        {
-            var userTodos = await GetUserTodos(user);
-
-            return userTodos.TodoItems
-                .OrderByDescending(item => item.CreatedAt)
-                .ToList();
-        }
-
-        #endregion
-
-        #region Helpers
-
-        private async Task<UserTodoItems> GetUserTodos(string user)
-        {
-            return await UserTodoItems
-                .Include(item => item.TodoItems)
-                .SingleAsync(userItems => userItems.Username == user);
         }
 
         #endregion

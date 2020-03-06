@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using POC.Web.Extensions;
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -21,7 +23,12 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    @Html.ActionLink("Logout", "Logout", "Authentication", new { @class = "nav-item"})
+                    <li class="nav-item">
+                        @Html.ActionLink("Logout", "Logout", new { controller = "Authentication" }, new { @class = "nav-link"})
+                    </li>
+                    <li class="nav-item active">
+                        <a href="#" class="text-white">Hello @Session.GetUsername()</a>
+                    </li>
                 </ul>
             </div>
         </div>

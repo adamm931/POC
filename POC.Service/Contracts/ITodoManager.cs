@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace POC.Service.Contracts
 {
-    public interface ITodosProvider
+    public interface ITodoManager
     {
         Task<TodoItem> AddTodoAsync(string name, string user);
 
@@ -16,5 +16,7 @@ namespace POC.Service.Contracts
         Task DeleteTodoAsync(Guid guid, string user);
 
         Task<List<TodoItem>> ListTodosAsync(string user);
+
+        Task AddUser(string user);
     }
 }

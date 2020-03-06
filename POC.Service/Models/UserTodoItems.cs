@@ -12,12 +12,20 @@ namespace POC.Service.Models
 
         public ICollection<TodoItem> TodoItems { get; private set; }
 
-        public UserTodoItems(string username, IEnumerable<TodoItem> todoItems)
+        public UserTodoItems(string username, IEnumerable<TodoItem> todoItems) : this(username)
         {
             Id = Guid.NewGuid();
 
             Username = username;
             TodoItems = todoItems.ToList();
+        }
+
+        public UserTodoItems(string username)
+        {
+            Id = Guid.NewGuid();
+
+            Username = username;
+            TodoItems = new List<TodoItem>();
         }
 
         private UserTodoItems()

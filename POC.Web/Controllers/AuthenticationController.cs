@@ -1,6 +1,5 @@
-﻿using POC.Channel;
+﻿using POC.Common;
 using POC.Web.AuthenticationService;
-using POC.Web.Common;
 using System.Web.Mvc;
 
 namespace POC.Web.Controllers
@@ -16,9 +15,9 @@ namespace POC.Web.Controllers
         {
             AuthenticationService.LogoutUser();
 
-            var logout = new EnviromentLocatedAddress(IdentityDefaults.IdentityUrl);
+            var url = EnviromentVariablesFetcher.GetVaraiable(EnviromentVariables.IdentityUrl);
 
-            return Redirect(logout.Url);
+            return Redirect(url);
         }
     }
 }

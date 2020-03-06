@@ -27,9 +27,9 @@ namespace POC.Identity.Data
             var builder = new SqlServerConnectionStringBuilder();
 
             var variables = new ConnectionStringVariables(
-                EnviromentConnectionStringVariable.Host("TodoDbHost"),
-                EnviromentConnectionStringVariable.Port("TodoDbPort"),
-                EnviromentConnectionStringVariable.Password("TodoDbSaPassword"),
+                EnviromentConnectionStringVariable.Host(EnviromentVariables.DbHost),
+                EnviromentConnectionStringVariable.Port(EnviromentVariables.DbPort),
+                EnviromentConnectionStringVariable.Password(EnviromentVariables.DbPassword),
                 InlineConnectionStringVariable.User("sa"),
                 InlineConnectionStringVariable.DbName("TodoIdentityDb"));
 

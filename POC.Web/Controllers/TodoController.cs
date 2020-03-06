@@ -11,8 +11,7 @@ namespace POC.Web.Controllers
 {
     public class TodoController : Controller
     {
-        private ITodoService TodoService => ChannelManager.Instance
-            .GetChannel<ITodoService>(new EnviromentLocatedAddress("TodoServiceUrl"));
+        private ITodoService TodoService => ChannelManager.Instance.GetTodoService();
 
         private IAuthenticationService AuthenticationService =>
             AuthenticationServiceFactory.GetAutheticationService(HttpContext);
