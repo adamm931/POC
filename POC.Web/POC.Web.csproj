@@ -122,8 +122,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\TodoController.cs" />
-    <Compile Include="Extensions\HttpContextExtensions.cs" />
-    <Compile Include="Filters\AuthenticationFilterAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -131,13 +129,7 @@
     <Compile Include="Models\CompleteTodoViewModel.cs" />
     <Compile Include="Models\TodoListItemViewModel.cs" />
     <Compile Include="Models\TodoListViewModel.cs" />
-    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="AuthenticationService\AuthenticationServiceFactory.cs" />
-    <Compile Include="AuthenticationService\HttpContextAuthenticationService.cs" />
-    <Compile Include="AuthenticationService\IAuthenticationService.cs" />
-    <Compile Include="AuthenticationService\QueryStringUserProvider.cs" />
-    <Compile Include="AuthenticationService\IUserProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -205,6 +197,10 @@
     <ProjectReference Include="..\POC.Service\POC.Service.csproj">
       <Project>{cc2072e1-8cf9-4fcf-ac57-4a5354ce0439}</Project>
       <Name>POC.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\POC.Web.Authentication\POC.Web.Authentication.csproj">
+      <Project>{93F7AAA6-CB1F-4221-B75D-95D815CFFA3E}</Project>
+      <Name>POC.Web.Authentication</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

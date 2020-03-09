@@ -1,6 +1,7 @@
 ﻿using POC.Channel;
 using POC.Service.Contracts;
-using POC.Web.AuthenticationService;
+using POC.Web.Authentication;
+using POC.Web.AuthenticationService.Contracts;
 using POC.Web.Models;
 using System;
 using System.Linq;

@@ -27,6 +27,11 @@ namespace POC.Identity.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> Index(UserLoginModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
             var request = new UserLoginServiceRequest
             {
                 Username = model.Username,
@@ -42,8 +47,7 @@ namespace POC.Identity.Web.Controllers
 
             if (!result.Response.IsAuthenticated)
             {
-                model.SetFailMessage("Invalid username or password");
-
+                ModelState.AddModelError("Username", "Invalid username or password");
                 return View(model);
             }
 
@@ -61,10 +65,15 @@ namespace POC.Identity.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> Signup(UserSignupModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
             // password match check
             if (model.PasswordsMismatch)
             {
-                model.SetFailMessage("Password and confirm password are not same");
+                ModelState.AddModelError("Password", "Password and confirm password are not same");
                 return View(model);
             }
 
@@ -83,13 +92,7 @@ namespace POC.Identity.Web.Controllers
 
             if (!result.Response.IsAvailable)
             {
-                model.SetFailMessage("Username is not available");
-                return View(model);
-            }
-
-            if (!result.Response.IsAvailable)
-            {
-                model.SetFailMessage("Username is not available");
+                ModelState.AddModelError("Username", "Username is not available");
                 return View(model);
             }
 
@@ -113,6 +116,5 @@ namespace POC.Identity.Web.Controllers
 
             return Redirect(url);
         }
-
     }
 }

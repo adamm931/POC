@@ -25,9 +25,6 @@
 
     <button type="submit" class="btn btn-primary">Signup</button>
 
-    if (!Model.IsSuccess)
-    {
-        <p class="text-danger">@Model.FailMessage</p>
-    }
+    @Html.ValidationSummary();
 }
 

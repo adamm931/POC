@@ -1,13 +1,22 @@
 ﻿using POC.Common;
-using POC.Web.AuthenticationService;
+using POC.Web.Authentication.Contracts;
 using System.Web.Mvc;
 
-namespace POC.Web.Filters
+namespace POC.Web.Authentication.Filter
 {
     public class AuthenticationFilterAttribute : ActionFilterAttribute
     {
+        private readonly ActionFilterAttribute principalFilter;
+
+        public AuthenticationFilterAttribute()
+        {
+            principalFilter = new PrincipalPersistFilterAttribute();
+        }
+
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+            principalFilter.OnActionExecuting(filterContext);
+
             Authenticate(filterContext);
 
             base.OnActionExecuting(filterContext);
@@ -21,9 +30,8 @@ namespace POC.Web.Filters
             }
 
             var authenticationService = AuthenticationServiceFactory.GetAutheticationService(filterContext.HttpContext);
-            var autheticationUser = authenticationService.GetUser();
 
-            if (autheticationUser != null)
+            if (authenticationService.IsAuthenticated)
             {
                 return;
             }
@@ -31,7 +39,7 @@ namespace POC.Web.Filters
             var userProvider = AuthenticationServiceFactory.GetUserProvider(filterContext.HttpContext);
             var user = userProvider.GetUser();
 
-            if (user != null)
+            if (user.IsResolved())
             {
                 authenticationService.LoginUser(user);
                 return;

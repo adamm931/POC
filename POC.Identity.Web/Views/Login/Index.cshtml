@@ -19,9 +19,6 @@
     <button type="submit" class="btn btn-primary">Login</button>
     @Html.ActionLink("Signup", "Signup", new { controller = "Login" }, new { @class = "btn btn-default" })
 
-    if (!Model.IsSuccess)
-    {
-        <p class="text-danger">@Model.FailMessage</p>
-    }
+    @Html.ValidationSummary();
 }
 

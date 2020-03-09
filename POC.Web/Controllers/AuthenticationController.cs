@@ -1,5 +1,6 @@
 ﻿using POC.Common;
-using POC.Web.AuthenticationService;
+using POC.Web.Authentication;
+using POC.Web.AuthenticationService.Contracts;
 using System.Web.Mvc;
 
 namespace POC.Web.Controllers
