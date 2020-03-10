@@ -6,6 +6,8 @@ COPY . .
 
 RUN msbuild ./POC.sln /p:DeployOnBuild=true /p:PublishProfile=FolderProfile
 
-FROM adamm93/iis-remote as runtime
+FROM adamm93/iis-remote-wcf as runtime
 
-COPY --from=build /app/POC.Web.Publish/ /inetpub/wwwroot
+ARG publish_folder
+
+COPY --from=build /app/${publish_folder} /inetpub/wwwroot
