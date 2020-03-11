@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace POC.Identity.Service.Models
+namespace POC.Common.Service
 {
     [DataContract]
     public class ServiceResponse<TResponse> : ServiceResponse

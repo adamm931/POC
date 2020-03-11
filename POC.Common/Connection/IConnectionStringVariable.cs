@@ -1,4 +1,6 @@
-﻿namespace POC.Common
+﻿using POC.Common.Enviroment;
+
+namespace POC.Common.Connection
 {
     public interface IConnectionStringVariable
     {

@@ -1,4 +1,4 @@
-﻿using POC.Common;
+﻿using POC.Common.Enviroment;
 using POC.Identity.Service.Contracts;
 using POC.Service.Contracts;
 using System.ServiceModel;

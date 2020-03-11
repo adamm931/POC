@@ -7,12 +7,12 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{CEED1C07-3F63-4661-B6C9-0EBD21109CEB}</ProjectGuid>
+    <ProjectGuid>{7B47C033-95EE-4696-9103-156CA0D7201B}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>POC.Identity.Service</RootNamespace>
-    <AssemblyName>POC.Identity.Service</AssemblyName>
+    <RootNamespace>POC.Accounts.Service</RootNamespace>
+    <AssemblyName>POC.Accounts.Service</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -74,34 +74,37 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="IdentityService.svc" />
+    <Content Include="AccountService.svc" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contracts\IIdentityService.cs" />
-    <Compile Include="IdentityService.svc.cs">
-      <DependentUpon>IdentityService.svc</DependentUpon>
+    <Compile Include="AccountService.svc.cs">
+      <DependentUpon>AccountService.svc</DependentUpon>
     </Compile>
-    <Compile Include="Models\CheckUsernameServiceRequest.cs" />
-    <Compile Include="Models\CheckUsernameServiceResponse.cs" />
-    <Compile Include="Models\SignupUserServiceRequest.cs" />
-    <Compile Include="Models\UserLoginServiceRequest.cs" />
-    <Compile Include="Models\UserLoginServiceResponse.cs" />
+    <Compile Include="Contracts\IAccountService.cs" />
+    <Compile Include="MappingProfiles\AccountMappingProfile.cs" />
+    <Compile Include="Model\AccountAddressServiceRequest.cs" />
+    <Compile Include="Model\AccountAddressServiceResponse.cs" />
+    <Compile Include="Model\AccountHeaderServiceRequest.cs" />
+    <Compile Include="Model\AccountLoginServiceRequest.cs" />
+    <Compile Include="Model\AccountLoginServiceResponse.cs" />
+    <Compile Include="Model\AccountServiceResponse.cs" />
+    <Compile Include="Model\UpdateAccountLoginServiceRequest.cs" />
+    <Compile Include="Model\UpdateAccountLoginServiceResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\POC.Account\POC.Accounts.csproj">
+      <Project>{5F5EB291-60DF-4EF8-9714-7897EAD99913}</Project>
+      <Name>POC.Accounts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\POC.Common\POC.Common.csproj">
       <Project>{0FAEE2E1-706A-4EEC-A81C-D7A0AD32763E}</Project>
       <Name>POC.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\POC.Identity\POC.Identity.csproj">
-      <Project>{EDA15DE6-9F6B-40B9-A9AA-159645425DBA}</Project>
-      <Name>POC.Identity</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -122,9 +125,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>62069</DevelopmentServerPort>
+          <DevelopmentServerPort>65347</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:62069/</IISUrl>
+          <IISUrl>http://localhost:65186/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

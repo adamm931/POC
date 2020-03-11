@@ -3,7 +3,7 @@ using System;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace POC.Identity.Data.Entities
+namespace POC.Identity.Domain
 {
     public class UserLogin
     {

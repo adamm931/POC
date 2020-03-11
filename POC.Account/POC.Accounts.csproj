@@ -5,11 +5,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{EDA15DE6-9F6B-40B9-A9AA-159645425DBA}</ProjectGuid>
+    <ProjectGuid>{5F5EB291-60DF-4EF8-9714-7897EAD99913}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>POC.Identity</RootNamespace>
-    <AssemblyName>POC.Identity</AssemblyName>
+    <RootNamespace>POC.Accounts</RootNamespace>
+    <AssemblyName>POC.Accounts</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=9.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.9.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -43,6 +46,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -52,17 +56,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contracts\IUserService.cs" />
-    <Compile Include="Domain\UserLogin.cs" />
-    <Compile Include="Data\IdentityContext.cs" />
-    <Compile Include="Internal\UserService.cs" />
-    <Compile Include="Models\CheckUsernameRequest.cs" />
-    <Compile Include="Models\CheckUsernameResponse.cs" />
-    <Compile Include="Models\SignupUserRequest.cs" />
-    <Compile Include="Models\UserLoginRequest.cs" />
-    <Compile Include="Models\UserLoginResponse.cs" />
+    <Compile Include="Contracts\IAccountApi.cs" />
+    <Compile Include="Data\AccountContext.cs" />
+    <Compile Include="Configuration\AccountConfiguration.cs" />
+    <Compile Include="Domain\Account.cs" />
+    <Compile Include="Domain\AccountAddress.cs" />
+    <Compile Include="Domain\AccountLogin.cs" />
+    <Compile Include="Domain\Gender.cs" />
+    <Compile Include="Internal\AccountApi.cs" />
+    <Compile Include="MappingProfiles\AccountMappingProfile.cs" />
+    <Compile Include="Model\AccountAddressRequest.cs" />
+    <Compile Include="Model\AccountAddressResponse.cs" />
+    <Compile Include="Model\AccountHeaderRequest.cs" />
+    <Compile Include="Model\AccountLoginRequest.cs" />
+    <Compile Include="Model\AccountLoginResponse.cs" />
+    <Compile Include="Model\UpdateAccountLoginResponse.cs" />
+    <Compile Include="Model\UpdateAccountLoginRequest.cs" />
+    <Compile Include="Model\AccountResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Providers\UserServiceProvider.cs" />
+    <Compile Include="Factory\AccountApiFactory.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\POC.Common\POC.Common.csproj">
@@ -70,11 +86,6 @@
       <Name>POC.Common</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

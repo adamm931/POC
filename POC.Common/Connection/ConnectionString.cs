@@ -1,4 +1,4 @@
-﻿namespace POC.Common
+﻿namespace POC.Common.Connection
 {
     internal class ConnectionString : IConnectionString
     {

@@ -1,90 +1,52 @@
-﻿using POC.Identity.Models;
+﻿using POC.Common.Mapper;
+using POC.Common.Service;
+using POC.Identity.Contracts;
+using POC.Identity.Models;
 using POC.Identity.Providers;
 using POC.Identity.Service.Contracts;
 using POC.Identity.Service.Models;
-using System;
 using System.Threading.Tasks;
 
 namespace POC.Identity.Service
 {
     internal class IdentityService : IIdentityService
     {
+        private readonly Mapping Mapping = Mapping.Create();
+
+        private readonly IUserService UserService = UserServiceProvider.GetUserService();
+
         public async Task<ServiceResponse<CheckUsernameServiceResponse>> CheckUsernameAsync(CheckUsernameServiceRequest serviceRequest)
         {
-            try
+            return await ServiceTrigger.Handle(async () =>
             {
-                var userService = UserServiceProvider.GetUserService();
+                var request = Mapping.Map<CheckUsernameRequest>(serviceRequest);
 
-                var request = new CheckUsernameRequest
-                {
-                    Username = serviceRequest.Username
-                };
+                var response = await UserService.CheckUsernameAsync(request);
 
-                var response = await userService.CheckUsernameAsync(request);
-
-                var serviceReponse = new CheckUsernameServiceResponse
-                {
-                    IsAvailable = response.IsAvailable
-                };
-
-                return ServiceResponse<CheckUsernameServiceResponse>.Success(serviceReponse);
-            }
-
-            catch (Exception exception)
-            {
-                return ServiceResponse<CheckUsernameServiceResponse>.Fail(exception);
-            }
+                return Mapping.Map<CheckUsernameServiceResponse>(response);
+            });
         }
 
         public async Task<ServiceResponse<UserLoginServiceResponse>> LoginAsync(UserLoginServiceRequest serviceRequest)
         {
-            try
+            return await ServiceTrigger.Handle(async () =>
             {
-                var userService = UserServiceProvider.GetUserService();
+                var request = Mapping.Map<UserLoginRequest>(serviceRequest);
 
-                var request = new UserLoginRequest
-                {
-                    Username = serviceRequest.Username,
-                    Password = serviceRequest.Password
-                };
+                var response = await UserService.LoginAsync(request);
 
-                var response = await userService.LoginAsync(request);
-
-                var serviceReponse = new UserLoginServiceResponse
-                {
-                    IsAuthenticated = response.IsAuthenticated
-                };
-
-                return ServiceResponse<UserLoginServiceResponse>.Success(serviceReponse);
-            }
-
-            catch (Exception e)
-            {
-                return ServiceResponse<UserLoginServiceResponse>.Fail(e);
-            }
+                return Mapping.Map<UserLoginServiceResponse>(response);
+            });
         }
 
         public async Task<ServiceResponse> SignupAsync(SignupUserServiceRequest serviceRequest)
         {
-            try
+            return await ServiceTrigger.Handle(async () =>
             {
-                var userService = UserServiceProvider.GetUserService();
+                var request = Mapping.Map<SignupUserRequest>(serviceRequest);
 
-                var request = new SignupUserRequest
-                {
-                    Username = serviceRequest.Username,
-                    Password = serviceRequest.Password
-                };
-
-                await userService.SignupAsync(request);
-
-                return ServiceResponse.Success();
-            }
-
-            catch (Exception exception)
-            {
-                return ServiceResponse.Fail(exception);
-            }
+                await UserService.SignupAsync(request);
+            });
         }
     }
 }

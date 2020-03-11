@@ -1,6 +1,6 @@
 ﻿using POC.Identity.Contracts;
 using POC.Identity.Data;
-using POC.Identity.Data.Entities;
+using POC.Identity.Domain;
 using POC.Identity.Models;
 using System.Data.Entity;
 using System.Linq;
@@ -12,7 +12,7 @@ namespace POC.Identity.Internal
     {
         public async Task<CheckUsernameResponse> CheckUsernameAsync(CheckUsernameRequest request)
         {
-            using (var context = new TodoIdentityContext())
+            using (var context = new IdentityContext())
             {
                 bool exists = await UsernameExists(request.Username, context);
 
@@ -25,7 +25,7 @@ namespace POC.Identity.Internal
 
         public async Task<UserLoginResponse> LoginAsync(UserLoginRequest request)
         {
-            using (var context = new TodoIdentityContext())
+            using (var context = new IdentityContext())
             {
                 var logins = await context
                     .UserLogins
@@ -40,7 +40,7 @@ namespace POC.Identity.Internal
 
         public async Task SignupAsync(SignupUserRequest request)
         {
-            using (var context = new TodoIdentityContext())
+            using (var context = new IdentityContext())
             {
                 bool exists = await UsernameExists(request.Username, context);
 
@@ -55,7 +55,7 @@ namespace POC.Identity.Internal
             }
         }
 
-        private async Task<bool> UsernameExists(string username, TodoIdentityContext context)
+        private async Task<bool> UsernameExists(string username, IdentityContext context)
         {
             return await context.UserLogins.AnyAsync(login => login.Username == username);
         }

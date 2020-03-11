@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace POC.Common
+namespace POC.Common.Enviroment
 {
     public class EnviromentVariablesFetcher
     {

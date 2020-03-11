@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace POC.Common
+namespace POC.Common.Connection
 {
     public interface IConnectionStringVariables
     {

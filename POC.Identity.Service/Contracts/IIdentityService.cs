@@ -1,4 +1,5 @@
-﻿using POC.Identity.Service.Models;
+﻿using POC.Common.Service;
+using POC.Identity.Service.Models;
 using System.ServiceModel;
 using System.Threading.Tasks;
 

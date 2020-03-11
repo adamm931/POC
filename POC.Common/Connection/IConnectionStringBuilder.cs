@@ -1,4 +1,6 @@
-﻿namespace POC.Common
+﻿using POC.Common.Connection;
+
+namespace POC.Common
 {
     public interface IConnectionStringBuilder
     {

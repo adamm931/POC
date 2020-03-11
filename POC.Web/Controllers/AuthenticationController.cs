@@ -1,4 +1,4 @@
-﻿using POC.Common;
+﻿using POC.Common.Enviroment;
 using POC.Web.Authentication;
 using POC.Web.AuthenticationService.Contracts;
 using System.Web.Mvc;
