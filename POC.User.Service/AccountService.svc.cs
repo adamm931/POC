@@ -39,6 +39,16 @@ namespace POC.Accounts.Service
             });
         }
 
+        public async Task<ServiceResponse<AccountServiceResponse>> GetAccountByUsername(string username)
+        {
+            return await ServiceTrigger.Handle(async () =>
+            {
+                var response = await AccountApi.GetAccountByUsernameAsync(username);
+
+                return Mapping.Map<AccountServiceResponse>(response);
+            });
+        }
+
         public async Task<ServiceResponse> UpdateAccountAddressAsync(AccountAddressServiceRequest serviceRequest)
         {
             return await ServiceTrigger.Handle(async () =>

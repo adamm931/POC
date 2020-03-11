@@ -12,6 +12,8 @@ namespace POC.Accounts.Contracts
 
         Task<AccountResponse> GetAccountAsync(Guid id);
 
+        Task<AccountResponse> GetAccountByUsernameAsync(string username);
+
         Task<AccountLoginResponse> AddAccountLoginAsync(AccountLoginRequest request);
 
         Task<UpdateAccountLoginResponse> UpdateAccountLoginAsync(UpdateAccountLoginRequest request);

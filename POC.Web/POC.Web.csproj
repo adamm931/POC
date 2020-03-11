@@ -120,11 +120,15 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\TodoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AccountAddressViewModel.cs" />
+    <Compile Include="Models\AccountHeaderViewModel.cs" />
+    <Compile Include="Models\AccountViewModel.cs" />
     <Compile Include="Models\AddTodoViewModel.cs" />
     <Compile Include="Models\CompleteTodoViewModel.cs" />
     <Compile Include="Models\TodoListItemViewModel.cs" />
@@ -168,6 +172,9 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Todo\_Add.cshtml" />
     <Content Include="Views\Todo\Index.cshtml" />
+    <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\AccountHeaderViewModel.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\AccountAddressViewModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -197,6 +204,10 @@
     <ProjectReference Include="..\POC.Service\POC.Service.csproj">
       <Project>{cc2072e1-8cf9-4fcf-ac57-4a5354ce0439}</Project>
       <Name>POC.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\POC.User.Service\POC.Accounts.Service.csproj">
+      <Project>{7B47C033-95EE-4696-9103-156CA0D7201B}</Project>
+      <Name>POC.Accounts.Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\POC.Web.Authentication\POC.Web.Authentication.csproj">
       <Project>{93F7AAA6-CB1F-4221-B75D-95D815CFFA3E}</Project>

@@ -1,0 +1,38 @@
+﻿@using POC.Web.Models
+@model AccountHeaderViewModel
+
+<h3 class="text-primary">Main info</h3>
+<div class="form-group">
+    @Html.LabelFor(model => model.FirstName)
+    @Html.TextBoxFor(model => model.FirstName, new { placeholder = "Enter first name", @class = "form-control" })
+</div>
+
+<div class="form-group">
+
+    @Html.LabelFor(model => model.LastName)
+    @Html.TextBoxFor(model => model.LastName, new { placeholder = "Enter last name", @class = "form-control" })
+</div>
+
+<div class="form-group">
+
+    @Html.LabelFor(model => model.MiddleName)
+    @Html.TextBoxFor(model => model.MiddleName, new { placeholder = "Enter middle name", @class = "form-control" })
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Gender)
+    @Html.DropDownListFor(model => model.Gender,
+        new SelectListItem[]
+        {
+            new SelectListItem { Text = "Male", Value = "Male" },
+            new SelectListItem { Text = "Female", Value = "Female" }
+        },
+    new { placeholder = "Enter region", @class = "form-control" })
+</div>
+
+<div class="form-group">
+
+    @Html.LabelFor(model => model.BirthDay)
+    @Html.TextBoxFor(model => model.BirthDay, new { @class = "form-control", type = "date" })
+</div>
+

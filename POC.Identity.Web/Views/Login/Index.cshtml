@@ -7,7 +7,8 @@
 
 
 @using (Html.BeginForm("Index", "Login", FormMethod.Post))
-{<div class="form-group">
+{
+    <div class="form-group">
         @Html.LabelFor(model => model.Username)
         @Html.TextBoxFor(model => model.Username, new { placeholder = "Enter username", @class = "form-control" })
     </div>

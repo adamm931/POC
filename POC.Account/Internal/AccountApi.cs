@@ -40,6 +40,16 @@ namespace POC.Accounts.Internal
             }
         }
 
+        public async Task<AccountResponse> GetAccountByUsernameAsync(string username)
+        {
+            using (Context)
+            {
+                var account = await GetAccount(username);
+
+                return Mapping.Map<AccountResponse>(account);
+            }
+        }
+
         public async Task UpdateAccountAddressAsync(AccountAddressRequest request)
         {
             using (Context)
@@ -97,6 +107,14 @@ namespace POC.Accounts.Internal
                 .Include(model => model.Address)
                 .Include(model => model.Login)
                 .SingleAsync(model => model.Id == id);
+        }
+
+        private async Task<Account> GetAccount(string username)
+        {
+            return await Context.Accounts
+                .Include(model => model.Address)
+                .Include(model => model.Login)
+                .SingleAsync(model => model.Login.Username == username);
         }
 
         private async Task CheckUsername(string username)

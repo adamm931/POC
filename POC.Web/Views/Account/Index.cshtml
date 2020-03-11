@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Todo - List";
+}
+
+@using POC.Web.Models
+
+@model  AccountViewModel
+
+<div class="container">
+    <div class="row">
+
+        @using (Html.BeginForm("Update", "Account", FormMethod.Post))
+        {
+            @Html.EditorFor(model => model.Address)
+
+            @Html.EditorFor(model => model.Header)
+
+            <button type="submit" class="btn btn-primary">Update</button>
+
+            @Html.ValidationSummary();
+        }
+     </div>
+</div>

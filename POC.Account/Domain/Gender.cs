@@ -38,5 +38,10 @@ namespace POC.Accounts.Domain
         {
             return !(left == right);
         }
+
+        public override string ToString()
+        {
+            return Value;
+        }
     }
 }

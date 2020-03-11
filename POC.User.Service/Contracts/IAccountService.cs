@@ -10,18 +10,21 @@ namespace POC.Accounts.Service.Contracts
     public interface IAccountService
     {
         [OperationContract]
-        Task<ServiceResponse> UpdateAccountHeaderAsync(AccountHeaderServiceRequest ServiceRequest);
+        Task<ServiceResponse> UpdateAccountHeaderAsync(AccountHeaderServiceRequest serviceRequest);
 
         [OperationContract]
-        Task<ServiceResponse> UpdateAccountAddressAsync(AccountAddressServiceRequest ServiceRequest);
+        Task<ServiceResponse> UpdateAccountAddressAsync(AccountAddressServiceRequest serviceRequest);
 
         [OperationContract]
         Task<ServiceResponse<AccountServiceResponse>> GetAccountAsync(Guid id);
 
         [OperationContract]
-        Task<ServiceResponse<AccountLoginServiceResponse>> AddAccountLoginAsync(AccountLoginServiceRequest ServiceRequest);
+        Task<ServiceResponse<AccountServiceResponse>> GetAccountByUsername(string username);
 
         [OperationContract]
-        Task<ServiceResponse<UpdateAccountLoginServiceResponse>> UpdateAccountLoginAsync(UpdateAccountLoginServiceRequest ServiceRequest);
+        Task<ServiceResponse<AccountLoginServiceResponse>> AddAccountLoginAsync(AccountLoginServiceRequest serviceRequest);
+
+        [OperationContract]
+        Task<ServiceResponse<UpdateAccountLoginServiceResponse>> UpdateAccountLoginAsync(UpdateAccountLoginServiceRequest serviceRequest);
     }
 }

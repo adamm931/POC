@@ -1,7 +1,5 @@
 ﻿using POC.Channel;
 using POC.Service.Contracts;
-using POC.Web.Authentication;
-using POC.Web.AuthenticationService.Contracts;
 using POC.Web.Models;
 using System;
 using System.Linq;
@@ -14,14 +12,10 @@ namespace POC.Web.Controllers
     {
         private ITodoService TodoService => ChannelManager.Instance.GetTodoService();
 
-        private IAuthenticationService AuthenticationService =>
-            AuthenticationServiceFactory.GetAutheticationService(HttpContext);
-
         [HttpGet]
         public async Task<ActionResult> Index()
         {
-            var user = AuthenticationService.GetUser();
-            var todos = await TodoService.ListAsync(user.Username);
+            var todos = await TodoService.ListAsync(User.Identity.Name);
 
             var model = new TodoListViewModel
             {
@@ -47,9 +41,7 @@ namespace POC.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> Add(AddTodoViewModel model)
         {
-            var user = AuthenticationService.GetUser();
-
-            await TodoService.AddAsync(model.Title, user.Username);
+            await TodoService.AddAsync(model.Title, User.Identity.Name);
 
             return RedirectToAction("Index");
         }
@@ -57,9 +49,7 @@ namespace POC.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> Complete(Guid id)
         {
-            var user = AuthenticationService.GetUser();
-
-            await TodoService.CompleteAsync(id, user.Username);
+            await TodoService.CompleteAsync(id, User.Identity.Name);
 
             return Json(new
             {
@@ -70,9 +60,7 @@ namespace POC.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> Open(Guid id)
         {
-            var user = AuthenticationService.GetUser();
-
-            await TodoService.OpenAsync(id, user.Username);
+            await TodoService.OpenAsync(id, User.Identity.Name);
 
             return Json(new
             {
@@ -83,9 +71,7 @@ namespace POC.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> Delete(Guid id)
         {
-            var user = AuthenticationService.GetUser();
-
-            await TodoService.DeleteAsync(id, user.Username);
+            await TodoService.DeleteAsync(id, User.Identity.Name);
 
             return Json(new
             {
