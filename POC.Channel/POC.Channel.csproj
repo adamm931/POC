@@ -47,6 +47,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\POC.Accounts.Service\POC.Accounts.Service.csproj">
+      <Project>{7B47C033-95EE-4696-9103-156CA0D7201B}</Project>
+      <Name>POC.Accounts.Service</Name>
+    </ProjectReference>
     <ProjectReference Include="..\POC.Common\POC.Common.csproj">
       <Project>{0FAEE2E1-706A-4EEC-A81C-D7A0AD32763E}</Project>
       <Name>POC.Common</Name>
@@ -58,10 +62,6 @@
     <ProjectReference Include="..\POC.Service\POC.Service.csproj">
       <Project>{CC2072E1-8CF9-4FCF-AC57-4A5354CE0439}</Project>
       <Name>POC.Service</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\POC.User.Service\POC.Accounts.Service.csproj">
-      <Project>{7B47C033-95EE-4696-9103-156CA0D7201B}</Project>
-      <Name>POC.Accounts.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

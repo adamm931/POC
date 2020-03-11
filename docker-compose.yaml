@@ -12,6 +12,7 @@ services:
             - "poc_service"
         environment: 
             - "TodoServiceUrl=http://172.28.1.2/TodoService.svc"
+            - "AccountServiceUrl=http://172.28.1.6/AccountService.svc"
             - "IdentityUrl=http://172.28.1.5"
         networks:
             poc_network:
@@ -75,10 +76,28 @@ services:
         environment:
             - "TodoServiceUrl=http://172.28.1.2/TodoService.svc"        
             - "IdentityServiceUrl=http://172.28.1.4/IdentityService.svc"
+            - "AccountServiceUrl=http://172.28.1.6/AccountService.svc"
             - "IdentityRedirectUrl=http://172.28.1.1"
         networks:
             poc_network:
                 ipv4_address: 172.28.1.5
+    poc_accounts_service:
+        image: poc-accounts-service
+        restart: always
+        build:
+            context: .
+            dockerfile: POC.Publish.Wcf.dockerfile
+            args:
+                - "publish_folder=POC.Accounts.Service.Publish"
+        depends_on:
+            - "poc_db"
+        environment:
+            - "DbHost=172.28.1.3"
+            - "DbPort=1433"
+            - "DbPassword=@dam93!Nis1323"
+        networks:
+            poc_network:
+                ipv4_address: 172.28.1.6
 networks:
     poc_network:
         ipam:

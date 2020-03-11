@@ -193,6 +193,10 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\POC.Accounts.Service\POC.Accounts.Service.csproj">
+      <Project>{7B47C033-95EE-4696-9103-156CA0D7201B}</Project>
+      <Name>POC.Accounts.Service</Name>
+    </ProjectReference>
     <ProjectReference Include="..\POC.Channel\POC.Channel.csproj">
       <Project>{34C77B64-9DC1-44BB-AD46-EDE44E3958ED}</Project>
       <Name>POC.Channel</Name>
@@ -204,10 +208,6 @@
     <ProjectReference Include="..\POC.Service\POC.Service.csproj">
       <Project>{cc2072e1-8cf9-4fcf-ac57-4a5354ce0439}</Project>
       <Name>POC.Service</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\POC.User.Service\POC.Accounts.Service.csproj">
-      <Project>{7B47C033-95EE-4696-9103-156CA0D7201B}</Project>
-      <Name>POC.Accounts.Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\POC.Web.Authentication\POC.Web.Authentication.csproj">
       <Project>{93F7AAA6-CB1F-4221-B75D-95D815CFFA3E}</Project>
