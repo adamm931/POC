@@ -1,4 +1,6 @@
-﻿using POC.Channel;
+﻿using POC.Accounts.Service.Contracts;
+using POC.Accounts.Service.Model;
+using POC.Channel;
 using POC.Identity.Service.Contracts;
 using POC.Identity.Service.Models;
 using POC.Identity.Web.Models;
@@ -15,6 +17,8 @@ namespace POC.Identity.Web.Controllers
         private IIdentityService IdentityService => ChannelManager.Instance.GetIdentityService();
 
         private ITodoService TodoService => ChannelManager.Instance.GetTodoService();
+
+        private IAccountService AccountService => ChannelManager.Instance.GetAccountService();
 
         private IRedirectUrlComposer RedirectUrlComposer => new RedirectUrlComposer();
 
@@ -103,15 +107,20 @@ namespace POC.Identity.Web.Controllers
                 Password = model.Password
             };
 
-            var signupResult = await IdentityService.SignupAsync(signupRequest);
+            await IdentityService.SignupAsync(signupRequest);
 
+            // add user
             await TodoService.AddUserAsync(model.Username);
 
-            if (!signupResult.IsSuccess)
+            // add account login
+            var accountLoginRequest = new AccountLoginServiceRequest
             {
-                throw new Exception(signupResult.FailReason);
-            }
+                Username = request.Username
+            };
 
+            await AccountService.AddAccountLoginAsync(accountLoginRequest);
+
+            // redirect
             var url = RedirectUrlComposer.ComposeUrl(model.Username);
 
             return Redirect(url);

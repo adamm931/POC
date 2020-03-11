@@ -82,6 +82,7 @@
     <Compile Include="IdentityService.svc.cs">
       <DependentUpon>IdentityService.svc</DependentUpon>
     </Compile>
+    <Compile Include="MappingProfiles\IdentityServiceMappingProfile.cs" />
     <Compile Include="Models\CheckUsernameServiceRequest.cs" />
     <Compile Include="Models\CheckUsernameServiceResponse.cs" />
     <Compile Include="Models\SignupUserServiceRequest.cs" />

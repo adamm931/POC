@@ -1,4 +1,5 @@
-﻿using POC.Identity.Service.Contracts;
+﻿using POC.Accounts.Service.Contracts;
+using POC.Identity.Service.Contracts;
 using POC.Service.Contracts;
 
 namespace POC.Channel
@@ -9,5 +10,6 @@ namespace POC.Channel
 
         IIdentityService GetIdentityService();
 
+        IAccountService GetAccountService();
     }
 }

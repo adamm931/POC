@@ -15,5 +15,7 @@
         public const string DbPort = "DbPort";
 
         public const string DbPassword = "DbPassword";
+
+        public const string AccountServiceUrl = "AccountServiceUrl";
     }
 }

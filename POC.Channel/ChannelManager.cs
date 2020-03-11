@@ -1,4 +1,5 @@
-﻿using POC.Common.Enviroment;
+﻿using POC.Accounts.Service.Contracts;
+using POC.Common.Enviroment;
 using POC.Identity.Service.Contracts;
 using POC.Service.Contracts;
 using System.ServiceModel;
@@ -32,6 +33,11 @@ namespace POC.Channel
         public IIdentityService GetIdentityService()
         {
             return GetChannel<IIdentityService>(EnviromentVariables.IdentityServiceUrl);
+        }
+
+        public IAccountService GetAccountService()
+        {
+            return GetChannel<IAccountService>(EnviromentVariables.AccountServiceUrl);
         }
     }
 }

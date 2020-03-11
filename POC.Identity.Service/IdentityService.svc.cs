@@ -4,6 +4,7 @@ using POC.Identity.Contracts;
 using POC.Identity.Models;
 using POC.Identity.Providers;
 using POC.Identity.Service.Contracts;
+using POC.Identity.Service.MappingProfiles;
 using POC.Identity.Service.Models;
 using System.Threading.Tasks;
 
@@ -11,7 +12,7 @@ namespace POC.Identity.Service
 {
     internal class IdentityService : IIdentityService
     {
-        private readonly Mapping Mapping = Mapping.Create();
+        private readonly Mapping Mapping = Mapping.Create(new IdentityServiceMappingProfile());
 
         private readonly IUserService UserService = UserServiceProvider.GetUserService();
 
