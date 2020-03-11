@@ -94,7 +94,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\POC.Account\POC.Accounts.csproj">
+    <ProjectReference Include="..\POC.Accounts\POC.Accounts.csproj">
       <Project>{5F5EB291-60DF-4EF8-9714-7897EAD99913}</Project>
       <Name>POC.Accounts</Name>
     </ProjectReference>
