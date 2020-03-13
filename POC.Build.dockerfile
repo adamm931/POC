@@ -6,8 +6,6 @@ COPY . .
 
 RUN msbuild ./POC.sln /p:DeployOnBuild=true /p:PublishProfile=FolderProfile
 
-# FROM mcr.microsoft.com/windows/nanoserver
-
 FROM mcr.microsoft.com/windows/nanoserver:1909
 
 WORKDIR /app

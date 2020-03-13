@@ -13,7 +13,7 @@ services:
         environment: 
             - "TodoServiceUrl=http://172.28.1.2/TodoService.svc"
             - "AccountServiceUrl=http://172.28.1.6/AccountService.svc"
-            - "IdentityUrl=http://172.28.1.5"
+            - "IdentityUrl=http://login.poc.net"
         networks:
             poc_network:
                 ipv4_address: 172.28.1.1
@@ -77,7 +77,8 @@ services:
             - "TodoServiceUrl=http://172.28.1.2/TodoService.svc"        
             - "IdentityServiceUrl=http://172.28.1.4/IdentityService.svc"
             - "AccountServiceUrl=http://172.28.1.6/AccountService.svc"
-            - "IdentityRedirectUrl=http://172.28.1.1"
+            - "IdentityRedirectUrl=http://portal.poc.net"
+            - "UserCookieDomain=.poc.net"
         networks:
             poc_network:
                 ipv4_address: 172.28.1.5

@@ -1,4 +1,5 @@
-﻿using POC.Identity.Web.Authentication.Common;
+﻿using POC.Common.Enviroment;
+using POC.Identity.Web.Authentication.Common;
 using POC.Identity.Web.Authentication.Models;
 using POC.Identity.Web.Authentication.Service;
 using System;
@@ -22,7 +23,10 @@ namespace POC.Identity.Web.Authentication.Implementation
 
         public void EnstablishSession(UserSessionModel user)
         {
-            var userCookie = new HttpCookie(Constants.Cookies.User, user.Username);
+            var userCookie = new HttpCookie(Constants.Cookies.User, user.Username)
+            {
+                Domain = EnviromentVariablesFetcher.GetVaraiable(EnviromentVariables.UserCookieDomain),
+            };
 
             _httpContext.Response.Cookies.Add(userCookie);
         }
