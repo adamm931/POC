@@ -1,13 +1,5 @@
-FROM  mcr.microsoft.com/dotnet/framework/sdk:4.8 as build
-
-WORKDIR /app
-
-COPY . .
-
-RUN msbuild ./POC.sln /p:DeployOnBuild=true /p:PublishProfile=FolderProfile
-
-FROM adamm93/iis-remote as runtime
+FROM adamm93/iis-remote
 
 ARG publish_folder
 
-COPY --from=build /app/${publish_folder} /inetpub/wwwroot
+COPY --from=adamm93/poc_build_nano:latest /app/${publish_folder} /inetpub/wwwroot

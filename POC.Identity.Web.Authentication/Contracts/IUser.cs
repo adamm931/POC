@@ -1,4 +1,4 @@
-﻿namespace POC.Web.Authentication.Contracts
+﻿namespace POC.Identity.Web.Authentication.Contracts
 {
     public interface IUser
     {

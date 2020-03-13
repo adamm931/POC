@@ -1,6 +1,6 @@
 ﻿using POC.Common.Enviroment;
-using POC.Web.Authentication;
-using POC.Web.AuthenticationService.Contracts;
+using POC.Identity.Web.Authentication;
+using POC.Identity.Web.AuthenticationService.Contracts;
 using System.Web.Mvc;
 
 namespace POC.Web.Controllers

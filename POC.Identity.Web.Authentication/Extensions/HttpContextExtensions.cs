@@ -1,6 +1,6 @@
 ﻿using System.Web;
 
-namespace POC.Web.Authentication.Extensions
+namespace POC.Identity.Web.Authentication.Extensions
 {
     public static class HttpContextExtensions
     {

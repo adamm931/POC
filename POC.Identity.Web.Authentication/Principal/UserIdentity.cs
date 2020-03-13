@@ -1,6 +1,6 @@
 ﻿using System.Security.Principal;
 
-namespace POC.Web.Authentication.Principal
+namespace POC.Identity.Web.Authentication.Principal
 {
     internal class UserIdentity : IIdentity
     {

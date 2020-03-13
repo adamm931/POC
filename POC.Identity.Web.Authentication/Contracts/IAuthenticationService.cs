@@ -1,6 +1,6 @@
-﻿using POC.Web.Authentication.Contracts;
+﻿using POC.Identity.Web.Authentication.Contracts;
 
-namespace POC.Web.AuthenticationService.Contracts
+namespace POC.Identity.Web.AuthenticationService.Contracts
 {
     public interface IAuthenticationService
     {

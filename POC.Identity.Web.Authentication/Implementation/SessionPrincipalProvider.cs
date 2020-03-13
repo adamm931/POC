@@ -1,11 +1,12 @@
-﻿using POC.Web.Authentication.Contracts;
-using POC.Web.Authentication.Extensions;
+﻿using POC.Identity.Web.Authentication.Common;
+using POC.Identity.Web.Authentication.Contracts;
+using POC.Identity.Web.Authentication.Extensions;
 using System.Security.Principal;
 using System.Web;
 
-namespace POC.Web.Authentication.Implementation
+namespace POC.Identity.Web.Authentication.Implementation
 {
-    public class SessionPrincipalProvider : IPrincipalProvider
+    internal class SessionPrincipalProvider : IPrincipalProvider
     {
         private readonly HttpContextBase _httpContext;
 
@@ -16,14 +17,14 @@ namespace POC.Web.Authentication.Implementation
 
         public IPrincipal GetPrincipal()
         {
-            return _httpContext.Session["Principal"] as IPrincipal;
+            return _httpContext.Session[Constants.Session.Principal] as IPrincipal;
         }
 
         public void SetPrincipal(IPrincipal principal)
         {
             SetToContext(principal);
 
-            _httpContext.Session["Principal"] = principal;
+            _httpContext.Session[Constants.Session.Principal] = principal;
         }
 
         public void MaintainPrincipal()
@@ -35,7 +36,7 @@ namespace POC.Web.Authentication.Implementation
 
         public void ClearPrincipal()
         {
-            _httpContext.Session["Principal"] = null;
+            _httpContext.Session[Constants.Session.Principal] = null;
         }
 
         private void SetToContext(IPrincipal principal)

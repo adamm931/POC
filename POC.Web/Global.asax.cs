@@ -1,4 +1,4 @@
-﻿using POC.Web.Authentication.Filter;
+﻿using POC.Identity.Web.Authentication.Extensions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -15,7 +15,7 @@ namespace POC.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            GlobalFilters.Filters.Add(new AuthenticationFilterAttribute());
+            GlobalFilters.Filters.AddAuthentication();
         }
     }
 }

@@ -205,13 +205,13 @@
       <Project>{0FAEE2E1-706A-4EEC-A81C-D7A0AD32763E}</Project>
       <Name>POC.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\POC.Identity.Web.Authentication\POC.Identity.Web.Authentication.csproj">
+      <Project>{85D5B4F9-68DE-4002-9A63-49800F76B764}</Project>
+      <Name>POC.Identity.Web.Authentication</Name>
+    </ProjectReference>
     <ProjectReference Include="..\POC.Service\POC.Service.csproj">
       <Project>{cc2072e1-8cf9-4fcf-ac57-4a5354ce0439}</Project>
       <Name>POC.Service</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\POC.Web.Authentication\POC.Web.Authentication.csproj">
-      <Project>{93F7AAA6-CB1F-4221-B75D-95D815CFFA3E}</Project>
-      <Name>POC.Web.Authentication</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

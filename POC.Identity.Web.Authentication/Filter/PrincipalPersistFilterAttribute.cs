@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace POC.Web.Authentication.Filter
+namespace POC.Identity.Web.Authentication.Filter
 {
     internal class PrincipalPersistFilterAttribute : ActionFilterAttribute
     {

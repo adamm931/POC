@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("POC.Web.Authentication")]
+[assembly: AssemblyTitle("POC.Identity.Web.Authentication.Authentication")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("POC.Web.Authentication")]
+[assembly: AssemblyProduct("POC.Identity.Web.Authentication.Authentication")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("93f7aaa6-cb1f-4221-b75d-95d815cffa3e")]
+[assembly: Guid("85d5b4f9-68de-4002-9a63-49800f76b764")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -1,10 +1,10 @@
 ﻿using POC.Common.Enviroment;
-using POC.Web.Authentication.Contracts;
+using POC.Identity.Web.Authentication.Contracts;
 using System.Web.Mvc;
 
-namespace POC.Web.Authentication.Filter
+namespace POC.Identity.Web.Authentication.Filter
 {
-    public class AuthenticationFilterAttribute : ActionFilterAttribute
+    internal class AuthenticationFilterAttribute : ActionFilterAttribute
     {
         private readonly ActionFilterAttribute principalFilter;
 

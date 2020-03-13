@@ -3,8 +3,10 @@ using POC.Accounts.Service.Model;
 using POC.Channel;
 using POC.Identity.Service.Contracts;
 using POC.Identity.Service.Models;
+using POC.Identity.Web.Authentication;
+using POC.Identity.Web.Authentication.Models;
+using POC.Identity.Web.Authentication.Service;
 using POC.Identity.Web.Models;
-using POC.Identity.Web.Service;
 using POC.Service.Contracts;
 using System;
 using System.Threading.Tasks;
@@ -20,7 +22,9 @@ namespace POC.Identity.Web.Controllers
 
         private IAccountService AccountService => ChannelManager.Instance.GetAccountService();
 
-        private IRedirectUrlComposer RedirectUrlComposer => new RedirectUrlComposer();
+        private IRedirectUrlProvider RedirectUrlProvider => AuthenticationServiceFactory.GetRedirectUrlProvider();
+
+        private IUserSession UserSession => AuthenticationServiceFactory.GetUserSession(HttpContext);
 
         [HttpGet]
         public ActionResult Index()
@@ -55,9 +59,15 @@ namespace POC.Identity.Web.Controllers
                 return View(model);
             }
 
-            var url = RedirectUrlComposer.ComposeUrl(model.Username);
+            // begin session
+            var userSession = new UserSessionModel
+            {
+                Username = model.Username
+            };
 
-            return Redirect(url);
+            UserSession.EnstablishSession(userSession);
+
+            return Redirect(RedirectUrlProvider.RedirectUrl);
         }
 
         [HttpGet]
@@ -120,10 +130,15 @@ namespace POC.Identity.Web.Controllers
 
             await AccountService.AddAccountLoginAsync(accountLoginRequest);
 
-            // redirect
-            var url = RedirectUrlComposer.ComposeUrl(model.Username);
+            // begin session
+            var userSession = new UserSessionModel
+            {
+                Username = request.Username
+            };
 
-            return Redirect(url);
+            UserSession.EnstablishSession(userSession);
+
+            return Redirect(RedirectUrlProvider.RedirectUrl);
         }
     }
 }
