@@ -54,7 +54,7 @@ namespace POC.Accounts.Internal
         {
             using (Context)
             {
-                var account = await GetAccount(request.AccountId);
+                var account = await GetAccount(request.AccountUsername);
 
                 account.UpdatetAddress(
                     request.Street,
@@ -72,7 +72,7 @@ namespace POC.Accounts.Internal
         {
             using (Context)
             {
-                var account = await GetAccount(request.AccountId);
+                var account = await GetAccount(request.AccountUsername);
 
                 account.UpdateHeader(
                     request.FirstName,
@@ -89,24 +89,16 @@ namespace POC.Accounts.Internal
         {
             using (Context)
             {
-                await CheckUsername(request.Username);
+                await CheckUsername(request.AccountNewUsername);
 
-                var account = await GetAccount(request.AccountId);
+                var account = await GetAccount(request.AccountUsername);
 
-                account.UpdateLogin(request.Username);
+                account.UpdateLogin(request.AccountNewUsername);
 
                 await Context.SaveChangesAsync();
 
                 return Mapping.Map<UpdateAccountLoginResponse>(account.Login);
             }
-        }
-
-        private async Task<Account> GetAccount(Guid id)
-        {
-            return await Context.Accounts
-                .Include(model => model.Address)
-                .Include(model => model.Login)
-                .SingleAsync(model => model.Id == id);
         }
 
         private async Task<Account> GetAccount(string username)
@@ -115,6 +107,14 @@ namespace POC.Accounts.Internal
                 .Include(model => model.Address)
                 .Include(model => model.Login)
                 .SingleAsync(model => model.Login.Username == username);
+        }
+
+        private async Task<Account> GetAccount(Guid id)
+        {
+            return await Context.Accounts
+                .Include(model => model.Address)
+                .Include(model => model.Login)
+                .SingleAsync(model => model.Id == id);
         }
 
         private async Task CheckUsername(string username)

@@ -4,7 +4,7 @@ namespace POC.Accounts.Model
 {
     public class AccountHeaderRequest
     {
-        public Guid AccountId { get; set; }
+        public string AccountUsername { get; set; }
 
         public string FirstName { get; set; }
 

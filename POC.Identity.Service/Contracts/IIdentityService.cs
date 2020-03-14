@@ -12,6 +12,9 @@ namespace POC.Identity.Service.Contracts
         Task<ServiceResponse<UserLoginServiceResponse>> LoginAsync(UserLoginServiceRequest request);
 
         [OperationContract]
+        Task<ServiceResponse> UpdateLoginAsync(UpdateUserLoginServiceRequest request);
+
+        [OperationContract]
         Task<ServiceResponse> SignupAsync(SignupUserServiceRequest request);
 
         [OperationContract]

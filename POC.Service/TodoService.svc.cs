@@ -9,16 +9,11 @@ namespace POC.Service
 {
     public class TodoService : ITodoService
     {
-        private readonly ITodoManager TodosManager = TodoManagerFactory.GetManager();
-
-        public async Task<TodoItem> AddAsync(string name, string user)
-        {
-            return await TodosManager.AddTodoAsync(name, user);
-        }
+        private readonly ITodoManager TodosManager = new TodosManager();
 
         public async Task AddUserAsync(string user)
         {
-            await TodosManager.AddUser(user);
+            await TodosManager.AddUserAsync(user);
         }
 
         public async Task<TodoItem> CompleteAsync(Guid guid, string user)
@@ -40,6 +35,17 @@ namespace POC.Service
         {
             return await TodosManager.OpenTodoAsync(guid, user);
 
+        }
+
+        public async Task<TodoItem> AddAsync(string name, string user)
+        {
+            return await TodosManager.AddTodoAsync(name, user);
+        }
+
+
+        public async Task UpdateUserAsync(string user, string newUser)
+        {
+            await TodosManager.UpdateUserAsync(user, newUser);
         }
     }
 }

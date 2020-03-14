@@ -1,11 +1,9 @@
-﻿using System;
-
-namespace POC.Accounts.Model
+﻿namespace POC.Accounts.Model
 {
     public class UpdateAccountLoginRequest
     {
-        public Guid AccountId { get; set; }
+        public string AccountUsername { get; set; }
 
-        public string Username { get; set; }
+        public string AccountNewUsername { get; set; }
     }
 }

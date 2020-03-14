@@ -67,5 +67,10 @@ namespace POC.Service.Models
 
             return item;
         }
+
+        public void UpdateUser(string username)
+        {
+            Username = username;
+        }
     }
 }

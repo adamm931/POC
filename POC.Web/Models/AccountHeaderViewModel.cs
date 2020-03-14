@@ -16,6 +16,8 @@ namespace POC.Web.Models
 
         public string Gender { get; set; }
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime BirthDay { get; set; }
     }
 }

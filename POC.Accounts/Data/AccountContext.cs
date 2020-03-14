@@ -29,7 +29,7 @@ namespace POC.Accounts.Data
         public static string GetConnectionString()
         {
             var connectionString = ConnectionStringGenerator
-                .GetConnectionString("AccountsDb")
+                .GetConnectionString("Accounts")
                 .Value;
 
             return connectionString;

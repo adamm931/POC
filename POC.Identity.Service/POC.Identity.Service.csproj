@@ -86,6 +86,7 @@
     <Compile Include="Models\CheckUsernameServiceRequest.cs" />
     <Compile Include="Models\CheckUsernameServiceResponse.cs" />
     <Compile Include="Models\SignupUserServiceRequest.cs" />
+    <Compile Include="Models\UpdateUserLoginServiceRequest.cs" />
     <Compile Include="Models\UserLoginServiceRequest.cs" />
     <Compile Include="Models\UserLoginServiceResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

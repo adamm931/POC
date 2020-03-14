@@ -79,8 +79,6 @@
     <Compile Include="Contracts\ITodoService.cs" />
     <Compile Include="Contracts\ITodoManager.cs" />
     <Compile Include="Data\TodoItemContext.cs" />
-    <Compile Include="Managers\InMemoryTodosManager.cs" />
-    <Compile Include="Managers\TodoManagerFactory.cs" />
     <Compile Include="Managers\TodosManager.cs" />
     <Compile Include="Models\TodoItem.cs" />
     <Compile Include="Models\UserTodoItems.cs" />

@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace POC.Accounts.Service.Model
+﻿namespace POC.Accounts.Service.Model
 {
     public class AccountAddressServiceRequest
     {
-        public Guid AccountId { get; set; }
+        public string AccountUsername { get; set; }
 
         public string Street { get; set; }
 

@@ -52,17 +52,39 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contracts\IUserService.cs" />
+    <Compile Include="Contracts\ICredentialValidator.cs" />
+    <Compile Include="Contracts\IEncodingAlgorithm.cs" />
+    <Compile Include="Contracts\IIdentityApi.cs" />
+    <Compile Include="Data\Configurations\CredentialRuleConfiguration.cs" />
+    <Compile Include="Data\Configurations\UserLoginConfiguration.cs" />
+    <Compile Include="Domain\CredentialRule.cs" />
+    <Compile Include="Domain\CredentialRuleAttribute.cs" />
+    <Compile Include="Domain\CredentialRuleType.cs" />
+    <Compile Include="Domain\CredentialRuleValidationResult.cs" />
+    <Compile Include="Domain\CredentialType.cs" />
+    <Compile Include="Domain\CredentialValidationResult.cs" />
+    <Compile Include="Domain\Password.cs" />
+    <Compile Include="Domain\Username.cs" />
+    <Compile Include="Exceptions\CredentialValidationException.cs" />
+    <Compile Include="IdentityConfig.cs" />
+    <Compile Include="Internal\Base64EncodingAlgorithm.cs" />
+    <Compile Include="Internal\CredentialValidator.cs" />
+    <Compile Include="Internal\Encoder.cs" />
+    <Compile Include="Internal\Encryption.cs" />
+    <Compile Include="Contracts\IEncoder.cs" />
+    <Compile Include="Contracts\IEncryption.cs" />
     <Compile Include="Domain\UserLogin.cs" />
     <Compile Include="Data\IdentityContext.cs" />
-    <Compile Include="Internal\UserService.cs" />
+    <Compile Include="IdentityApi.cs" />
     <Compile Include="Models\CheckUsernameRequest.cs" />
     <Compile Include="Models\CheckUsernameResponse.cs" />
     <Compile Include="Models\SignupUserRequest.cs" />
+    <Compile Include="Models\UpdateUserLoginRequest.cs" />
     <Compile Include="Models\UserLoginRequest.cs" />
     <Compile Include="Models\UserLoginResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Providers\UserServiceProvider.cs" />
+    <Compile Include="Contracts\IHasher.cs" />
+    <Compile Include="Internal\SHA256ManagedHasher.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\POC.Common\POC.Common.csproj">

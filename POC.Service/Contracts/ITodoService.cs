@@ -26,5 +26,8 @@ namespace POC.Service.Contracts
 
         [OperationContract]
         Task AddUserAsync(string user);
+
+        [OperationContract]
+        Task UpdateUserAsync(string user, string newUser);
     }
 }

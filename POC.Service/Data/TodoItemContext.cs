@@ -1,5 +1,4 @@
 ﻿using POC.Common.Connection;
-using POC.Common.Enviroment;
 using POC.Service.Models;
 using System.Data.Entity;
 using System.Linq;
@@ -32,19 +31,9 @@ namespace POC.Service.Data
 
         public static string GetConnectionString()
         {
-            var builder = new SqlServerConnectionStringBuilder();
-
-            var variables = new ConnectionStringVariables(
-                EnviromentConnectionStringVariable.Host(EnviromentVariables.DbHost),
-                EnviromentConnectionStringVariable.Port(EnviromentVariables.DbPort),
-                EnviromentConnectionStringVariable.Password(EnviromentVariables.DbPassword),
-                InlineConnectionStringVariable.User("sa"),
-                InlineConnectionStringVariable.DbName("TodoItemsDb"));
-
-            var connectionString = new ConnectionStringResolver(builder, variables)
-                .GetConnectionString();
-
-            return connectionString.Value;
+            return ConnectionStringGenerator
+                .GetConnectionString("Todos")
+                .Value;
         }
 
         #endregion

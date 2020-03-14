@@ -17,6 +17,8 @@ namespace POC.Service.Contracts
 
         Task<List<TodoItem>> ListTodosAsync(string user);
 
-        Task AddUser(string user);
+        Task AddUserAsync(string user);
+
+        Task UpdateUserAsync(string user, string newUser);
     }
 }

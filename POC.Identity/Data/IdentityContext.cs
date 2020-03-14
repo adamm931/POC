@@ -1,6 +1,7 @@
 ﻿using POC.Common.Connection;
 using POC.Identity.Domain;
 using System.Data.Entity;
+using static POC.Identity.Domain.CredentialRule;
 
 namespace POC.Identity.Data
 {
@@ -9,6 +10,8 @@ namespace POC.Identity.Data
         #region Collections
 
         public DbSet<UserLogin> UserLogins { get; set; }
+
+        public DbSet<CredentialRule> CredentialRules { get; set; }
 
         #endregion
 
@@ -21,11 +24,21 @@ namespace POC.Identity.Data
 
         #endregion
 
+        #region OnModelConfiguring
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Configurations.AddFromAssembly(GetType().Assembly);
+            base.OnModelCreating(modelBuilder);
+        }
+
+        #endregion
+
         #region Connection string
 
         public static string GetConnectionString()
         {
-            var connectionString = ConnectionStringGenerator.GetConnectionString("TodoIdentityDb");
+            var connectionString = ConnectionStringGenerator.GetConnectionString("Identity");
 
             return connectionString.Value;
         }
@@ -38,10 +51,30 @@ namespace POC.Identity.Data
         {
             protected override void Seed(IdentityContext context)
             {
+                var passwordRules = new CredentialRule[]
+                {
+                    new MinimumLenghtRule(CredentialType.Password,
+                        new CredentialRuleAttribute(CredentialRuleType.MinimumLenght, "12")
+                        ),
+                    new RequireAlphaNumericCharathersRule(CredentialType.Password),
+                    new RequireSpecialCharathersRule(CredentialType.Password),
+                };
+
+                var usernameRules = new CredentialRule[]
+                {
+                    new MinimumLenghtRule(CredentialType.Username,
+                        new CredentialRuleAttribute(CredentialRuleType.MinimumLenght, "8")
+                        ),
+                    new RequireAlphaNumericCharathersRule(CredentialType.Username),
+                };
+
+                context.CredentialRules.AddRange(passwordRules);
+                context.CredentialRules.AddRange(usernameRules);
+
                 context.UserLogins.AddRange(new[] {
-                    UserLogin.Create("Adam", "Test1234"),
-                    UserLogin.Create("Adam123", "09051993"),
-                    UserLogin.Create("Adam0905", "Test0905")
+                    new UserLogin("Adam1993", "Password1234!"),
+                    new UserLogin("Mario1993", "Password1234!"),
+                    new UserLogin("Neni1996", "Password1234!")
                     });
             }
         }

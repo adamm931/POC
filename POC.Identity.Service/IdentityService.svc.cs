@@ -2,7 +2,6 @@
 using POC.Common.Service;
 using POC.Identity.Contracts;
 using POC.Identity.Models;
-using POC.Identity.Providers;
 using POC.Identity.Service.Contracts;
 using POC.Identity.Service.MappingProfiles;
 using POC.Identity.Service.Models;
@@ -14,7 +13,7 @@ namespace POC.Identity.Service
     {
         private readonly Mapping Mapping = Mapping.Create(new IdentityServiceMappingProfile());
 
-        private readonly IUserService UserService = UserServiceProvider.GetUserService();
+        private readonly IIdentityApi UserService = new IdentityApi();
 
         public async Task<ServiceResponse<CheckUsernameServiceResponse>> CheckUsernameAsync(CheckUsernameServiceRequest serviceRequest)
         {
@@ -47,6 +46,16 @@ namespace POC.Identity.Service
                 var request = Mapping.Map<SignupUserRequest>(serviceRequest);
 
                 await UserService.SignupAsync(request);
+            });
+        }
+
+        public async Task<ServiceResponse> UpdateLoginAsync(UpdateUserLoginServiceRequest serviceRequest)
+        {
+            return await ServiceTrigger.Handle(async () =>
+            {
+                var request = Mapping.Map<UpdateUserLoginRequest>(serviceRequest);
+
+                await UserService.UpdateLoginAsync(request);
             });
         }
     }

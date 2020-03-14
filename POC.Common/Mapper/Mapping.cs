@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace POC.Common.Mapper
 {
@@ -26,6 +27,15 @@ namespace POC.Common.Mapper
         public TDestination Map<TDestination>(object source)
         {
             return _mapper.Map<TDestination>(source);
+        }
+
+        public TDestination Map<TDestination>(params object[] sources)
+        {
+            var initial = _mapper.Map<TDestination>(sources.First());
+
+            return sources
+                .Skip(1)
+                .Aggregate(initial, (current, next) => _mapper.Map(next, current));
         }
     }
 }

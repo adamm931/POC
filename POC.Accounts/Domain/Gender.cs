@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace POC.Accounts.Domain
 {
@@ -42,6 +43,17 @@ namespace POC.Accounts.Domain
         public override string ToString()
         {
             return Value;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Gender gender &&
+                   Value == gender.Value;
+        }
+
+        public override int GetHashCode()
+        {
+            return -1937169414 + EqualityComparer<string>.Default.GetHashCode(Value);
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using POC.Accounts.Service.Contracts;
 using POC.Accounts.Service.Model;
 using POC.Channel;
+using POC.Common.Mapper;
+using POC.Web.MappingProfiles;
 using POC.Web.Models;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -9,35 +11,19 @@ namespace POC.Web.Controllers
 {
     public class AccountController : Controller
     {
-        private IAccountService AccountService => ChannelManager.Instance.GetAccountService();
+        private readonly IAccountService AccountService = ChannelManager.Instance.GetAccountService();
+
+        private readonly Mapping Mapping = Mapping.Create(new MappingProfile());
+
+        private string Username => User.Identity.Name;
 
         [HttpGet]
         public async Task<ActionResult> Index()
         {
-            var username = User.Identity.Name;
-            var serviceResponse = await AccountService.GetAccountByUsername(username);
+            var serviceResponse = await AccountService.GetAccountByUsername(Username);
             var account = serviceResponse.Response;
 
-            var model = new AccountViewModel
-            {
-                Header = new AccountHeaderViewModel
-                {
-                    FirstName = account.FirstName,
-                    LastName = account.LastName,
-                    MiddleName = account.MiddleName,
-                    Gender = account.Gender,
-                    BirthDay = account.BirthDay,
-                },
-                Address = new AccountAddressViewModel
-                {
-                    Street = account.Address.Street,
-                    City = account.Address.City,
-                    ZipCode = account.Address.ZipCode,
-                    Region = account.Address.Region,
-                    Phone = account.Address.Phone,
-                    Email = account.Address.Email,
-                }
-            };
+            var model = Mapping.Map<AccountViewModel>(account);
 
             return View(model);
         }
@@ -45,33 +31,12 @@ namespace POC.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> Update(AccountViewModel model)
         {
-            var username = User.Identity.Name;
-            var serviceResponse = await AccountService.GetAccountByUsername(username);
-            var account = serviceResponse.Response;
-
-            var accountHeaderRequest = new AccountHeaderServiceRequest
-            {
-                AccountId = account.Id,
-                FirstName = model.Header.FirstName,
-                MiddleName = model.Header.MiddleName,
-                LastName = model.Header.LastName,
-                Gender = model.Header.Gender,
-                BirthDay = model.Header.BirthDay
-            };
-
+            var accountHeaderRequest = Mapping.Map<AccountHeaderServiceRequest>(model.Header);
+            accountHeaderRequest.AccountUsername = Username;
             await AccountService.UpdateAccountHeaderAsync(accountHeaderRequest);
 
-            var accountAddressRequest = new AccountAddressServiceRequest
-            {
-                AccountId = account.Id,
-                Street = model.Address.Street,
-                City = model.Address.City,
-                ZipCode = model.Address.ZipCode,
-                Region = model.Address.Region,
-                Phone = model.Address.Phone,
-                Email = model.Address.Email
-            };
-
+            var accountAddressRequest = Mapping.Map<AccountAddressServiceRequest>(model.Address);
+            accountAddressRequest.AccountUsername = Username;
             await AccountService.UpdateAccountAddressAsync(accountAddressRequest);
 
             return RedirectToAction("Index");

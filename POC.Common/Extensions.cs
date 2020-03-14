@@ -14,5 +14,15 @@ namespace POC.Common
         {
             return Encoding.UTF8.GetString(Convert.FromBase64String(input));
         }
+
+        public static byte[] AsBytes(this string input)
+        {
+            return Encoding.UTF8.GetBytes(input);
+        }
+
+        public static string AsString(this byte[] input)
+        {
+            return Encoding.UTF8.GetString(input);
+        }
     }
 }

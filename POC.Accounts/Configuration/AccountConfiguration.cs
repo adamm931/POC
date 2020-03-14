@@ -10,6 +10,9 @@ namespace POC.Accounts.Configuration
             Property(model => model.Gender.Value)
                 .HasColumnName("Gender");
 
+            Property(model => model.BirthDay)
+                .HasColumnType("Date");
+
             HasOptional(model => model.Address)
                 .WithRequired(address => address.Account);
 
