@@ -1,6 +1,7 @@
-﻿using POC.Identity.Domain;
+﻿using POC.Identity.Domain.Entities;
+using POC.Identity.Domain.Enums;
 using System.Data.Entity.ModelConfiguration;
-using static POC.Identity.Domain.CredentialRule;
+using static POC.Identity.Domain.Entities.CredentialRule;
 
 namespace POC.Identity.Data.Configurations
 {
@@ -8,9 +9,6 @@ namespace POC.Identity.Data.Configurations
     {
         public CredentialRuleConfiguration()
         {
-            //Property(model => model.RuleType.Value)
-            //    .HasColumnName("RuleType");
-
             Ignore(model => model.RuleType);
 
             Map<MinimumLenghtRule>(rule => rule.Requires("RuleType")

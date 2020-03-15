@@ -13,6 +13,7 @@ services:
         environment: 
             - "TodoServiceUrl=http://172.28.1.2/TodoService.svc"
             - "AccountServiceUrl=http://172.28.1.6/AccountService.svc"
+            - "IdentityServiceUrl=http://172.28.1.4/IdentityService.svc"
             - "IdentityUrl=http://login.poc.net"
         networks:
             poc_network:

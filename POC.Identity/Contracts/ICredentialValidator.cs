@@ -1,4 +1,5 @@
-﻿using POC.Identity.Domain;
+﻿using POC.Identity.Domain.Enums;
+using POC.Identity.Domain.Models;
 using System.Threading.Tasks;
 
 namespace POC.Identity.Contracts

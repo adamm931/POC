@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace POC.Web.Controllers
 {
-    public class TodoController : Controller
+    public class TodoController : BaseController
     {
         private ITodoService TodoService => ChannelManager.Instance.GetTodoService();
 

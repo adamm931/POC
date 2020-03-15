@@ -3,14 +3,14 @@ using System.Threading.Tasks;
 
 namespace POC.Common.Service
 {
-    public class ServiceTrigger
+    public class ServiceRequest
     {
-        public async static Task<ServiceResponse<TResponse>> Handle<TResponse>(Func<Task<TResponse>> handle)
+        public async static Task<ServiceResponse<TResponse>> Invoke<TResponse>(Func<Task<TResponse>> request)
             where TResponse : class
         {
             try
             {
-                var response = await handle();
+                var response = await request();
 
                 return ServiceResponse<TResponse>.Success(response);
             }
@@ -21,11 +21,11 @@ namespace POC.Common.Service
             }
         }
 
-        public async static Task<ServiceResponse> Handle(Func<Task> handle)
+        public async static Task<ServiceResponse> Invoke(Func<Task> request)
         {
             try
             {
-                await handle();
+                await request();
 
                 return ServiceResponse.Success();
             }

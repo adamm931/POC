@@ -1,6 +1,7 @@
 ﻿using POC.Identity.Contracts;
 using POC.Identity.Data;
-using POC.Identity.Domain;
+using POC.Identity.Domain.Entities;
+using POC.Identity.Domain.Enums;
 using POC.Identity.Exceptions;
 using POC.Identity.Internal;
 using POC.Identity.Models;
@@ -59,9 +60,16 @@ namespace POC.Identity
                 await ValidateUsername(request.NewUsername);
                 await ValidatePassword(request.NewPassword);
 
+                bool exists = await UsernameExists(request.NewUsername);
+
+                if (exists)
+                {
+                    return;
+                }
+
                 var login = await context
                     .UserLogins
-                    .SingleAsync(item => item.Username == request.Username);
+                    .SingleAsync(item => item.Username.Value == request.Username);
 
                 login.Update(request.NewUsername, request.NewPassword);
 
@@ -91,7 +99,7 @@ namespace POC.Identity
 
         private async Task<bool> UsernameExists(string username)
         {
-            return await Context.UserLogins.AnyAsync(login => login.Username == username);
+            return await Context.UserLogins.AnyAsync(login => login.Username.Value == username);
         }
 
         private async Task ValidateUsername(string username)
@@ -106,7 +114,7 @@ namespace POC.Identity
 
         private async Task ValidatePassword(string password)
         {
-            var usernameValidation = await CredentialValidator.Validate(CredentialType.Username, password);
+            var usernameValidation = await CredentialValidator.Validate(CredentialType.Password, password);
 
             if (!usernameValidation.IsValid)
             {

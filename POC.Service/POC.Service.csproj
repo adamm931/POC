@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configurations\TodoItemConfiguration.cs" />
+    <Compile Include="Configurations\UserItemsConfiguration.cs" />
     <Compile Include="Contracts\ITodoService.cs" />
     <Compile Include="Contracts\ITodoManager.cs" />
     <Compile Include="Data\TodoItemContext.cs" />

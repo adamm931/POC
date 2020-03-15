@@ -15,7 +15,7 @@ docker rmi adamm93/poc_build_nano
 @rem rebuild new one
 docker build -f POC.Build.dockerfile -t poc_build_nano .
 docker tag poc_build_nano adamm93/poc_build_nano
-@rem docker push adamm93/poc_build_nano
+docker push adamm93/poc_build_nano
 
 @rem compose
 docker-compose up --build -d

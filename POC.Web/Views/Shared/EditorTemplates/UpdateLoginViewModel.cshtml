@@ -1,0 +1,20 @@
+﻿@using POC.Web.Models
+@model UpdateLoginViewModel
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Username)
+    @Html.TextBoxFor(model => model.Username, new { placeholder = "Enter username", @class = "form-control" })
+    @Html.ValidationMessageFor(model => model.Username)
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Password)
+    @Html.PasswordFor(model => model.Password, new { placeholder = "Enter password", @class = "form-control" })
+    @Html.ValidationMessageFor(model => model.Password)
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.ConfirmPassword)
+    @Html.PasswordFor(model => model.ConfirmPassword, new { placeholder = "Confirm password", @class = "form-control" })
+    @Html.ValidationMessageFor(model => model.Password)
+</div>

@@ -1,10 +1,13 @@
 ﻿using POC.Common.Domain;
+using POC.Identity.Common;
+using POC.Identity.Domain.Enums;
+using POC.Identity.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace POC.Identity.Domain
+namespace POC.Identity.Domain.Entities
 {
     public abstract class CredentialRule : Entity
     {
@@ -28,11 +31,15 @@ namespace POC.Identity.Domain
         public CredentialRule(
             CredentialType credentialType,
             CredentialRuleType ruleType,
-            params CredentialRuleAttribute[] attributes) : this()
+            params CredentialRuleAttribute[] attributes) : this(ruleType)
         {
             CredentialType = credentialType;
-            RuleType = ruleType;
             Attributes = attributes;
+        }
+
+        protected CredentialRule(CredentialRuleType ruleType) : this()
+        {
+            RuleType = ruleType;
         }
 
         protected CredentialRule() { }
@@ -45,6 +52,10 @@ namespace POC.Identity.Domain
         {
             public MinimumLenghtRule(CredentialType credentialType, params CredentialRuleAttribute[] attributes)
                 : base(credentialType, CredentialRuleType.MinimumLenght, attributes)
+            {
+            }
+
+            private MinimumLenghtRule() : base(CredentialRuleType.MinimumLenght)
             {
             }
 
@@ -73,9 +84,13 @@ namespace POC.Identity.Domain
             {
             }
 
+            private RequireAlphaNumericCharathersRule() : base(CredentialRuleType.RequireAlphaNumeric)
+            {
+            }
+
             public override CredentialRuleValidationResult Validate(string input)
             {
-                if (Regex.IsMatch(input, "^[a-zA-Z0-9]*$"))
+                if (!Regex.IsMatch(input, IdentityDefaults.RegularExpressions.Master))
                 {
                     return CredentialRuleValidationResult.Error("It must contain alpha numeric charathers");
                 }
@@ -95,10 +110,13 @@ namespace POC.Identity.Domain
             {
             }
 
+            private RequireSpecialCharathersRule() : base(CredentialRuleType.RequireSpecialCharater)
+            {
+            }
+
             public override CredentialRuleValidationResult Validate(string input)
             {
-
-                if (input.Any(c => !char.IsLetterOrDigit(c)))
+                if (!input.Any(c => !char.IsLetterOrDigit(c)))
                 {
                     return CredentialRuleValidationResult.Error($"It must contain special charather");
                 }

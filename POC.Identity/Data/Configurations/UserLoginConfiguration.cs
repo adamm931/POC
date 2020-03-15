@@ -1,4 +1,4 @@
-﻿using POC.Identity.Domain;
+﻿using POC.Identity.Domain.Entities;
 using System.Data.Entity.ModelConfiguration;
 
 namespace POC.Identity.Data.Configurations
@@ -8,13 +8,16 @@ namespace POC.Identity.Data.Configurations
         public UserLoginConfiguration()
         {
             Property(model => model.Password.Hash)
-                .HasColumnName("PasswordHash");
+                .HasColumnName("PasswordHash")
+                .IsRequired();
 
             Property(model => model.Password.Salt)
-                .HasColumnName("PasswordSalt");
+                .HasColumnName("PasswordSalt")
+                .IsRequired();
 
             Property(model => model.Username.Value)
-                .HasColumnName("Username");
+                .HasColumnName("Username")
+                .IsRequired();
         }
     }
 }

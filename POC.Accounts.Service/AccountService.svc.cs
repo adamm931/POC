@@ -19,7 +19,7 @@ namespace POC.Accounts.Service
 
         public async Task<ServiceResponse<AccountLoginServiceResponse>> AddAccountLoginAsync(AccountLoginServiceRequest serviceRequest)
         {
-            return await ServiceTrigger.Handle(async () =>
+            return await ServiceRequest.Invoke(async () =>
             {
                 var request = Mapping.Map<AccountLoginRequest>(serviceRequest);
 
@@ -31,7 +31,7 @@ namespace POC.Accounts.Service
 
         public async Task<ServiceResponse<AccountServiceResponse>> GetAccountAsync(Guid id)
         {
-            return await ServiceTrigger.Handle(async () =>
+            return await ServiceRequest.Invoke(async () =>
             {
                 var response = await AccountApi.GetAccountAsync(id);
 
@@ -41,7 +41,7 @@ namespace POC.Accounts.Service
 
         public async Task<ServiceResponse<AccountServiceResponse>> GetAccountByUsername(string username)
         {
-            return await ServiceTrigger.Handle(async () =>
+            return await ServiceRequest.Invoke(async () =>
             {
                 var response = await AccountApi.GetAccountByUsernameAsync(username);
 
@@ -51,7 +51,7 @@ namespace POC.Accounts.Service
 
         public async Task<ServiceResponse> UpdateAccountAddressAsync(AccountAddressServiceRequest serviceRequest)
         {
-            return await ServiceTrigger.Handle(async () =>
+            return await ServiceRequest.Invoke(async () =>
             {
                 var request = Mapping.Map<AccountAddressRequest>(serviceRequest);
 
@@ -61,7 +61,7 @@ namespace POC.Accounts.Service
 
         public async Task<ServiceResponse> UpdateAccountHeaderAsync(AccountHeaderServiceRequest serviceRequest)
         {
-            return await ServiceTrigger.Handle(async () =>
+            return await ServiceRequest.Invoke(async () =>
             {
                 var request = Mapping.Map<AccountHeaderRequest>(serviceRequest);
 
@@ -71,7 +71,7 @@ namespace POC.Accounts.Service
 
         public async Task<ServiceResponse<UpdateAccountLoginServiceResponse>> UpdateAccountLoginAsync(UpdateAccountLoginServiceRequest serviceRequest)
         {
-            return await ServiceTrigger.Handle(async () =>
+            return await ServiceRequest.Invoke(async () =>
             {
                 var request = Mapping.Map<UpdateAccountLoginRequest>(serviceRequest);
 

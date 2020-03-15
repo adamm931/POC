@@ -1,4 +1,4 @@
-﻿using POC.Identity.Domain;
+﻿using POC.Identity.Domain.Models;
 using System;
 
 namespace POC.Identity.Exceptions

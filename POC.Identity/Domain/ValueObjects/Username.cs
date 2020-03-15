@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace POC.Identity.Domain
+namespace POC.Identity.Domain.ValueObjects
 {
     public class Username
     {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using POC.Common.Service.Exceptions;
+using System;
 using System.Runtime.Serialization;
 
 namespace POC.Common.Service
@@ -26,6 +27,13 @@ namespace POC.Common.Service
                 Response = response,
                 IsSuccess = true
             };
+        }
+
+        public new TResponse EnsureSuccessfull()
+        {
+            base.EnsureSuccessfull();
+
+            return Response;
         }
 
         protected ServiceResponse(string failReason)
@@ -64,6 +72,14 @@ namespace POC.Common.Service
         public static ServiceResponse Fail(Exception exception)
         {
             return new ServiceResponse(exception.Message);
+        }
+
+        public void EnsureSuccessfull()
+        {
+            if (!IsSuccess)
+            {
+                throw new ServiceResponseException(this);
+            }
         }
 
         protected ServiceResponse()

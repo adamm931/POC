@@ -1,4 +1,4 @@
-﻿namespace POC.Identity.Domain
+﻿namespace POC.Identity.Domain.Models
 {
     public class CredentialRuleValidationResult
     {

@@ -1,6 +1,7 @@
 ﻿using POC.Identity.Contracts;
 using POC.Identity.Data;
-using POC.Identity.Domain;
+using POC.Identity.Domain.Enums;
+using POC.Identity.Domain.Models;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,13 +19,17 @@ namespace POC.Identity.Internal
 
         public async Task<CredentialValidationResult> Validate(CredentialType credentialType, string value)
         {
-            var invalidResults = await Context.CredentialRules
-                .Where(rule => rule.CredentialType == credentialType)
-                .Select(rule => rule.Validate(value))
-                .Where(ret => !ret.IsValid)
+            var credentialRules = await Context
+                .CredentialRules
+                .Include(model => model.Attributes)
                 .ToListAsync();
 
-            var result = new CredentialValidationResult();
+            var invalidResults = credentialRules
+                .Where(rule => rule.CredentialType == credentialType)
+                .Select(rule => rule.Validate(value))
+                .Where(ret => !ret.IsValid);
+
+            var result = new CredentialValidationResult(credentialType);
 
             foreach (var ret in invalidResults)
             {

@@ -52,19 +52,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\IdentityDefaults.cs" />
     <Compile Include="Contracts\ICredentialValidator.cs" />
     <Compile Include="Contracts\IEncodingAlgorithm.cs" />
     <Compile Include="Contracts\IIdentityApi.cs" />
     <Compile Include="Data\Configurations\CredentialRuleConfiguration.cs" />
     <Compile Include="Data\Configurations\UserLoginConfiguration.cs" />
-    <Compile Include="Domain\CredentialRule.cs" />
-    <Compile Include="Domain\CredentialRuleAttribute.cs" />
-    <Compile Include="Domain\CredentialRuleType.cs" />
-    <Compile Include="Domain\CredentialRuleValidationResult.cs" />
-    <Compile Include="Domain\CredentialType.cs" />
-    <Compile Include="Domain\CredentialValidationResult.cs" />
-    <Compile Include="Domain\Password.cs" />
-    <Compile Include="Domain\Username.cs" />
+    <Compile Include="Domain\Entities\CredentialRule.cs" />
+    <Compile Include="Domain\Entities\CredentialRuleAttribute.cs" />
+    <Compile Include="Domain\Models\CredentialRuleValidationResult.cs" />
+    <Compile Include="Domain\Models\CredentialValidationResult.cs" />
+    <Compile Include="Domain\Enums\CredentialRuleType.cs" />
+    <Compile Include="Domain\Enums\CredentialType.cs" />
+    <Compile Include="Domain\ValueObjects\Password.cs" />
+    <Compile Include="Domain\ValueObjects\Username.cs" />
     <Compile Include="Exceptions\CredentialValidationException.cs" />
     <Compile Include="IdentityConfig.cs" />
     <Compile Include="Internal\Base64EncodingAlgorithm.cs" />
@@ -73,7 +74,7 @@
     <Compile Include="Internal\Encryption.cs" />
     <Compile Include="Contracts\IEncoder.cs" />
     <Compile Include="Contracts\IEncryption.cs" />
-    <Compile Include="Domain\UserLogin.cs" />
+    <Compile Include="Domain\Entities\UserLogin.cs" />
     <Compile Include="Data\IdentityContext.cs" />
     <Compile Include="IdentityApi.cs" />
     <Compile Include="Models\CheckUsernameRequest.cs" />

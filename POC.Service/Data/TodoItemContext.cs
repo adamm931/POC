@@ -58,9 +58,9 @@ namespace POC.Service.Data
 
                 var userTodoItems = new[]
                 {
-                    new UserTodoItems("Adam", items1_4),
-                    new UserTodoItems("Adam123", items1_4),
-                    new UserTodoItems("Adam0905", items1_4)
+                    new UserTodoItems("Adam1993", items1_4),
+                    new UserTodoItems("Mario1993", items1_4),
+                    new UserTodoItems("Neni1996", items1_4)
                 };
 
                 context.UserTodoItems.AddRange(userTodoItems);

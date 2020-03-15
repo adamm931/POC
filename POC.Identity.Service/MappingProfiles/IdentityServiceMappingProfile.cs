@@ -13,6 +13,7 @@ namespace POC.Identity.Service.MappingProfiles
             CreateMap<UserLoginServiceRequest, UserLoginRequest>();
             CreateMap<UserLoginResponse, UserLoginServiceResponse>();
             CreateMap<SignupUserServiceRequest, SignupUserRequest>();
+            CreateMap<UpdateUserLoginServiceRequest, UpdateUserLoginRequest>();
         }
     }
 }

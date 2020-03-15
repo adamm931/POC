@@ -17,7 +17,7 @@ namespace POC.Identity.Service
 
         public async Task<ServiceResponse<CheckUsernameServiceResponse>> CheckUsernameAsync(CheckUsernameServiceRequest serviceRequest)
         {
-            return await ServiceTrigger.Handle(async () =>
+            return await ServiceRequest.Invoke(async () =>
             {
                 var request = Mapping.Map<CheckUsernameRequest>(serviceRequest);
 
@@ -29,7 +29,7 @@ namespace POC.Identity.Service
 
         public async Task<ServiceResponse<UserLoginServiceResponse>> LoginAsync(UserLoginServiceRequest serviceRequest)
         {
-            return await ServiceTrigger.Handle(async () =>
+            return await ServiceRequest.Invoke(async () =>
             {
                 var request = Mapping.Map<UserLoginRequest>(serviceRequest);
 
@@ -41,7 +41,7 @@ namespace POC.Identity.Service
 
         public async Task<ServiceResponse> SignupAsync(SignupUserServiceRequest serviceRequest)
         {
-            return await ServiceTrigger.Handle(async () =>
+            return await ServiceRequest.Invoke(async () =>
             {
                 var request = Mapping.Map<SignupUserRequest>(serviceRequest);
 
@@ -51,7 +51,7 @@ namespace POC.Identity.Service
 
         public async Task<ServiceResponse> UpdateLoginAsync(UpdateUserLoginServiceRequest serviceRequest)
         {
-            return await ServiceTrigger.Handle(async () =>
+            return await ServiceRequest.Invoke(async () =>
             {
                 var request = Mapping.Map<UpdateUserLoginRequest>(serviceRequest);
 

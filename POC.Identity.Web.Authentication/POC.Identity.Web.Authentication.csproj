@@ -35,6 +35,7 @@
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -63,6 +64,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\PasswordAttribute.cs" />
+    <Compile Include="Attributes\UniqueUsenameAttribute.cs" />
+    <Compile Include="Attributes\UsernameAttribute.cs" />
     <Compile Include="AuthenticationServiceFactory.cs" />
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Contracts\IAuthenticationService.cs" />
@@ -88,9 +92,21 @@
     <Compile Include="Models\UserSessionModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\POC.Channel\POC.Channel.csproj">
+      <Project>{34C77B64-9DC1-44BB-AD46-EDE44E3958ED}</Project>
+      <Name>POC.Channel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\POC.Common\POC.Common.csproj">
       <Project>{0FAEE2E1-706A-4EEC-A81C-D7A0AD32763E}</Project>
       <Name>POC.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\POC.Identity.Service\POC.Identity.Service.csproj">
+      <Project>{CEED1C07-3F63-4661-B6C9-0EBD21109CEB}</Project>
+      <Name>POC.Identity.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\POC.Identity\POC.Identity.csproj">
+      <Project>{EDA15DE6-9F6B-40B9-A9AA-159645425DBA}</Project>
+      <Name>POC.Identity</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,7 @@
 ﻿using POC.Common.Domain;
 using System;
 
-namespace POC.Identity.Domain
+namespace POC.Identity.Domain.Entities
 {
     public class CredentialRuleAttribute : Entity
     {
@@ -11,6 +11,8 @@ namespace POC.Identity.Domain
             Value = value;
             IsEnabled = true;
         }
+
+        private CredentialRuleAttribute() { }
 
         public string Name { get; private set; }
 

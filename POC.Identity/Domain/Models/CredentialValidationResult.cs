@@ -1,8 +1,8 @@
-﻿using System;
+﻿using POC.Identity.Domain.Enums;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace POC.Identity.Domain
+namespace POC.Identity.Domain.Models
 {
     public class CredentialValidationResult
     {
@@ -10,7 +10,14 @@ namespace POC.Identity.Domain
 
         public bool IsValid => !ValidationErrors.Any();
 
+        public CredentialType CredentailType { get; }
+
         public IReadOnlyList<string> ValidationErrors => _validationError.AsReadOnly();
+
+        public CredentialValidationResult(CredentialType credentailType)
+        {
+            CredentailType = credentailType;
+        }
 
         public void AddValidationError(string error)
         {
@@ -19,7 +26,10 @@ namespace POC.Identity.Domain
 
         public override string ToString()
         {
-            return string.Join(Environment.NewLine, ValidationErrors);
+            var header = $"Validation failed for {CredentailType}";
+            _validationError.Insert(0, header);
+
+            return string.Join(". ", ValidationErrors);
         }
     }
 }

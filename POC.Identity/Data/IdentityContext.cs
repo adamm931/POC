@@ -1,7 +1,8 @@
 ﻿using POC.Common.Connection;
-using POC.Identity.Domain;
+using POC.Identity.Domain.Entities;
+using POC.Identity.Domain.Enums;
 using System.Data.Entity;
-using static POC.Identity.Domain.CredentialRule;
+using static POC.Identity.Domain.Entities.CredentialRule;
 
 namespace POC.Identity.Data
 {

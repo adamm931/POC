@@ -55,8 +55,8 @@ namespace POC.Accounts.Data
                 var account_1_address = new AccountAddress("Nade Tomic", "Nis", "18000", "Mediana", "0604240737", "adam.milenkovic.993@gmail.com");
                 var account_2_address = new AccountAddress("Nade Tomic", "Nis", "18000", "Mediana", "0606240737", "petarde.raketice.993@gmail.com");
 
-                var account_1_login = new AccountLogin("Adam");
-                var account_2_login = new AccountLogin("Adam123");
+                var account_1_login = new AccountLogin("Adam1993");
+                var account_2_login = new AccountLogin("Mario1993");
 
                 var account_1 = new Account(
                     "Adam", "Milenkovic", "Dejan", Gender.Male, new DateTime(1993, 9, 5, 15, 24, 31, DateTimeKind.Utc),

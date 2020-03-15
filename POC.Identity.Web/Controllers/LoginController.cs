@@ -84,13 +84,6 @@ namespace POC.Identity.Web.Controllers
                 return View(model);
             }
 
-            // password match check
-            if (model.PasswordsMismatch)
-            {
-                ModelState.AddModelError("Password", "Password and confirm password are not same");
-                return View(model);
-            }
-
             // check username
             var request = new CheckUsernameServiceRequest
             {

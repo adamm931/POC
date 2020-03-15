@@ -126,6 +126,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\TodoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -138,6 +139,7 @@
     <Compile Include="Models\CompleteTodoViewModel.cs" />
     <Compile Include="Models\TodoListItemViewModel.cs" />
     <Compile Include="Models\TodoListViewModel.cs" />
+    <Compile Include="Models\UpdateLoginViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -180,9 +182,12 @@
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\AccountHeaderViewModel.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\AccountAddressViewModel.cshtml" />
+    <Content Include="Views\Authentication\UpdateLogin.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\UpdateLoginViewModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -210,9 +215,17 @@
       <Project>{0FAEE2E1-706A-4EEC-A81C-D7A0AD32763E}</Project>
       <Name>POC.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\POC.Identity.Service\POC.Identity.Service.csproj">
+      <Project>{CEED1C07-3F63-4661-B6C9-0EBD21109CEB}</Project>
+      <Name>POC.Identity.Service</Name>
+    </ProjectReference>
     <ProjectReference Include="..\POC.Identity.Web.Authentication\POC.Identity.Web.Authentication.csproj">
       <Project>{85D5B4F9-68DE-4002-9A63-49800F76B764}</Project>
       <Name>POC.Identity.Web.Authentication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\POC.Identity\POC.Identity.csproj">
+      <Project>{EDA15DE6-9F6B-40B9-A9AA-159645425DBA}</Project>
+      <Name>POC.Identity</Name>
     </ProjectReference>
     <ProjectReference Include="..\POC.Service\POC.Service.csproj">
       <Project>{cc2072e1-8cf9-4fcf-ac57-4a5354ce0439}</Project>

@@ -1,6 +1,7 @@
 ﻿using POC.Common.Domain;
+using POC.Identity.Domain.ValueObjects;
 
-namespace POC.Identity.Domain
+namespace POC.Identity.Domain.Entities
 {
     public class UserLogin : Entity
     {

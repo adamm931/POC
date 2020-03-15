@@ -1,4 +1,4 @@
-﻿namespace POC.Identity.Domain
+﻿namespace POC.Identity.Domain.Enums
 {
     public class CredentialRuleType
     {
@@ -11,11 +11,6 @@
         private CredentialRuleType(string value)
         {
             Value = value;
-
-            //if (this != MinimumLenght && this != RequireAlphaNumeric && this != RequireSpecialCharater)
-            //{
-            //    throw new Exception($"Invalid credential rule type: {value}");
-            //}
         }
 
         private CredentialRuleType() { }

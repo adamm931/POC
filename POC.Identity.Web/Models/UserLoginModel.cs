@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using POC.Identity.Web.Authentication.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace POC.Identity.Web.Models
 {
@@ -6,10 +7,10 @@ namespace POC.Identity.Web.Models
     {
         public static UserLoginModel Empty = new UserLoginModel();
 
-        [Required]
+        [Required, Username]
         public string Username { get; set; }
 
-        [Required]
+        [Required, Password]
         public string Password { get; set; }
     }
 }
