@@ -10,39 +10,14 @@
     @Scripts.Render("~/bundles/jquery")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li class="nav-item">
-                        @Html.ActionLink("Logout", "Logout", new { controller = "Authentication" }, new { @class = "nav-link" })
-                    </li>
-                    <li class="nav-item active">
-                        @Html.ActionLink($"Hello {User.Identity.Name}", "Index", new { controller = "Todo" }, new { @class = "nav-link" })
-                    </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("My account", "Index", new { controller = "Account" }, new { @class = "nav-link" })
-                    </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("My login", "UpdateLogin", new { controller = "Authentication" }, new { @class = "nav-link" })
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="container body-content">
+    @{ Html.RenderPartial("Header"); }
+    <main role="main" class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; Todo items - @DateTime.Now.Year</p>
-        </footer>
-    </div>
+    </main>
+    <footer class="footer">
+        <div class="container">
+            <span class="text-muted">&copy; Todo items - @DateTime.Now.Year</span>
+        </div>
+    </footer>
 </body>
 </html>

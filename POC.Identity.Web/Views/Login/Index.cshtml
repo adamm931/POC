@@ -11,15 +11,16 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Username)
         @Html.TextBoxFor(model => model.Username, new { placeholder = "Enter username", @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Username, string.Empty, new { @class = "text-danger"})
     </div>
     <div class="form-group">
-
         @Html.LabelFor(model => model.Password)
         @Html.PasswordFor(model => model.Password, new { placeholder = "Enter password", @class = "form-control" })
+        <span class="text-danger">
+            @Html.ValidationMessageFor(model => model.Password, string.Empty, new { @class = "text-danger"})
+        </span>
     </div>
     <button type="submit" class="btn btn-primary">Login</button>
     @Html.ActionLink("Signup", "Signup", new { controller = "Login" }, new { @class = "btn btn-default" })
-
-    @Html.ValidationSummary();
 }
 

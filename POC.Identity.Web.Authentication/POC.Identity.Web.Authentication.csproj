@@ -64,9 +64,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attributes\PasswordAttribute.cs" />
-    <Compile Include="Attributes\UniqueUsenameAttribute.cs" />
-    <Compile Include="Attributes\UsernameAttribute.cs" />
     <Compile Include="AuthenticationServiceFactory.cs" />
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Contracts\IAuthenticationService.cs" />

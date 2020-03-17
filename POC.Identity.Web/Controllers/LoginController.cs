@@ -84,41 +84,25 @@ namespace POC.Identity.Web.Controllers
                 return View(model);
             }
 
-            // check username
-            var request = new CheckUsernameServiceRequest
-            {
-                Username = model.Username,
-            };
-
-            var result = await IdentityService.CheckUsernameAsync(request);
-
-            if (!result.IsSuccess)
-            {
-                throw new Exception(result.FailReason);
-            }
-
-            if (!result.Response.IsAvailable)
-            {
-                ModelState.AddModelError("Username", "Username is not available");
-                return View(model);
-            }
+            var signupUsername = model.Username;
+            var signupPassowrd = model.Password;
 
             // signup
             var signupRequest = new SignupUserServiceRequest
             {
-                Username = model.Username,
-                Password = model.Password
+                Username = signupUsername,
+                Password = signupPassowrd
             };
 
             await IdentityService.SignupAsync(signupRequest);
 
             // add user
-            await TodoService.AddUserAsync(model.Username);
+            await TodoService.AddUserAsync(signupUsername);
 
             // add account login
             var accountLoginRequest = new AccountLoginServiceRequest
             {
-                Username = request.Username
+                Username = signupUsername
             };
 
             await AccountService.AddAccountLoginAsync(accountLoginRequest);
@@ -126,7 +110,7 @@ namespace POC.Identity.Web.Controllers
             // begin session
             var userSession = new UserSessionModel
             {
-                Username = request.Username
+                Username = signupUsername
             };
 
             UserSession.EnstablishSession(userSession);

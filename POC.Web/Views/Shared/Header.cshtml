@@ -1,0 +1,32 @@
+﻿@using POC.Web.Extensions;
+
+    
+<header>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="nav-item @Html.IsActive(controller: "Authentication", action: "Logout")">
+                        @Html.ActionLink("Logout", "Logout", new { controller = "Authentication" }, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item @Html.IsActive(controller: "Todo", action: "Index")">
+                        @Html.ActionLink($"My todo list", "Index", new { controller = "Todo" }, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item @Html.IsActive(controller: "Account", action: "Index")">
+                        @Html.ActionLink("My account", "Index", new { controller = "Account" }, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item @Html.IsActive(controller: "Authentication", action: "UpdateLogin")">
+                        @Html.ActionLink("My login", "UpdateLogin", new { controller = "Authentication" }, new { @class = "nav-link" })
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="nav-item">
+                        <a href="javascript:void(0);" class="nav-link">
+                            @($"Hello {User.Identity.Name}")
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>

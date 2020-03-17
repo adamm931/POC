@@ -1,10 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using POC.Web.Validation.Attributes;
 
 namespace POC.Web.Models
 {
     public class AddTodoViewModel
     {
-        [Required]
+        [PocRequired(nameof(Title))]
         public string Title { get; set; }
     }
 }

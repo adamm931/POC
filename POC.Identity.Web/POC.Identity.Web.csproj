@@ -204,6 +204,10 @@
       <Project>{CC2072E1-8CF9-4FCF-AC57-4A5354CE0439}</Project>
       <Name>POC.Service</Name>
     </ProjectReference>
+    <ProjectReference Include="..\POC.Web.Validation\POC.Web.Validation.csproj">
+      <Project>{B7F7AAE4-FE96-44E0-9331-7645755D3672}</Project>
+      <Name>POC.Web.Validation</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

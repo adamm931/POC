@@ -1,17 +1,23 @@
-﻿using POC.Identity.Web.Authentication.Attributes;
+﻿using POC.Web.Validation.Attributes;
+using POC.Web.Validation.Resources;
 using System.ComponentModel.DataAnnotations;
 
 namespace POC.Web.Models
 {
     public class UpdateLoginViewModel
     {
-        [Required, UniqueUsename]
+        [PocRequired(nameof(Username))]
+        [PocUniqueUsename]
         public string Username { get; set; }
 
-        [Required, Display(Name = "New password"), Password, Compare(nameof(ConfirmPassword), ErrorMessage = "Passwords don't match")]
+        [PocRequired(nameof(Password))]
+        [PocPassword]
+        [PocPasswordMatch(nameof(ConfirmPassword))]
         public string Password { get; set; }
 
-        [Required, Password, Display(Name = "Confirm new password")]
+        [Display(Name = nameof(ConfirmPassword), ResourceType = typeof(DisplayNames))]
+        [PocRequired(nameof(ConfirmPassword))]
+        [PocPassword]
         public string ConfirmPassword { get; set; }
     }
 }

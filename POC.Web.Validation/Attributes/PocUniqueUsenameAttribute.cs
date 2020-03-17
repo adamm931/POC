@@ -1,13 +1,14 @@
 ﻿using POC.Channel;
 using POC.Identity.Service.Models;
+using POC.Web.Validation.Resources;
 
-namespace POC.Identity.Web.Authentication.Attributes
+namespace POC.Web.Validation.Attributes
 {
-    public class UniqueUsenameAttribute : UsernameAttribute
+    public class PocUniqueUsenameAttribute : PocUsernameAttribute
     {
-        public UniqueUsenameAttribute()
+        public PocUniqueUsenameAttribute()
         {
-            ErrorMessage = "Username must be unique";
+            ErrorMessage = ValidationErrors.UniqueUsername;
         }
 
         public override bool IsValid(object value)

@@ -127,6 +127,7 @@
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\TodoController.cs" />
+    <Compile Include="Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -183,10 +184,10 @@
     <Content Include="Views\Shared\EditorTemplates\AccountAddressViewModel.cshtml" />
     <Content Include="Views\Authentication\UpdateLogin.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\UpdateLoginViewModel.cshtml" />
+    <Content Include="Views\Shared\Header.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -229,6 +230,10 @@
     <ProjectReference Include="..\POC.Service\POC.Service.csproj">
       <Project>{cc2072e1-8cf9-4fcf-ac57-4a5354ce0439}</Project>
       <Name>POC.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\POC.Web.Validation\POC.Web.Validation.csproj">
+      <Project>{B7F7AAE4-FE96-44E0-9331-7645755D3672}</Project>
+      <Name>POC.Web.Validation</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

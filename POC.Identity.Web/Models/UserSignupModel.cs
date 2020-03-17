@@ -1,19 +1,22 @@
-﻿using POC.Identity.Web.Authentication.Attributes;
-using System.ComponentModel.DataAnnotations;
+﻿using POC.Web.Validation.Attributes;
 
 namespace POC.Identity.Web.Models
 {
     public class UserSignupModel
     {
-        public static UserSignupModel Empty = new UserSignupModel();
+        public static UserSignupModel Empty => new UserSignupModel();
 
-        [Required, UniqueUsename]
+        [PocUniqueUsename]
+        [PocRequired(nameof(Username))]
         public string Username { get; set; }
 
-        [Required, Password, Compare(nameof(ConfirmPassword), ErrorMessage = "Password don't match")]
+        [PocPasswordMatch(nameof(ConfirmPassword))]
+        [PocPassword]
+        [PocRequired(nameof(Password))]
         public string Password { get; set; }
 
-        [Required, Password]
+        [PocPassword]
+        [PocRequired(nameof(ConfirmPassword))]
         public string ConfirmPassword { get; set; }
     }
 }

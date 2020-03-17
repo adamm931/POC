@@ -9,36 +9,38 @@
 <div class="form-group">
     @Html.LabelFor(model => model.Street)
     @Html.TextBoxFor(model => model.Street, new { placeholder = "Enter street", @class = "form-control" })
+    @Html.ValidationMessageFor(model => model.Street, string.Empty, new { @class = "text-danger" })
 </div>
 
 <div class="form-group">
 
     @Html.LabelFor(model => model.City)
     @Html.TextBoxFor(model => model.City, new { placeholder = "Enter city", @class = "form-control" })
+    @Html.ValidationMessageFor(model => model.City, string.Empty, new { @class = "text-danger" })
 </div>
 
 <div class="form-group">
-
     @Html.LabelFor(model => model.ZipCode)
     @Html.TextBoxFor(model => model.ZipCode, new { placeholder = "Enter zip code", @class = "form-control" })
+    @Html.ValidationMessageFor(model => model.ZipCode, string.Empty, new { @class = "text-danger" })
 </div>
 
 <div class="form-group">
-
     @Html.LabelFor(model => model.Region)
     @Html.TextBoxFor(model => model.Region, new { placeholder = "Enter region", @class = "form-control" })
+    @Html.ValidationMessageFor(model => model.Region, string.Empty, new { @class = "text-danger" })
 </div>
 
 <div class="form-group">
-
     @Html.LabelFor(model => model.Phone)
     @Html.TextBoxFor(model => model.Phone, new { placeholder = "Enter phone", @class = "form-control" })
+    @Html.ValidationMessageFor(model => model.Phone, string.Empty, new { @class = "text-danger" })
 </div>
 
 <div class="form-group">
-
     @Html.LabelFor(model => model.Email)
     @Html.TextBoxFor(model => model.Email, new { placeholder = "Enter email", @class = "form-control" })
+    @Html.ValidationMessageFor(model => model.Email, string.Empty, new { @class = "text-danger" })
 </div>
 
 
