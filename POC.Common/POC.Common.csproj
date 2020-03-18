@@ -50,9 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Connection\ConnectionStringBuilder.cs" />
     <Compile Include="Connection\ConnectionString.cs" />
-    <Compile Include="Connection\ConnectionStringGenerator.cs" />
-    <Compile Include="Connection\ConnectionStringResolver.cs" />
+    <Compile Include="Connection\ConnectionStringFactory.cs" />
+    <Compile Include="Connection\ConnectionStringTemplate.cs" />
+    <Compile Include="Connection\MongoConnectionStringTemplate.cs" />
+    <Compile Include="Connection\SqlServerConnectionStringTemplate.cs" />
     <Compile Include="Domain\Entity.cs" />
     <Compile Include="Enviroment\EnviromentVariables.cs" />
     <Compile Include="Extensions.cs" />
@@ -62,7 +65,6 @@
     <Compile Include="Connection\IConnectionStringVariables.cs" />
     <Compile Include="Mapper\Mapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Connection\SqlServerConnectionStringBuilder.cs" />
     <Compile Include="Service\Exceptions\ServiceResponseException.cs" />
     <Compile Include="Service\ServiceRequest.cs" />
     <Compile Include="Service\ServiceResponse.cs" />

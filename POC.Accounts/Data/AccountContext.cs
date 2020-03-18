@@ -28,8 +28,8 @@ namespace POC.Accounts.Data
 
         public static string GetConnectionString()
         {
-            var connectionString = ConnectionStringGenerator
-                .GetConnectionString("Accounts")
+            var connectionString = ConnectionStringFactory
+                .GetSqlConnectionString("Accounts")
                 .Value;
 
             return connectionString;

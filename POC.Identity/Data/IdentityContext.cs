@@ -39,7 +39,7 @@ namespace POC.Identity.Data
 
         public static string GetConnectionString()
         {
-            var connectionString = ConnectionStringGenerator.GetConnectionString("Identity");
+            var connectionString = ConnectionStringFactory.GetSqlConnectionString("Identity");
 
             return connectionString.Value;
         }

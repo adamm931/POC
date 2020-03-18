@@ -1,10 +1,10 @@
-﻿using System.Linq;
+﻿using System.Collections;
+using System.Collections.Generic;
 
 namespace POC.Common.Connection
 {
-    public interface IConnectionStringVariables
+    public interface IConnectionStringVariables : IEnumerable<IConnectionStringVariable>
     {
-        IConnectionStringVariable GetVariable(string name);
     }
 
     public class ConnectionStringVariables : IConnectionStringVariables
@@ -22,9 +22,17 @@ namespace POC.Common.Connection
             _variables = variables;
         }
 
-        public IConnectionStringVariable GetVariable(string name)
+        public IEnumerator<IConnectionStringVariable> GetEnumerator()
         {
-            return _variables.Single(variable => variable.Name == name);
+            foreach (var variable in _variables)
+            {
+                yield return variable;
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }

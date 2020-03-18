@@ -31,8 +31,8 @@ namespace POC.Service.Data
 
         public static string GetConnectionString()
         {
-            return ConnectionStringGenerator
-                .GetConnectionString("Todos")
+            return ConnectionStringFactory
+                .GetSqlConnectionString("Todos")
                 .Value;
         }
 

@@ -16,6 +16,10 @@
 
         public const string DbPassword = "DbPassword";
 
+        public const string MongoHost = "MongoHost";
+
+        public const string MongoPort = "MongoPort";
+
         public const string AccountServiceUrl = "AccountServiceUrl";
 
         public const string UserCookieDomain = "UserCookieDomain";
