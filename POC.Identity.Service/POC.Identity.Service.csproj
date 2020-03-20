@@ -79,22 +79,32 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contracts\IIdentityService.cs" />
+    <Compile Include="DI\IdentityServiceContainerConfigurator.cs" />
     <Compile Include="IdentityService.svc.cs">
       <DependentUpon>IdentityService.svc</DependentUpon>
     </Compile>
     <Compile Include="MappingProfiles\IdentityServiceMappingProfile.cs" />
-    <Compile Include="Models\CheckUsernameServiceRequest.cs" />
-    <Compile Include="Models\CheckUsernameServiceResponse.cs" />
-    <Compile Include="Models\SignupUserServiceRequest.cs" />
-    <Compile Include="Models\UpdateUserLoginServiceRequest.cs" />
-    <Compile Include="Models\UserLoginServiceRequest.cs" />
-    <Compile Include="Models\UserLoginServiceResponse.cs" />
+    <Compile Include="UseCases\Base\IdentityServiceHandler.cs" />
+    <Compile Include="UseCases\CheckUsername\CheckUsernameServiceRequest.cs" />
+    <Compile Include="UseCases\CheckUsername\CheckUsernameServiceResponse.cs" />
+    <Compile Include="UseCases\Signup\SignupUserServiceRequest.cs" />
+    <Compile Include="UseCases\UpdateLogin\UpdateUserLoginServiceRequest.cs" />
+    <Compile Include="UseCases\Login\UserLoginServiceRequest.cs" />
+    <Compile Include="UseCases\Login\UserLoginServiceResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\POC.Common\POC.Common.csproj">
       <Project>{0FAEE2E1-706A-4EEC-A81C-D7A0AD32763E}</Project>
       <Name>POC.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\POC.Configuration.DI\POC.Configuration.DI.csproj">
+      <Project>{E5935973-174E-46AF-B297-BC4123035519}</Project>
+      <Name>POC.Configuration.DI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\POC.Configuration.Mapping\POC.Configuration.Mapping.csproj">
+      <Project>{8f25e1f4-1b8e-4883-8480-60b9cc373d86}</Project>
+      <Name>POC.Configuration.Mapping</Name>
     </ProjectReference>
     <ProjectReference Include="..\POC.Identity\POC.Identity.csproj">
       <Project>{EDA15DE6-9F6B-40B9-A9AA-159645425DBA}</Project>
@@ -111,6 +121,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -14,17 +14,15 @@ namespace POC.Accounts.Internal
     {
         private readonly IMapping Mapper = Mapping.Create(new AccountMappingProfile());
 
-        private readonly AccountContext Context = new AccountContext();
-
         public async Task<AccountLoginResponse> AddAccountLoginAsync(AccountLoginRequest request)
         {
-            using (Context)
+            using (var context = new AccountContext())
             {
                 var accountLogin = AccountLogin.CreateAndInitializeAccount(request.Username);
 
-                Context.AccountLogins.Add(accountLogin);
+                context.AccountLogins.Add(accountLogin);
 
-                await Context.SaveChangesAsync();
+                await context.SaveChangesAsync();
 
                 return Mapper.Map<AccountLoginResponse>(accountLogin);
             }
@@ -32,9 +30,9 @@ namespace POC.Accounts.Internal
 
         public async Task<AccountResponse> GetAccountAsync(Guid id)
         {
-            using (Context)
+            using (var context = new AccountContext())
             {
-                var account = await GetAccount(id);
+                var account = await GetAccount(id, context);
 
                 return Mapper.Map<AccountResponse>(account);
             }
@@ -42,9 +40,9 @@ namespace POC.Accounts.Internal
 
         public async Task<AccountResponse> GetAccountByUsernameAsync(string username)
         {
-            using (Context)
+            using (var context = new AccountContext())
             {
-                var account = await GetAccount(username);
+                var account = await GetAccount(username, context);
 
                 return Mapper.Map<AccountResponse>(account);
             }
@@ -52,74 +50,83 @@ namespace POC.Accounts.Internal
 
         public async Task UpdateAccountAddressAsync(AccountAddressRequest request)
         {
-            using (Context)
+            using (var context = new AccountContext())
             {
-                var account = await GetAccount(request.AccountUsername);
+                try
+                {
+                    var account = await GetAccount(request.AccountUsername, context);
 
-                account.UpdatetAddress(
-                    request.Street,
-                    request.City,
-                    request.ZipCode,
-                    request.Region,
-                    request.Phone,
-                    request.Email);
+                    account.UpdatetAddress(
+                        request.Street,
+                        request.City,
+                        request.ZipCode,
+                        request.Region,
+                        request.Phone,
+                        request.Email);
 
-                await Context.SaveChangesAsync();
+                    await context.SaveChangesAsync();
+                }
+
+                catch (Exception e)
+                {
+                    throw e;
+                }
+
             }
         }
 
         public async Task UpdateAccountHeaderAsync(AccountHeaderRequest request)
         {
-            using (Context)
+            using (var context = new AccountContext())
             {
-                var account = await GetAccount(request.AccountUsername);
+                var account = await GetAccount(request.AccountUsername, context);
 
                 account.UpdateHeader(
                     request.FirstName,
                     request.MiddleName,
                     request.LastName,
                     request.BirthDay,
-                    Gender.Parse(request.Gender));
+                    request.Gender);
 
-                await Context.SaveChangesAsync();
+                await context.SaveChangesAsync();
             }
         }
 
         public async Task<UpdateAccountLoginResponse> UpdateAccountLoginAsync(UpdateAccountLoginRequest request)
         {
-            using (Context)
+            using (var context = new AccountContext())
             {
-                await CheckUsername(request.AccountNewUsername);
+                await CheckUsername(request.AccountNewUsername, context);
 
-                var account = await GetAccount(request.AccountUsername);
+                var account = await GetAccount(request.AccountUsername, context);
 
                 account.UpdateLogin(request.AccountNewUsername);
 
-                await Context.SaveChangesAsync();
+                await context.SaveChangesAsync();
 
                 return Mapper.Map<UpdateAccountLoginResponse>(account.Login);
             }
         }
 
-        private async Task<Account> GetAccount(string username)
+        private async Task<Account> GetAccount(string username, AccountContext context)
         {
-            return await Context.Accounts
+            return await context.Accounts
                 .Include(model => model.Address)
                 .Include(model => model.Login)
                 .SingleAsync(model => model.Login.Username == username);
         }
 
-        private async Task<Account> GetAccount(Guid id)
+        private async Task<Account> GetAccount(Guid id, AccountContext context)
         {
-            return await Context.Accounts
+            return await context.Accounts
                 .Include(model => model.Address)
                 .Include(model => model.Login)
                 .SingleAsync(model => model.Id == id);
         }
 
-        private async Task CheckUsername(string username)
+        private async Task CheckUsername(string username, AccountContext context)
         {
-            var exists = await Context.AccountLogins.AnyAsync(login => login.Username == username);
+            var exists = await context.AccountLogins.AnyAsync(login => login.Username == username);
 
             if (exists)
             {

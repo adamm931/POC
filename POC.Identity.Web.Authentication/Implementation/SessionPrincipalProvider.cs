@@ -1,30 +1,30 @@
 ﻿using POC.Identity.Web.Authentication.Common;
 using POC.Identity.Web.Authentication.Contracts;
 using POC.Identity.Web.Authentication.Extensions;
+using POC.Web.Common;
 using System.Security.Principal;
-using System.Web;
 
 namespace POC.Identity.Web.Authentication.Implementation
 {
     internal class SessionPrincipalProvider : IPrincipalProvider
     {
-        private readonly HttpContextBase _httpContext;
+        private readonly IHttpContext _httpContext;
 
-        public SessionPrincipalProvider(HttpContextBase httpContext)
+        public SessionPrincipalProvider(IHttpContext httpContext)
         {
             _httpContext = httpContext;
         }
 
         public IPrincipal GetPrincipal()
         {
-            return _httpContext.Session[Constants.Session.Principal] as IPrincipal;
+            return _httpContext.Context.Session[Constants.Session.Principal] as IPrincipal;
         }
 
         public void SetPrincipal(IPrincipal principal)
         {
             SetToContext(principal);
 
-            _httpContext.Session[Constants.Session.Principal] = principal;
+            _httpContext.Context.Session[Constants.Session.Principal] = principal;
         }
 
         public void MaintainPrincipal()
@@ -36,14 +36,14 @@ namespace POC.Identity.Web.Authentication.Implementation
 
         public void ClearPrincipal()
         {
-            _httpContext.Session[Constants.Session.Principal] = null;
+            _httpContext.Context.Session[Constants.Session.Principal] = null;
         }
 
         private void SetToContext(IPrincipal principal)
         {
-            if (!_httpContext.IsPrincipalAuthenticated())
+            if (!_httpContext.Context.IsPrincipalAuthenticated())
             {
-                _httpContext.User = principal;
+                _httpContext.Context.User = principal;
             }
         }
     }

@@ -1,7 +1,8 @@
 ﻿using POC.Accounts.Service.Contracts;
 using POC.Common.Enviroment;
 using POC.Identity.Service.Contracts;
-using POC.Service.Contracts;
+using POC.Logging.Service.Contracts;
+using POC.Todos.Service.Contracts;
 using System.ServiceModel;
 
 namespace POC.Channel
@@ -38,6 +39,11 @@ namespace POC.Channel
         public IAccountService GetAccountService()
         {
             return GetChannel<IAccountService>(EnviromentVariables.AccountServiceUrl);
+        }
+
+        public ILoggingService GetLoggingService()
+        {
+            return GetChannel<ILoggingService>(EnviromentVariables.LoggingServiceUrl);
         }
     }
 }

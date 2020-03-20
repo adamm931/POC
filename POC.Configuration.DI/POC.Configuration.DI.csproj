@@ -50,7 +50,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContainerHolder.cs" />
+    <Compile Include="Container.cs" />
     <Compile Include="ContainerFactory.cs" />
     <Compile Include="IContainer.cs" />
     <Compile Include="IContainerConfigurator.cs" />
@@ -59,6 +59,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Mvc\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

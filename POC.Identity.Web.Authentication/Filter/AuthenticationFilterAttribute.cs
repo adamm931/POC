@@ -1,5 +1,6 @@
 ﻿using POC.Common.Enviroment;
 using POC.Identity.Web.Authentication.Contracts;
+using POC.Identity.Web.AuthenticationService.Contracts;
 using System.Web.Mvc;
 
 namespace POC.Identity.Web.Authentication.Filter
@@ -29,14 +30,14 @@ namespace POC.Identity.Web.Authentication.Filter
                 return;
             }
 
-            var authenticationService = AuthenticationServiceFactory.GetAutheticationService(filterContext.HttpContext);
+            var authenticationService = DependencyResolver.Current.GetService<IAuthenticationService>();
 
             if (authenticationService.IsAuthenticated)
             {
                 return;
             }
 
-            var userProvider = AuthenticationServiceFactory.GetUserProvider(filterContext.HttpContext);
+            var userProvider = DependencyResolver.Current.GetService<IUserProvider>();
             var user = userProvider.GetUser();
 
             if (user.IsResolved())

@@ -127,6 +127,7 @@
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\TodoController.cs" />
+    <Compile Include="DI\PocWebPortalContainerConfigurator.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -215,6 +216,18 @@
       <Project>{0FAEE2E1-706A-4EEC-A81C-D7A0AD32763E}</Project>
       <Name>POC.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\POC.Configuration.DI.Mvc\POC.Configuration.DI.Mvc.csproj">
+      <Project>{5A610184-F0C4-4175-B3AB-9553C4E0B664}</Project>
+      <Name>POC.Configuration.DI.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\POC.Configuration.DI\POC.Configuration.DI.csproj">
+      <Project>{E5935973-174E-46AF-B297-BC4123035519}</Project>
+      <Name>POC.Configuration.DI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\POC.Configuration.Mapping\POC.Configuration.Mapping.csproj">
+      <Project>{8f25e1f4-1b8e-4883-8480-60b9cc373d86}</Project>
+      <Name>POC.Configuration.Mapping</Name>
+    </ProjectReference>
     <ProjectReference Include="..\POC.Identity.Service\POC.Identity.Service.csproj">
       <Project>{CEED1C07-3F63-4661-B6C9-0EBD21109CEB}</Project>
       <Name>POC.Identity.Service</Name>
@@ -227,9 +240,9 @@
       <Project>{EDA15DE6-9F6B-40B9-A9AA-159645425DBA}</Project>
       <Name>POC.Identity</Name>
     </ProjectReference>
-    <ProjectReference Include="..\POC.Service\POC.Service.csproj">
-      <Project>{cc2072e1-8cf9-4fcf-ac57-4a5354ce0439}</Project>
-      <Name>POC.Service</Name>
+    <ProjectReference Include="..\POC.Todos.Service\POC.Todos.Service.csproj">
+      <Project>{CC2072E1-8CF9-4FCF-AC57-4A5354CE0439}</Project>
+      <Name>POC.Todos.Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\POC.Web.Validation\POC.Web.Validation.csproj">
       <Project>{B7F7AAE4-FE96-44E0-9331-7645755D3672}</Project>

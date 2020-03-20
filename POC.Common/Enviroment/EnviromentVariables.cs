@@ -23,5 +23,7 @@
         public const string AccountServiceUrl = "AccountServiceUrl";
 
         public const string UserCookieDomain = "UserCookieDomain";
+
+        public const string LoggingServiceUrl = "LoggingServiceUrl";
     }
 }

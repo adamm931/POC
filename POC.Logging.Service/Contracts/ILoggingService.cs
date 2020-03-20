@@ -1,5 +1,6 @@
 ﻿using POC.Common.Service;
 using POC.Logging.Service.Models.Log;
+using POC.Logging.Service.UseCases.ListLogEntries;
 using System.ServiceModel;
 using System.Threading.Tasks;
 

@@ -9,30 +9,25 @@ namespace POC.Accounts.Domain
 
         public static Gender Female = new Gender(nameof(Female));
 
-        public static Gender Undefined = new Gender("Undefined");
+        public static Gender Undefined = new Gender(nameof(Undefined));
 
-        private Gender(string value)
+        public Gender(string value)
         {
+            if (value != nameof(Male) && value != nameof(Female) && value != nameof(Undefined))
+            {
+                throw new ArgumentException($"Gender value is invalid");
+            }
+
             Value = value;
         }
 
         private Gender() { }
 
-        public static Gender Parse(string value)
-        {
-            if (value != Male.Value && value != Female.Value)
-            {
-                throw new InvalidOperationException($"Gender value can only be '{Male.Value}' or '{Female.Value}'");
-            }
-
-            return new Gender(value);
-        }
-
         public string Value { get; private set; }
 
         public static bool operator ==(Gender left, Gender right)
         {
-            return left.Value == right.Value;
+            return left?.Value == right?.Value;
         }
 
         public static bool operator !=(Gender left, Gender right)
@@ -43,6 +38,11 @@ namespace POC.Accounts.Domain
         public override string ToString()
         {
             return Value;
+        }
+
+        public static implicit operator Gender(string value)
+        {
+            return new Gender(value);
         }
 
         public override bool Equals(object obj)

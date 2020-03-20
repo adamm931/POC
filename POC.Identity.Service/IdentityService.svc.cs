@@ -1,62 +1,37 @@
-﻿//using POC.Common.Mapper;
-//using POC.Common.Service;
-//using POC.Identity.Contracts;
-//using POC.Identity.Models;
-//using POC.Identity.Service.Contracts;
-//using POC.Identity.Service.MappingProfiles;
-//using POC.Identity.Service.Models;
-//using System.Threading.Tasks;
+﻿using POC.Common.Service;
+using POC.Configuration.DI;
+using POC.Identity.Service.Contracts;
+using POC.Identity.Service.UseCases.CheckUsername;
+using POC.Identity.Service.UseCases.Login;
+using POC.Identity.Service.UseCases.Signup;
+using POC.Identity.Service.UseCases.UpdateLogin;
+using System.Threading.Tasks;
 
-//namespace POC.Identity.Service
-//{
-//    internal class IdentityService : IIdentityService
-//    {
-//        private readonly IMapping Mapper = Mapping.Create(new IdentityServiceMappingProfile());
+namespace POC.Identity.Service
+{
+    internal class IdentityService : IIdentityService
+    {
+        private readonly IServiceMediator _serviceMediator;
 
-//        private readonly IIdentityApi UserService = new IdentityApi();
+        private IdentityService(IServiceMediator serviceMediator)
+        {
+            _serviceMediator = serviceMediator;
+        }
 
-//        public async Task<ServiceResponse<CheckUsernameServiceResponse>> CheckUsernameAsync(CheckUsernameServiceRequest serviceRequest)
-//        {
-//            return await ServiceRequest<CheckUsernameServiceResponse>.Invoke(async () =>
-//            {
-//                var request = Mapper.Map<CheckUsernameRequest>(serviceRequest);
+        public IdentityService() : this(new ServiceMediator(Container<IdentityService>.Instance))
+        {
+        }
 
-//                var response = await UserService.CheckUsernameAsync(request);
+        public async Task<ServiceResponse<CheckUsernameServiceResponse>> CheckUsernameAsync(CheckUsernameServiceRequest serviceRequest)
+            => await _serviceMediator.Handle<CheckUsernameServiceRequest, CheckUsernameServiceResponse>(serviceRequest);
 
-//                return Mapper.Map<CheckUsernameServiceResponse>(response);
-//            });
-//        }
+        public async Task<ServiceResponse<UserLoginServiceResponse>> LoginAsync(UserLoginServiceRequest serviceRequest)
+            => await _serviceMediator.Handle<UserLoginServiceRequest, UserLoginServiceResponse>(serviceRequest);
 
-//        public async Task<ServiceResponse<UserLoginServiceResponse>> LoginAsync(UserLoginServiceRequest serviceRequest)
-//        {
-//            return await ServiceRequest<UserLoginServiceResponse>.Invoke(async () =>
-//            {
-//                var request = Mapper.Map<UserLoginRequest>(serviceRequest);
+        public async Task<ServiceResponse> SignupAsync(SignupUserServiceRequest serviceRequest)
+            => await _serviceMediator.Handle(serviceRequest);
 
-//                var response = await UserService.LoginAsync(request);
-
-//                return Mapper.Map<UserLoginServiceResponse>(response);
-//            });
-//        }
-
-//        public async Task<ServiceResponse> SignupAsync(SignupUserServiceRequest serviceRequest)
-//        {
-//            return await ServiceRequest.Invoke(async () =>
-//            {
-//                var request = Mapper.Map<SignupUserRequest>(serviceRequest);
-
-//                await UserService.SignupAsync(request);
-//            });
-//        }
-
-//        public async Task<ServiceResponse> UpdateLoginAsync(UpdateUserLoginServiceRequest serviceRequest)
-//        {
-//            return await ServiceRequest.Invoke(async () =>
-//            {
-//                var request = Mapper.Map<UpdateUserLoginRequest>(serviceRequest);
-
-//                await UserService.UpdateLoginAsync(request);
-//            });
-//        }
-//    }
-//}
+        public async Task<ServiceResponse> UpdateLoginAsync(UpdateUserLoginServiceRequest serviceRequest)
+            => await _serviceMediator.Handle(serviceRequest);
+    }
+}

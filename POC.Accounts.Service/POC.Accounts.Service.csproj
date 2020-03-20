@@ -81,7 +81,7 @@
     <Compile Include="AccountService.svc.cs">
       <DependentUpon>AccountService.svc</DependentUpon>
     </Compile>
-    <Compile Include="Configuration\AccountServiceContainerConfigurator.cs" />
+    <Compile Include="DI\AccountServiceContainerConfigurator.cs" />
     <Compile Include="Contracts\IAccountService.cs" />
     <Compile Include="MappingProfiles\AccountMappingProfile.cs" />
     <Compile Include="UseCases\Model\AccountAddressServiceRequest.cs" />

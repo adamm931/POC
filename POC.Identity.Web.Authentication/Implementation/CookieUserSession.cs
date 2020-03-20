@@ -2,6 +2,7 @@
 using POC.Identity.Web.Authentication.Common;
 using POC.Identity.Web.Authentication.Models;
 using POC.Identity.Web.Authentication.Service;
+using POC.Web.Common;
 using System;
 using System.Web;
 
@@ -9,16 +10,16 @@ namespace POC.Identity.Web.Authentication.Implementation
 {
     internal class CookieUserSession : IUserSession
     {
-        private readonly HttpContextBase _httpContext;
+        private readonly IHttpContext _httpContext;
 
-        public CookieUserSession(HttpContextBase httpContext)
+        public CookieUserSession(IHttpContext httpContext)
         {
             _httpContext = httpContext;
         }
 
         public void CloseSession()
         {
-            _httpContext.Response.Cookies[Constants.Cookies.User].Expires = DateTime.Now.AddDays(-1);
+            _httpContext.Context.Response.Cookies[Constants.Cookies.User].Expires = DateTime.Now.AddDays(-1);
         }
 
         public void EnstablishSession(UserSessionModel user)
@@ -28,7 +29,7 @@ namespace POC.Identity.Web.Authentication.Implementation
                 Domain = EnviromentVariablesFetcher.GetVaraiable(EnviromentVariables.UserCookieDomain),
             };
 
-            _httpContext.Response.Cookies.Add(userCookie);
+            _httpContext.Context.Response.Cookies.Add(userCookie);
         }
     }
 }

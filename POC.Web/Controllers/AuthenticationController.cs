@@ -1,12 +1,12 @@
 ﻿using POC.Accounts.Service.Contracts;
 using POC.Accounts.Service.Model;
-using POC.Channel;
 using POC.Common.Enviroment;
+using POC.Configuration.Mapping;
 using POC.Identity.Service.Contracts;
-using POC.Identity.Service.Models;
-using POC.Identity.Web.Authentication;
+using POC.Identity.Service.UseCases.UpdateLogin;
 using POC.Identity.Web.AuthenticationService.Contracts;
-using POC.Service.Contracts;
+using POC.Todos.Service.Contracts;
+using POC.Todos.Service.UseCases.UpdateUser;
 using POC.Web.Models;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -16,14 +16,14 @@ namespace POC.Web.Controllers
 
     public class AuthenticationController : BaseController
     {
-        private IAuthenticationService AuthenticationService =>
-            AuthenticationServiceFactory.GetAutheticationService(HttpContext);
-
-        private readonly IIdentityService IdentityService = ChannelManager.Instance.GetIdentityService();
-
-        private readonly ITodoService TodoService = ChannelManager.Instance.GetTodoService();
-
-        private readonly IAccountService AccountService = ChannelManager.Instance.GetAccountService();
+        public AuthenticationController(
+            IAccountService accountService,
+            IIdentityService identityService,
+            ITodoService todoService,
+            IAuthenticationService authenticationService,
+            IMapping mapper) : base(accountService, identityService, todoService, authenticationService, mapper)
+        {
+        }
 
         [HttpGet]
         public ActionResult UpdateLogin()
@@ -50,7 +50,11 @@ namespace POC.Web.Controllers
             await IdentityService.UpdateLoginAsync(updateUserLoginRequest);
 
             // update todos user
-            await TodoService.UpdateUserAsync(Username, model.Username);
+            await TodoService.UpdateUserAsync(new UpdateUserServiceRequest
+            {
+                Username = Username,
+                NewUsername = model.Username
+            });
 
             // update account user
             var updateAccountLoginRequest = Mapper.Map<UpdateAccountLoginServiceRequest>(model);

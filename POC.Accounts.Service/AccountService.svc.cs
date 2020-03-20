@@ -15,7 +15,7 @@ namespace POC.Accounts.Service
     public class AccountService : IAccountService
     {
         private readonly IServiceMediator ServiceMediator =
-            new ServiceMediator(ContainerHolder<AccountService>.Container);
+            new ServiceMediator(Container<AccountService>.Instance);
 
         public async Task<ServiceResponse<AddAccountLoginServiceResponse>> AddAccountLoginAsync(
             AddAccountLoginServiceRequest serviceRequest)

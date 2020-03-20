@@ -7,7 +7,7 @@ namespace POC.Identity.Web.Authentication.Implementation
 {
     internal class CookieUser : IUser
     {
-        public CookieUser(HttpRequestBase request)
+        public CookieUser(HttpRequest request)
         {
             if (request == null)
             {

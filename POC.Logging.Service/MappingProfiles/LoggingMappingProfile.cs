@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using POC.Logging.Domain;
-using POC.Logging.Service.Models.Log;
+using POC.Logging.Service.UseCases.ListLogEntries;
 
 namespace POC.Logging.Service.MappingProfiles
 {

@@ -2,6 +2,8 @@
 using POC.Accounts.Model;
 using POC.Accounts.Service.Model;
 using POC.Accounts.Service.UseCases.Model;
+using POC.Accounts.Service.UseCases.UpdateAccountAddress;
+using POC.Accounts.Service.UseCases.UpdateAccountHeader;
 
 namespace POC.Accounts.Service.MappingProfiles
 {
@@ -11,8 +13,8 @@ namespace POC.Accounts.Service.MappingProfiles
         {
             // service -> api
             CreateMap<AddAccountLoginServiceRequest, AccountLoginRequest>();
-            CreateMap<AccountHeaderServiceRequest, AccountHeaderRequest>();
-            CreateMap<AccountAddressServiceRequest, AccountAddressRequest>();
+            CreateMap<UpdateAccountHeaderServiceRequest, AccountHeaderRequest>();
+            CreateMap<UpdateAccountAddressServiceRequest, AccountAddressRequest>();
             CreateMap<UpdateAccountLoginServiceRequest, UpdateAccountLoginRequest>();
 
             // api -> service

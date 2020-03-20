@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
 using POC.Identity.Models;
-using POC.Identity.Service.Models;
+using POC.Identity.Service.UseCases.CheckUsername;
+using POC.Identity.Service.UseCases.Login;
+using POC.Identity.Service.UseCases.Signup;
+using POC.Identity.Service.UseCases.UpdateLogin;
 
 namespace POC.Identity.Service.MappingProfiles
 {

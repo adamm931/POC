@@ -16,26 +16,30 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var todo in Model.Items)
-        {
-        <tr>
-            <th scope="row">@todo.Index.</th>
-            <td>@todo.Title</td>
-            <td>@(todo.IsComleted ? "Yes" : "No")</td>
-            <td>@todo.CreatedAt</td>
+        @{ 
+            var items = Model.Items.ToList();
 
-            @if (todo.IsComleted)
+            foreach (var todo in items)
             {
-                <td><button class="btn btn-default open-task" data-id="@todo.Id">Open</button></td>
-            }
+            <tr>
+                <th scope="row">@items.FindIndex(item => item.Id == todo.Id)</th>
+                <td>@todo.Title</td>
+                <td>@(todo.IsCompleted ? "Yes" : "No")</td>
+                <td>@todo.CreatedAt</td>
 
-            else
-            {
-                <td><button class="btn btn-default complete-task" data-id="@todo.Id">Complete</button></td>
-            }
+                @if (todo.IsCompleted)
+                {
+                    <td><button class="btn btn-default open-task" data-id="@todo.Id">Open</button></td>
+                }
 
-            <td><button class="btn btn-danger delete-task" data-id="@todo.Id">Delete</button></td>
-        </tr>
+                else
+                {
+                    <td><button class="btn btn-default complete-task" data-id="@todo.Id">Complete</button></td>
+                }
+
+                <td><button class="btn btn-danger delete-task" data-id="@todo.Id">Delete</button></td>
+            </tr>
+            }
         }
     </tbody>
 </table>

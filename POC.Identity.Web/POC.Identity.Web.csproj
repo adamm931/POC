@@ -121,6 +121,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="DI\IdentityWebContainerConfigurator.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -192,6 +193,18 @@
       <Project>{0FAEE2E1-706A-4EEC-A81C-D7A0AD32763E}</Project>
       <Name>POC.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\POC.Configuration.DI.Mvc\POC.Configuration.DI.Mvc.csproj">
+      <Project>{5A610184-F0C4-4175-B3AB-9553C4E0B664}</Project>
+      <Name>POC.Configuration.DI.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\POC.Configuration.DI\POC.Configuration.DI.csproj">
+      <Project>{E5935973-174E-46AF-B297-BC4123035519}</Project>
+      <Name>POC.Configuration.DI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\POC.Configuration.Mapping\POC.Configuration.Mapping.csproj">
+      <Project>{8f25e1f4-1b8e-4883-8480-60b9cc373d86}</Project>
+      <Name>POC.Configuration.Mapping</Name>
+    </ProjectReference>
     <ProjectReference Include="..\POC.Identity.Service\POC.Identity.Service.csproj">
       <Project>{CEED1C07-3F63-4661-B6C9-0EBD21109CEB}</Project>
       <Name>POC.Identity.Service</Name>
@@ -200,9 +213,13 @@
       <Project>{85D5B4F9-68DE-4002-9A63-49800F76B764}</Project>
       <Name>POC.Identity.Web.Authentication</Name>
     </ProjectReference>
-    <ProjectReference Include="..\POC.Service\POC.Service.csproj">
+    <ProjectReference Include="..\POC.Todos.Service\POC.Todos.Service.csproj">
       <Project>{CC2072E1-8CF9-4FCF-AC57-4A5354CE0439}</Project>
-      <Name>POC.Service</Name>
+      <Name>POC.Todos.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\POC.Web.Common\POC.Web.Common.csproj">
+      <Project>{1d5f9e2d-3c68-4b7b-b8c3-67529152359f}</Project>
+      <Name>POC.Web.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\POC.Web.Validation\POC.Web.Validation.csproj">
       <Project>{B7F7AAE4-FE96-44E0-9331-7645755D3672}</Project>

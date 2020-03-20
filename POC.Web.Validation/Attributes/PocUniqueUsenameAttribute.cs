@@ -1,5 +1,5 @@
 ﻿using POC.Channel;
-using POC.Identity.Service.Models;
+using POC.Identity.Service.UseCases.CheckUsername;
 using POC.Web.Validation.Resources;
 
 namespace POC.Web.Validation.Attributes

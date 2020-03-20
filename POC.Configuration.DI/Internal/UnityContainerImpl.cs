@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Unity;
 
 namespace POC.Configuration.DI.Internal
@@ -40,6 +41,11 @@ namespace POC.Configuration.DI.Internal
         public object Resolve(Type type)
         {
             return _container.Resolve(type);
+        }
+
+        public IEnumerable<object> ResolveAll(Type type)
+        {
+            return _container.ResolveAll(type);
         }
     }
 }

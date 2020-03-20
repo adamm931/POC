@@ -13,23 +13,17 @@ namespace POC.Identity
 {
     public class IdentityApi : IIdentityApi
     {
-        private readonly IdentityContext Context;
-        private readonly ICredentialValidator CredentialValidator;
-
         public IdentityApi()
         {
             IdentityConfig.UseBase64Encryption();
             IdentityConfig.UseSha256ManagedHashing();
-
-            Context = new IdentityContext();
-            CredentialValidator = new CredentialValidator(Context);
         }
 
         public async Task<CheckUsernameResponse> CheckUsernameAsync(CheckUsernameRequest request)
         {
-            using (Context)
+            using (var context = new IdentityContext())
             {
-                bool exists = await UsernameExists(request.Username);
+                bool exists = await UsernameExists(request.Username, context);
 
                 return new CheckUsernameResponse
                 {
@@ -57,10 +51,10 @@ namespace POC.Identity
         {
             using (var context = new IdentityContext())
             {
-                await ValidateUsername(request.NewUsername);
-                await ValidatePassword(request.NewPassword);
+                await ValidateUsername(request.NewUsername, context);
+                await ValidatePassword(request.NewPassword, context);
 
-                bool exists = await UsernameExists(request.NewUsername);
+                bool exists = await UsernameExists(request.NewUsername, context);
 
                 if (exists)
                 {
@@ -81,10 +75,10 @@ namespace POC.Identity
         {
             using (var context = new IdentityContext())
             {
-                await ValidateUsername(request.Username);
-                await ValidatePassword(request.Password);
+                await ValidateUsername(request.Username, context);
+                await ValidatePassword(request.Password, context);
 
-                bool exists = await UsernameExists(request.Username);
+                bool exists = await UsernameExists(request.Username, context);
 
                 if (exists)
                 {
@@ -97,14 +91,15 @@ namespace POC.Identity
             }
         }
 
-        private async Task<bool> UsernameExists(string username)
+        private async Task<bool> UsernameExists(string username, IdentityContext context)
         {
-            return await Context.UserLogins.AnyAsync(login => login.Username.Value == username);
+            return await context.UserLogins.AnyAsync(login => login.Username.Value == username);
         }
 
-        private async Task ValidateUsername(string username)
+        private async Task ValidateUsername(string username, IdentityContext context)
         {
-            var usernameValidation = await CredentialValidator.Validate(CredentialType.Username, username);
+            var credentialValidator = new CredentialValidator(context);
+            var usernameValidation = await credentialValidator.Validate(CredentialType.Username, username);
 
             if (!usernameValidation.IsValid)
             {
@@ -112,9 +107,10 @@ namespace POC.Identity
             }
         }
 
-        private async Task ValidatePassword(string password)
+        private async Task ValidatePassword(string password, IdentityContext context)
         {
-            var usernameValidation = await CredentialValidator.Validate(CredentialType.Password, password);
+            var credentialValidator = new CredentialValidator(context);
+            var usernameValidation = await credentialValidator.Validate(CredentialType.Password, password);
 
             if (!usernameValidation.IsValid)
             {

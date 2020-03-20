@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using POC.Identity.Web.Authentication.Contracts;
+using System.Web.Mvc;
 
 namespace POC.Identity.Web.Authentication.Filter
 {
@@ -18,7 +19,7 @@ namespace POC.Identity.Web.Authentication.Filter
                 return;
             }
 
-            var principalProvider = AuthenticationServiceFactory.GetPrincipalProvider(filterContext.HttpContext);
+            var principalProvider = DependencyResolver.Current.GetService<IPrincipalProvider>();
 
             principalProvider.MaintainPrincipal();
         }

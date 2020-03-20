@@ -1,7 +1,10 @@
 ﻿using POC.Accounts.Service.Contracts;
 using POC.Accounts.Service.UseCases.UpdateAccountAddress;
 using POC.Accounts.Service.UseCases.UpdateAccountHeader;
-using POC.Channel;
+using POC.Configuration.Mapping;
+using POC.Identity.Service.Contracts;
+using POC.Identity.Web.AuthenticationService.Contracts;
+using POC.Todos.Service.Contracts;
 using POC.Web.Models;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -10,7 +13,15 @@ namespace POC.Web.Controllers
 {
     public class AccountController : BaseController
     {
-        private readonly IAccountService AccountService = ChannelManager.Instance.GetAccountService();
+        public AccountController(
+            IAccountService accountService,
+            IIdentityService identityService,
+            ITodoService todoService,
+            IAuthenticationService authenticationService,
+            IMapping mapper)
+            : base(accountService, identityService, todoService, authenticationService, mapper)
+        {
+        }
 
         [HttpGet]
         public async Task<ActionResult> Index()

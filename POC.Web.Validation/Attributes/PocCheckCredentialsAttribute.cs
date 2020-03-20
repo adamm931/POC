@@ -1,5 +1,5 @@
 ﻿using POC.Channel;
-using POC.Identity.Service.Models;
+using POC.Identity.Service.UseCases.Login;
 using POC.Web.Common.Validation.Extensions;
 using POC.Web.Validation.Resources;
 using System.ComponentModel.DataAnnotations;

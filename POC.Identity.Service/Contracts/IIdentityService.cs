@@ -1,5 +1,8 @@
 ﻿using POC.Common.Service;
-using POC.Identity.Service.Models;
+using POC.Identity.Service.UseCases.CheckUsername;
+using POC.Identity.Service.UseCases.Login;
+using POC.Identity.Service.UseCases.Signup;
+using POC.Identity.Service.UseCases.UpdateLogin;
 using System.ServiceModel;
 using System.Threading.Tasks;
 

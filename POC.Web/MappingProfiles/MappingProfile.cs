@@ -3,7 +3,8 @@ using POC.Accounts.Service.Model;
 using POC.Accounts.Service.UseCases.Model;
 using POC.Accounts.Service.UseCases.UpdateAccountAddress;
 using POC.Accounts.Service.UseCases.UpdateAccountHeader;
-using POC.Identity.Service.Models;
+using POC.Identity.Service.UseCases.UpdateLogin;
+using POC.Todos.Service.UseCases.ListTodos;
 using POC.Web.Models;
 
 namespace POC.Web.MappingProfiles
@@ -30,6 +31,8 @@ namespace POC.Web.MappingProfiles
                 .ForMember(dst => dst.Username, opt => opt.Ignore())
                 .ForMember(dst => dst.NewUsername, opt => opt.MapFrom(src => src.Username))
                 .ForMember(dst => dst.NewPassword, opt => opt.MapFrom(src => src.Password));
+
+            CreateMap<ListTodosServiceResponse.Item, TodoListItemViewModel>();
         }
     }
 }

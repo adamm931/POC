@@ -1,5 +1,5 @@
-﻿using POC.Identity.Web.Authentication.Extensions;
-using POC.Web.Validation.Extensions;
+﻿using POC.Configuration.DI.Mvc;
+using POC.Identity.Web.Authentication.Extensions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -17,7 +17,8 @@ namespace POC.Web
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             GlobalFilters.Filters.AddAuthentication();
-            ModelValidatorProviders.Providers.AddPocModelValidatorProvider();
+
+            DependencyResolver.SetResolver(new PocDependancyResolver<MvcApplication>());
         }
     }
 }

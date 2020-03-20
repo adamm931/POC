@@ -47,8 +47,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extensions\ModelValidatorProviderExtensions.cs" />
-    <Compile Include="PocModelValidatorProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Attributes\PocCheckCredentialsAttribute.cs" />
     <Compile Include="Attributes\PocPasswordAttribute.cs" />

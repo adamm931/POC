@@ -119,27 +119,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Global.asax" />
     <Content Include="LoggingService.svc" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\LoggingContainerConfigurator.cs" />
     <Compile Include="Contracts\ILoggingService.cs" />
-    <Compile Include="DependancyInjection\LoggingContainer.cs" />
-    <Compile Include="DependancyInjection\LoggingServiceHostFactory.cs" />
-    <Compile Include="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
     <Compile Include="LoggingService.svc.cs">
       <DependentUpon>LoggingService.svc</DependentUpon>
     </Compile>
     <Compile Include="MappingProfiles\LoggingMappingProfile.cs" />
-    <Compile Include="Models\Log\AddLogEntry\AddLogEntryServiceHandler.cs" />
-    <Compile Include="Models\Log\AddLogEntry\AddLogEntryServiceRequest.cs" />
-    <Compile Include="Models\Log\ListLogEntries\ListLogEntriesServiceHandler.cs" />
-    <Compile Include="Models\Log\ListLogEntries\ListLogEntriesServiceResponse.cs" />
-    <Compile Include="Models\Log\ListLogEntries\ListLogEntriesServiceRequest.cs" />
+    <Compile Include="UseCases\AddLogEntry\AddLogEntryServiceRequest.cs" />
+    <Compile Include="UseCases\ListLogEntries\ListLogEntriesServiceResponse.cs" />
+    <Compile Include="UseCases\ListLogEntries\ListLogEntriesServiceRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -150,6 +142,10 @@
     <ProjectReference Include="..\POC.Configuration.DI\POC.Configuration.DI.csproj">
       <Project>{E5935973-174E-46AF-B297-BC4123035519}</Project>
       <Name>POC.Configuration.DI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\POC.Configuration.Mapping\POC.Configuration.Mapping.csproj">
+      <Project>{8F25E1F4-1B8E-4883-8480-60B9CC373D86}</Project>
+      <Name>POC.Configuration.Mapping</Name>
     </ProjectReference>
     <ProjectReference Include="..\POC.Logging\POC.Logging.csproj">
       <Project>{9608733B-8B52-4408-8F95-7ADFF9FE6F5F}</Project>

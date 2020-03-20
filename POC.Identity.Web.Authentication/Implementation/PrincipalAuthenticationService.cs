@@ -3,18 +3,18 @@ using POC.Identity.Web.Authentication.Extensions;
 using POC.Identity.Web.Authentication.Principal;
 using POC.Identity.Web.Authentication.Service;
 using POC.Identity.Web.AuthenticationService.Contracts;
-using System.Web;
+using POC.Web.Common;
 
 namespace POC.Identity.Web.Authentication.Implementation
 {
     internal class PrincipalAuthenticationService : IAuthenticationService
     {
-        private readonly HttpContextBase _httpContext;
+        private readonly IHttpContext _httpContext;
         private readonly IPrincipalProvider _principalProvider;
         private readonly IUserSession _userSession;
 
         public PrincipalAuthenticationService(
-            HttpContextBase httpContext,
+            IHttpContext httpContext,
             IPrincipalProvider principalProvider,
             IUserSession userSession)
         {
@@ -23,9 +23,9 @@ namespace POC.Identity.Web.Authentication.Implementation
             _userSession = userSession;
         }
 
-        public bool IsAuthenticated => _httpContext.IsPrincipalAuthenticated();
+        public bool IsAuthenticated => _httpContext.Context.IsPrincipalAuthenticated();
 
-        public IUser GetUser() => new PrincipalBasedUser(_httpContext.User);
+        public IUser GetUser() => new PrincipalBasedUser(_httpContext.Context.User);
 
         public void LoginUser(IUser user)
         {
@@ -38,7 +38,7 @@ namespace POC.Identity.Web.Authentication.Implementation
         {
             _principalProvider.ClearPrincipal();
 
-            _httpContext.Session.Abandon();
+            _httpContext.Context.Session.Abandon();
 
             _userSession.CloseSession();
         }

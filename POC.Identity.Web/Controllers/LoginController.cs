@@ -1,13 +1,13 @@
 ﻿using POC.Accounts.Service.Contracts;
 using POC.Accounts.Service.Model;
-using POC.Channel;
 using POC.Identity.Service.Contracts;
-using POC.Identity.Service.Models;
-using POC.Identity.Web.Authentication;
+using POC.Identity.Service.UseCases.Login;
+using POC.Identity.Service.UseCases.Signup;
 using POC.Identity.Web.Authentication.Models;
 using POC.Identity.Web.Authentication.Service;
 using POC.Identity.Web.Models;
-using POC.Service.Contracts;
+using POC.Todos.Service.Contracts;
+using POC.Todos.Service.UseCases.AddUser;
 using System;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -16,15 +16,25 @@ namespace POC.Identity.Web.Controllers
 {
     public class LoginController : Controller
     {
-        private IIdentityService IdentityService => ChannelManager.Instance.GetIdentityService();
+        private readonly IIdentityService _identityService;
+        private readonly ITodoService _todoService;
+        private readonly IAccountService _accountService;
+        private readonly IRedirectUrlProvider _redirectUrlProvider;
+        private readonly IUserSession _userSession;
 
-        private ITodoService TodoService => ChannelManager.Instance.GetTodoService();
-
-        private IAccountService AccountService => ChannelManager.Instance.GetAccountService();
-
-        private IRedirectUrlProvider RedirectUrlProvider => AuthenticationServiceFactory.GetRedirectUrlProvider();
-
-        private IUserSession UserSession => AuthenticationServiceFactory.GetUserSession(HttpContext);
+        public LoginController(
+            IIdentityService identityService,
+            ITodoService todoService,
+            IAccountService accountService,
+            IRedirectUrlProvider redirectUrlProvider,
+            IUserSession userSession)
+        {
+            _identityService = identityService;
+            _todoService = todoService;
+            _accountService = accountService;
+            _redirectUrlProvider = redirectUrlProvider;
+            _userSession = userSession;
+        }
 
         [HttpGet]
         public ActionResult Index()
@@ -46,7 +56,7 @@ namespace POC.Identity.Web.Controllers
                 Password = model.Password
             };
 
-            var result = await IdentityService.LoginAsync(request);
+            var result = await _identityService.LoginAsync(request);
 
             if (!result.IsSuccess)
             {
@@ -65,9 +75,9 @@ namespace POC.Identity.Web.Controllers
                 Username = model.Username
             };
 
-            UserSession.EnstablishSession(userSession);
+            _userSession.EnstablishSession(userSession);
 
-            return Redirect(RedirectUrlProvider.RedirectUrl);
+            return Redirect(_redirectUrlProvider.RedirectUrl);
         }
 
         [HttpGet]
@@ -94,10 +104,13 @@ namespace POC.Identity.Web.Controllers
                 Password = signupPassowrd
             };
 
-            await IdentityService.SignupAsync(signupRequest);
+            await _identityService.SignupAsync(signupRequest);
 
             // add user
-            await TodoService.AddUserAsync(signupUsername);
+            await _todoService.AddUserAsync(new AddUserServiceRequest
+            {
+                Username = signupUsername
+            });
 
             // add account login
             var accountLoginRequest = new AddAccountLoginServiceRequest
@@ -105,7 +118,7 @@ namespace POC.Identity.Web.Controllers
                 Username = signupUsername
             };
 
-            await AccountService.AddAccountLoginAsync(accountLoginRequest);
+            await _accountService.AddAccountLoginAsync(accountLoginRequest);
 
             // begin session
             var userSession = new UserSessionModel
@@ -113,9 +126,9 @@ namespace POC.Identity.Web.Controllers
                 Username = signupUsername
             };
 
-            UserSession.EnstablishSession(userSession);
+            _userSession.EnstablishSession(userSession);
 
-            return Redirect(RedirectUrlProvider.RedirectUrl);
+            return Redirect(_redirectUrlProvider.RedirectUrl);
         }
     }
 }

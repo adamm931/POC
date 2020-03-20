@@ -1,4 +1,4 @@
-﻿using POC.Web.Validation.Extensions;
+﻿using POC.Configuration.DI.Mvc;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -15,7 +15,7 @@ namespace POC.Identity.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            ModelValidatorProviders.Providers.AddPocModelValidatorProvider();
+            DependencyResolver.SetResolver(new PocDependancyResolver<MvcApplication>());
         }
     }
 }

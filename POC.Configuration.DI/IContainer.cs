@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace POC.Configuration.DI
 {
@@ -14,6 +15,10 @@ namespace POC.Configuration.DI
 
         object Resolve(Type type);
 
+        IEnumerable<object> ResolveAll(Type type);
+
         bool IsRegistered(Type type);
+
+
     }
 }

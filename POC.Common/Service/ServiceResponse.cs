@@ -17,7 +17,7 @@ namespace POC.Common.Service
 
         public static new ServiceResponse<TResponse> Fail(Exception exception)
         {
-            return new ServiceResponse<TResponse>(exception.Message);
+            return new ServiceResponse<TResponse>(exception.ToString());
         }
 
         public static ServiceResponse<TResponse> Success(TResponse response)
@@ -71,7 +71,7 @@ namespace POC.Common.Service
 
         public static ServiceResponse Fail(Exception exception)
         {
-            return new ServiceResponse(exception.Message);
+            return new ServiceResponse(exception.ToString());
         }
 
         public void EnsureSuccessfull()

@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChannelManager.cs" />
+    <Compile Include="DIExtensions.cs" />
     <Compile Include="IChannelManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -55,13 +56,21 @@
       <Project>{0FAEE2E1-706A-4EEC-A81C-D7A0AD32763E}</Project>
       <Name>POC.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\POC.Configuration.DI\POC.Configuration.DI.csproj">
+      <Project>{e5935973-174e-46af-b297-bc4123035519}</Project>
+      <Name>POC.Configuration.DI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\POC.Identity.Service\POC.Identity.Service.csproj">
       <Project>{CEED1C07-3F63-4661-B6C9-0EBD21109CEB}</Project>
       <Name>POC.Identity.Service</Name>
     </ProjectReference>
-    <ProjectReference Include="..\POC.Service\POC.Service.csproj">
+    <ProjectReference Include="..\POC.Logging.Service\POC.Logging.Service.csproj">
+      <Project>{110F6116-F7BA-4ACA-8B7A-601C3B9E48BE}</Project>
+      <Name>POC.Logging.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\POC.Todos.Service\POC.Todos.Service.csproj">
       <Project>{CC2072E1-8CF9-4FCF-AC57-4A5354CE0439}</Project>
-      <Name>POC.Service</Name>
+      <Name>POC.Todos.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
