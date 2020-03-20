@@ -2,7 +2,7 @@
 
 namespace POC.Accounts.Service.Model
 {
-    public class AccountLoginServiceResponse
+    public class AddAccountLoginServiceResponse
     {
         public Guid AccountId { get; set; }
 

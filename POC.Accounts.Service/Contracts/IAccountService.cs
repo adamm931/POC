@@ -1,4 +1,7 @@
 ﻿using POC.Accounts.Service.Model;
+using POC.Accounts.Service.UseCases.Model;
+using POC.Accounts.Service.UseCases.UpdateAccountAddress;
+using POC.Accounts.Service.UseCases.UpdateAccountHeader;
 using POC.Common.Service;
 using System;
 using System.ServiceModel;
@@ -10,10 +13,10 @@ namespace POC.Accounts.Service.Contracts
     public interface IAccountService
     {
         [OperationContract]
-        Task<ServiceResponse> UpdateAccountHeaderAsync(AccountHeaderServiceRequest serviceRequest);
+        Task<ServiceResponse> UpdateAccountHeaderAsync(UpdateAccountHeaderServiceRequest serviceRequest);
 
         [OperationContract]
-        Task<ServiceResponse> UpdateAccountAddressAsync(AccountAddressServiceRequest serviceRequest);
+        Task<ServiceResponse> UpdateAccountAddressAsync(UpdateAccountAddressServiceRequest serviceRequest);
 
         [OperationContract]
         Task<ServiceResponse<AccountServiceResponse>> GetAccountAsync(Guid id);
@@ -22,7 +25,7 @@ namespace POC.Accounts.Service.Contracts
         Task<ServiceResponse<AccountServiceResponse>> GetAccountByUsername(string username);
 
         [OperationContract]
-        Task<ServiceResponse<AccountLoginServiceResponse>> AddAccountLoginAsync(AccountLoginServiceRequest serviceRequest);
+        Task<ServiceResponse<AddAccountLoginServiceResponse>> AddAccountLoginAsync(AddAccountLoginServiceRequest serviceRequest);
 
         [OperationContract]
         Task<ServiceResponse<UpdateAccountLoginServiceResponse>> UpdateAccountLoginAsync(UpdateAccountLoginServiceRequest serviceRequest);

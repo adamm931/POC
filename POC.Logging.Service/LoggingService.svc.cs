@@ -1,34 +1,34 @@
-﻿using POC.Logging.Data;
+﻿using POC.Common.Service;
+using POC.Configuration.DI;
 using POC.Logging.Domain;
 using POC.Logging.Service.Contracts;
-using POC.Logging.Service.Models;
-using System;
+using POC.Logging.Service.Models.Log;
 using System.Threading.Tasks;
 
 namespace POC.Logging.Service
 {
     public class LoggingService : ILoggingService
     {
-        public LoggingService()
+        public LoggingService(IServiceMediator mediator)
         {
-
+            ServiceMediator = mediator;
         }
 
-        public async Task AddLogEntryAsync(AddLogEntryServiceRequest request)
+        public LoggingService() : this(new ServiceMediator(ContainerHolder<LoggingService>.Container))
         {
-            var loggingContext = new LoggingContext();
+            var blackhole = ContainerHolder<LogEntry>.Container;
+        }
 
-            var logEntry = new LogEntry(request.Title, request.Text, request.Level);
+        public IServiceMediator ServiceMediator { get; }
 
-            try
-            {
-                await loggingContext.LogEntries.InsertOneAsync(logEntry);
-            }
+        public async Task<ServiceResponse> AddLogEntryAsync(AddLogEntryServiceRequest request)
+        {
+            return await ServiceMediator.Handle(request);
+        }
 
-            catch (Exception e)
-            {
-                throw e;
-            }
+        public async Task<ServiceResponse<ListLogEntriesServiceResponse>> QueryLogEntriesAsync(ListLogEntriesServiceRequest request)
+        {
+            return await ServiceMediator.Handle<ListLogEntriesServiceRequest, ListLogEntriesServiceResponse>(request);
         }
     }
 }

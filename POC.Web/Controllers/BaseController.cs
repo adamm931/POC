@@ -8,6 +8,6 @@ namespace POC.Web.Controllers
     {
         protected string Username => User.Identity.Name;
 
-        protected readonly Mapping Mapper = Mapping.Create(new MappingProfile());
+        protected readonly IMapping Mapper = Mapping.Create(new MappingProfile());
     }
 }

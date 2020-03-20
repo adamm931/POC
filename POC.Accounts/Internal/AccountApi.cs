@@ -12,7 +12,7 @@ namespace POC.Accounts.Internal
 {
     internal class AccountApi : IAccountApi
     {
-        private readonly Mapping Mapping = Mapping.Create(new AccountMappingProfile());
+        private readonly IMapping Mapper = Mapping.Create(new AccountMappingProfile());
 
         private readonly AccountContext Context = new AccountContext();
 
@@ -26,7 +26,7 @@ namespace POC.Accounts.Internal
 
                 await Context.SaveChangesAsync();
 
-                return Mapping.Map<AccountLoginResponse>(accountLogin);
+                return Mapper.Map<AccountLoginResponse>(accountLogin);
             }
         }
 
@@ -36,7 +36,7 @@ namespace POC.Accounts.Internal
             {
                 var account = await GetAccount(id);
 
-                return Mapping.Map<AccountResponse>(account);
+                return Mapper.Map<AccountResponse>(account);
             }
         }
 
@@ -46,7 +46,7 @@ namespace POC.Accounts.Internal
             {
                 var account = await GetAccount(username);
 
-                return Mapping.Map<AccountResponse>(account);
+                return Mapper.Map<AccountResponse>(account);
             }
         }
 
@@ -97,7 +97,7 @@ namespace POC.Accounts.Internal
 
                 await Context.SaveChangesAsync();
 
-                return Mapping.Map<UpdateAccountLoginResponse>(account.Login);
+                return Mapper.Map<UpdateAccountLoginResponse>(account.Login);
             }
         }
 

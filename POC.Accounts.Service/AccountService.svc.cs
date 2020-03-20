@@ -1,11 +1,12 @@
-﻿using POC.Accounts.Contracts;
-using POC.Accounts.Factory;
-using POC.Accounts.Model;
-using POC.Accounts.Service.Contracts;
-using POC.Accounts.Service.MappingProfiles;
+﻿using POC.Accounts.Service.Contracts;
 using POC.Accounts.Service.Model;
-using POC.Common.Mapper;
+using POC.Accounts.Service.UseCases.GetAccountById;
+using POC.Accounts.Service.UseCases.GetAccountByUsername;
+using POC.Accounts.Service.UseCases.Model;
+using POC.Accounts.Service.UseCases.UpdateAccountAddress;
+using POC.Accounts.Service.UseCases.UpdateAccountHeader;
 using POC.Common.Service;
+using POC.Configuration.DI;
 using System;
 using System.Threading.Tasks;
 
@@ -13,72 +14,55 @@ namespace POC.Accounts.Service
 {
     public class AccountService : IAccountService
     {
-        private readonly Mapping Mapping = Mapping.Create(new AccountMappingProfile());
+        private readonly IServiceMediator ServiceMediator =
+            new ServiceMediator(ContainerHolder<AccountService>.Container);
 
-        private readonly IAccountApi AccountApi = AccountApiFactory.GetAccountApi();
-
-        public async Task<ServiceResponse<AccountLoginServiceResponse>> AddAccountLoginAsync(AccountLoginServiceRequest serviceRequest)
+        public async Task<ServiceResponse<AddAccountLoginServiceResponse>> AddAccountLoginAsync(
+            AddAccountLoginServiceRequest serviceRequest)
         {
-            return await ServiceRequest.Invoke(async () =>
-            {
-                var request = Mapping.Map<AccountLoginRequest>(serviceRequest);
-
-                var response = await AccountApi.AddAccountLoginAsync(request);
-
-                return Mapping.Map<AccountLoginServiceResponse>(response);
-            });
+            return await ServiceMediator
+                .Handle<AddAccountLoginServiceRequest, AddAccountLoginServiceResponse>(serviceRequest);
         }
 
         public async Task<ServiceResponse<AccountServiceResponse>> GetAccountAsync(Guid id)
         {
-            return await ServiceRequest.Invoke(async () =>
+            var serviceRequest = new GetAccountByIdServiceRequest
             {
-                var response = await AccountApi.GetAccountAsync(id);
+                Id = id
+            };
 
-                return Mapping.Map<AccountServiceResponse>(response);
-            });
+            return await ServiceMediator
+                .Handle<GetAccountByIdServiceRequest, AccountServiceResponse>(serviceRequest);
         }
 
         public async Task<ServiceResponse<AccountServiceResponse>> GetAccountByUsername(string username)
         {
-            return await ServiceRequest.Invoke(async () =>
+            var serviceRequest = new GetAccountByUsernameServiceRequest
             {
-                var response = await AccountApi.GetAccountByUsernameAsync(username);
+                Username = username
+            };
 
-                return Mapping.Map<AccountServiceResponse>(response);
-            });
+            return await ServiceMediator
+                .Handle<GetAccountByUsernameServiceRequest, AccountServiceResponse>(serviceRequest);
         }
 
-        public async Task<ServiceResponse> UpdateAccountAddressAsync(AccountAddressServiceRequest serviceRequest)
+        public async Task<ServiceResponse> UpdateAccountAddressAsync(UpdateAccountAddressServiceRequest serviceRequest)
         {
-            return await ServiceRequest.Invoke(async () =>
-            {
-                var request = Mapping.Map<AccountAddressRequest>(serviceRequest);
-
-                await AccountApi.UpdateAccountAddressAsync(request);
-            });
+            return await ServiceMediator
+                .Handle(serviceRequest);
         }
 
-        public async Task<ServiceResponse> UpdateAccountHeaderAsync(AccountHeaderServiceRequest serviceRequest)
+        public async Task<ServiceResponse> UpdateAccountHeaderAsync(UpdateAccountHeaderServiceRequest serviceRequest)
         {
-            return await ServiceRequest.Invoke(async () =>
-            {
-                var request = Mapping.Map<AccountHeaderRequest>(serviceRequest);
-
-                await AccountApi.UpdateAccountHeaderAsync(request);
-            });
+            return await ServiceMediator
+                .Handle(serviceRequest);
         }
 
-        public async Task<ServiceResponse<UpdateAccountLoginServiceResponse>> UpdateAccountLoginAsync(UpdateAccountLoginServiceRequest serviceRequest)
+        public async Task<ServiceResponse<UpdateAccountLoginServiceResponse>> UpdateAccountLoginAsync(
+            UpdateAccountLoginServiceRequest serviceRequest)
         {
-            return await ServiceRequest.Invoke(async () =>
-            {
-                var request = Mapping.Map<UpdateAccountLoginRequest>(serviceRequest);
-
-                var response = await AccountApi.UpdateAccountLoginAsync(request);
-
-                return Mapping.Map<UpdateAccountLoginServiceResponse>(response);
-            });
+            return await ServiceMediator
+                .Handle<UpdateAccountLoginServiceRequest, UpdateAccountLoginServiceResponse>(serviceRequest);
         }
     }
 }

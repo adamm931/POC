@@ -19,7 +19,7 @@ namespace POC.Common.Connection
         public static IConnectionString GetSqlConnectionString(string database)
         {
             var builder = new ConnectionStringBuilder()
-                .SetTemplates(new MongoConnectionStringTemplate())
+                .SetTemplates(new SqlServerConnectionStringTemplate())
                 .AddVariables(new ConnectionStringVariables(
                     EnviromentConnectionStringVariable.Host(EnviromentVariables.DbHost),
                     EnviromentConnectionStringVariable.Port(EnviromentVariables.DbPort),

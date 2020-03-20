@@ -11,7 +11,7 @@ namespace POC.Logging.Domain
             Text = text;
             Level = level;
 
-            CreateAt = DateTime.UtcNow;
+            CreatedAt = DateTime.UtcNow;
         }
 
         public string Text { get; private set; }
@@ -20,6 +20,6 @@ namespace POC.Logging.Domain
 
         public LogEntryLevel Level { get; private set; }
 
-        public DateTime CreateAt { get; private set; }
+        public DateTime CreatedAt { get; private set; }
     }
 }

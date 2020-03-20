@@ -1,7 +1,6 @@
-﻿using POC.Accounts.Service.Model;
-using System;
+﻿using System;
 
-namespace POC.Accounts.Service.Model
+namespace POC.Accounts.Service.UseCases.Model
 {
     public class AccountServiceResponse
     {

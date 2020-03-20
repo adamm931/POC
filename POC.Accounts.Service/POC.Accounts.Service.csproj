@@ -81,16 +81,22 @@
     <Compile Include="AccountService.svc.cs">
       <DependentUpon>AccountService.svc</DependentUpon>
     </Compile>
+    <Compile Include="Configuration\AccountServiceContainerConfigurator.cs" />
     <Compile Include="Contracts\IAccountService.cs" />
     <Compile Include="MappingProfiles\AccountMappingProfile.cs" />
-    <Compile Include="Model\AccountAddressServiceRequest.cs" />
-    <Compile Include="Model\AccountAddressServiceResponse.cs" />
-    <Compile Include="Model\AccountHeaderServiceRequest.cs" />
-    <Compile Include="Model\AccountLoginServiceRequest.cs" />
-    <Compile Include="Model\AccountLoginServiceResponse.cs" />
-    <Compile Include="Model\AccountServiceResponse.cs" />
-    <Compile Include="Model\UpdateAccountLoginServiceRequest.cs" />
-    <Compile Include="Model\UpdateAccountLoginServiceResponse.cs" />
+    <Compile Include="UseCases\Model\AccountAddressServiceRequest.cs" />
+    <Compile Include="UseCases\Model\AccountAddressServiceResponse.cs" />
+    <Compile Include="UseCases\Model\AccountHeaderServiceRequest.cs" />
+    <Compile Include="UseCases\AddAccountLogin\AddAccountLoginServiceRequest.cs" />
+    <Compile Include="UseCases\AddAccountLogin\AddAccountLoginServiceResponse.cs" />
+    <Compile Include="UseCases\Model\AccountServiceResponse.cs" />
+    <Compile Include="UseCases\Base\AccountServiceHandler.cs" />
+    <Compile Include="UseCases\GetAccountById\GetAccountByIdServiceRequest.cs" />
+    <Compile Include="UseCases\GetAccountByUsername\GetAccountByUsernameServiceRequest.cs" />
+    <Compile Include="UseCases\UpdateAccountAddress\UpdateAccountAddressServiceRequest.cs" />
+    <Compile Include="UseCases\UpdateAccountHeader\UpdateAccountHeaderServiceRequest.cs" />
+    <Compile Include="UseCases\UpdateAccountLogin\UpdateAccountLoginServiceRequest.cs" />
+    <Compile Include="UseCases\UpdateAccountLogin\UpdateAccountLoginServiceResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -101,6 +107,14 @@
     <ProjectReference Include="..\POC.Common\POC.Common.csproj">
       <Project>{0FAEE2E1-706A-4EEC-A81C-D7A0AD32763E}</Project>
       <Name>POC.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\POC.Configuration.DI\POC.Configuration.DI.csproj">
+      <Project>{E5935973-174E-46AF-B297-BC4123035519}</Project>
+      <Name>POC.Configuration.DI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\POC.Configuration.Mapping\POC.Configuration.Mapping.csproj">
+      <Project>{8f25e1f4-1b8e-4883-8480-60b9cc373d86}</Project>
+      <Name>POC.Configuration.Mapping</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -113,6 +127,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

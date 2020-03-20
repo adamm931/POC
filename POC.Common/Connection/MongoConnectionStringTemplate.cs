@@ -6,8 +6,8 @@
         {
         }
 
-        private static string GetTemplate() => $"mongodb://{ConnectionStringVariables.Host}" +
-            $":{ConnectionStringVariables.Port}" +
-            $"/{ConnectionStringVariables.DbName}";
+        private static string GetTemplate() => $"mongodb://${ConnectionStringVariables.Host}$" +
+            $":${ConnectionStringVariables.Port}$" +
+            $"/${ConnectionStringVariables.DbName}$";
     }
 }

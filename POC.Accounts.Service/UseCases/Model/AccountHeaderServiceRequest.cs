@@ -1,8 +1,9 @@
-﻿using System;
+﻿using POC.Common.Service;
+using System;
 
-namespace POC.Accounts.Service.Model
+namespace POC.Accounts.Service.UseCases.Model
 {
-    public class AccountHeaderServiceRequest
+    public class AccountHeaderServiceRequest : IServiceRequest
     {
         public string AccountUsername { get; set; }
 

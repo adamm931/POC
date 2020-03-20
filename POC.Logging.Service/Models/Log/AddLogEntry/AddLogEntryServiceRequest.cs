@@ -1,6 +1,8 @@
-﻿namespace POC.Logging.Service.Models
+﻿using POC.Common.Service;
+
+namespace POC.Logging.Service.Models.Log
 {
-    public class AddLogEntryServiceRequest
+    public class AddLogEntryServiceRequest : IServiceRequest
     {
         public string Title { get; set; }
 

@@ -1,13 +1,12 @@
 ﻿using MongoDB.Driver;
 using POC.Common.Connection;
+using POC.Logging.Contracts;
 using POC.Logging.Domain;
 
 namespace POC.Logging.Data
 {
-    public class LoggingContext
+    public class LoggingContext : ILoggingContext
     {
-        public IMongoDatabase Database { get; }
-
         public IMongoCollection<LogEntry> LogEntries { get; set; }
 
         public IMongoCollection<AuditEntry> AuditEntries { get; set; }
@@ -17,10 +16,10 @@ namespace POC.Logging.Data
             var connectionString = ConnectionStringFactory.GetMongoConnnectionString("Logging");
             var client = new MongoClient(connectionString.Value);
 
-            Database = client.GetDatabase("Logging");
+            var databse = client.GetDatabase("Logging");
 
-            LogEntries = Database.GetCollection<LogEntry>(nameof(LogEntries));
-            AuditEntries = Database.GetCollection<AuditEntry>(nameof(AuditEntries));
+            LogEntries = databse.GetCollection<LogEntry>(nameof(LogEntries));
+            AuditEntries = databse.GetCollection<AuditEntry>(nameof(AuditEntries));
         }
     }
 }

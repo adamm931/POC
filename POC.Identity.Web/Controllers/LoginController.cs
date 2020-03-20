@@ -100,7 +100,7 @@ namespace POC.Identity.Web.Controllers
             await TodoService.AddUserAsync(signupUsername);
 
             // add account login
-            var accountLoginRequest = new AccountLoginServiceRequest
+            var accountLoginRequest = new AddAccountLoginServiceRequest
             {
                 Username = signupUsername
             };

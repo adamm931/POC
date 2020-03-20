@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace POC.Common.Mapper
 {
-    public class Mapping
+    public class Mapping : IMapping
     {
         private readonly IMapper _mapper;
 
@@ -14,12 +14,12 @@ namespace POC.Common.Mapper
                 .CreateMapper();
         }
 
-        public static Mapping Create(params Profile[] profiles)
+        public static IMapping Create(params Profile[] profiles)
         {
             return new Mapping(profiles);
         }
 
-        public static Mapping Create()
+        public static IMapping Create()
         {
             return new Mapping(new List<Profile>());
         }

@@ -20,7 +20,7 @@
         {
             if (Template.IndexOf(variable.Name) >= 0)
             {
-                return new ConnectionStringTemplate(Template.Replace(variable.Name, variable.Value));
+                return new ConnectionStringTemplate(Template.Replace($"${variable.Name}$", variable.Value));
             }
 
             return new ConnectionStringTemplate(Template);

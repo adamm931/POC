@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace POC.Common
@@ -23,6 +26,20 @@ namespace POC.Common
         public static string AsString(this byte[] input)
         {
             return Encoding.UTF8.GetString(input);
+        }
+
+        public static IEnumerable<TType> GetInstancesOf<TType>(this Assembly assembly)
+        {
+            return assembly.GetExportedTypes()
+                .Where(type => typeof(TType).IsAssignableFrom(type))
+                .Select(profile => Activator.CreateInstance(profile))
+                .Cast<TType>();
+        }
+
+        public static Type GetTypeOf<TType>(this Assembly assembly)
+        {
+            return assembly.GetExportedTypes()
+                .FirstOrDefault(type => typeof(TType).IsAssignableFrom(type));
         }
     }
 }

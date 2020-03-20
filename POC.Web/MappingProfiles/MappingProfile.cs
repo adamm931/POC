@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
 using POC.Accounts.Service.Model;
+using POC.Accounts.Service.UseCases.Model;
+using POC.Accounts.Service.UseCases.UpdateAccountAddress;
+using POC.Accounts.Service.UseCases.UpdateAccountHeader;
 using POC.Identity.Service.Models;
 using POC.Web.Models;
 
@@ -13,8 +16,8 @@ namespace POC.Web.MappingProfiles
                 .ForMember(dst => dst.Header, opt => opt.MapFrom(src => src))
                 .ForMember(dst => dst.Address, opt => opt.MapFrom(src => src.Address));
 
-            CreateMap<AccountHeaderViewModel, AccountHeaderServiceRequest>();
-            CreateMap<AccountAddressViewModel, AccountAddressServiceRequest>();
+            CreateMap<AccountHeaderViewModel, UpdateAccountHeaderServiceRequest>();
+            CreateMap<AccountAddressViewModel, UpdateAccountAddressServiceRequest>();
 
             CreateMap<AccountServiceResponse, AccountHeaderViewModel>();
             CreateMap<AccountAddressServiceResponse, AccountAddressViewModel>();

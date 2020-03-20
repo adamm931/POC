@@ -1,5 +1,6 @@
 ﻿using POC.Accounts.Service.Contracts;
-using POC.Accounts.Service.Model;
+using POC.Accounts.Service.UseCases.UpdateAccountAddress;
+using POC.Accounts.Service.UseCases.UpdateAccountHeader;
 using POC.Channel;
 using POC.Web.Models;
 using System.Threading.Tasks;
@@ -25,11 +26,11 @@ namespace POC.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> Update(AccountViewModel model)
         {
-            var accountHeaderRequest = Mapper.Map<AccountHeaderServiceRequest>(model.Header);
+            var accountHeaderRequest = Mapper.Map<UpdateAccountHeaderServiceRequest>(model.Header);
             accountHeaderRequest.AccountUsername = Username;
             await AccountService.UpdateAccountHeaderAsync(accountHeaderRequest);
 
-            var accountAddressRequest = Mapper.Map<AccountAddressServiceRequest>(model.Address);
+            var accountAddressRequest = Mapper.Map<UpdateAccountAddressServiceRequest>(model.Address);
             accountAddressRequest.AccountUsername = Username;
             await AccountService.UpdateAccountAddressAsync(accountAddressRequest);
 

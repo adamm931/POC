@@ -1,7 +1,11 @@
-﻿namespace POC.Accounts.Service.Model
+﻿using POC.Common.Service;
+
+namespace POC.Accounts.Service.UseCases.Model
 {
-    public class AccountAddressServiceResponse
+    public class AccountAddressServiceRequest : IServiceRequest
     {
+        public string AccountUsername { get; set; }
+
         public string Street { get; set; }
 
         public string City { get; set; }

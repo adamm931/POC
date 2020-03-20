@@ -75,6 +75,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\ILoggingContext.cs" />
     <Compile Include="Data\LoggingContext.cs" />
     <Compile Include="Domain\AuditEntry.cs" />
     <Compile Include="Domain\AuditType.cs" />
@@ -89,7 +90,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Contracts\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

@@ -6,9 +6,9 @@
         {
         }
 
-        public static string GetTemplate() => $"Server={ConnectionStringVariables.Host},{ConnectionStringVariables.Port};" +
-            $"Database={ConnectionStringVariables.DbName};" +
-            $"User ID={ConnectionStringVariables.User};" +
-            $"Password={ConnectionStringVariables.Password}";
+        public static string GetTemplate() => $"Server=${ConnectionStringVariables.Host}$,${ConnectionStringVariables.Port}$;" +
+            $"Database=${ConnectionStringVariables.DbName}$;" +
+            $"User ID=${ConnectionStringVariables.User}$;" +
+            $"Password=${ConnectionStringVariables.Password}$";
     }
 }

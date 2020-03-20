@@ -1,62 +1,62 @@
-﻿using POC.Common.Mapper;
-using POC.Common.Service;
-using POC.Identity.Contracts;
-using POC.Identity.Models;
-using POC.Identity.Service.Contracts;
-using POC.Identity.Service.MappingProfiles;
-using POC.Identity.Service.Models;
-using System.Threading.Tasks;
+﻿//using POC.Common.Mapper;
+//using POC.Common.Service;
+//using POC.Identity.Contracts;
+//using POC.Identity.Models;
+//using POC.Identity.Service.Contracts;
+//using POC.Identity.Service.MappingProfiles;
+//using POC.Identity.Service.Models;
+//using System.Threading.Tasks;
 
-namespace POC.Identity.Service
-{
-    internal class IdentityService : IIdentityService
-    {
-        private readonly Mapping Mapping = Mapping.Create(new IdentityServiceMappingProfile());
+//namespace POC.Identity.Service
+//{
+//    internal class IdentityService : IIdentityService
+//    {
+//        private readonly IMapping Mapper = Mapping.Create(new IdentityServiceMappingProfile());
 
-        private readonly IIdentityApi UserService = new IdentityApi();
+//        private readonly IIdentityApi UserService = new IdentityApi();
 
-        public async Task<ServiceResponse<CheckUsernameServiceResponse>> CheckUsernameAsync(CheckUsernameServiceRequest serviceRequest)
-        {
-            return await ServiceRequest.Invoke(async () =>
-            {
-                var request = Mapping.Map<CheckUsernameRequest>(serviceRequest);
+//        public async Task<ServiceResponse<CheckUsernameServiceResponse>> CheckUsernameAsync(CheckUsernameServiceRequest serviceRequest)
+//        {
+//            return await ServiceRequest<CheckUsernameServiceResponse>.Invoke(async () =>
+//            {
+//                var request = Mapper.Map<CheckUsernameRequest>(serviceRequest);
 
-                var response = await UserService.CheckUsernameAsync(request);
+//                var response = await UserService.CheckUsernameAsync(request);
 
-                return Mapping.Map<CheckUsernameServiceResponse>(response);
-            });
-        }
+//                return Mapper.Map<CheckUsernameServiceResponse>(response);
+//            });
+//        }
 
-        public async Task<ServiceResponse<UserLoginServiceResponse>> LoginAsync(UserLoginServiceRequest serviceRequest)
-        {
-            return await ServiceRequest.Invoke(async () =>
-            {
-                var request = Mapping.Map<UserLoginRequest>(serviceRequest);
+//        public async Task<ServiceResponse<UserLoginServiceResponse>> LoginAsync(UserLoginServiceRequest serviceRequest)
+//        {
+//            return await ServiceRequest<UserLoginServiceResponse>.Invoke(async () =>
+//            {
+//                var request = Mapper.Map<UserLoginRequest>(serviceRequest);
 
-                var response = await UserService.LoginAsync(request);
+//                var response = await UserService.LoginAsync(request);
 
-                return Mapping.Map<UserLoginServiceResponse>(response);
-            });
-        }
+//                return Mapper.Map<UserLoginServiceResponse>(response);
+//            });
+//        }
 
-        public async Task<ServiceResponse> SignupAsync(SignupUserServiceRequest serviceRequest)
-        {
-            return await ServiceRequest.Invoke(async () =>
-            {
-                var request = Mapping.Map<SignupUserRequest>(serviceRequest);
+//        public async Task<ServiceResponse> SignupAsync(SignupUserServiceRequest serviceRequest)
+//        {
+//            return await ServiceRequest.Invoke(async () =>
+//            {
+//                var request = Mapper.Map<SignupUserRequest>(serviceRequest);
 
-                await UserService.SignupAsync(request);
-            });
-        }
+//                await UserService.SignupAsync(request);
+//            });
+//        }
 
-        public async Task<ServiceResponse> UpdateLoginAsync(UpdateUserLoginServiceRequest serviceRequest)
-        {
-            return await ServiceRequest.Invoke(async () =>
-            {
-                var request = Mapping.Map<UpdateUserLoginRequest>(serviceRequest);
+//        public async Task<ServiceResponse> UpdateLoginAsync(UpdateUserLoginServiceRequest serviceRequest)
+//        {
+//            return await ServiceRequest.Invoke(async () =>
+//            {
+//                var request = Mapper.Map<UpdateUserLoginRequest>(serviceRequest);
 
-                await UserService.UpdateLoginAsync(request);
-            });
-        }
-    }
-}
+//                await UserService.UpdateLoginAsync(request);
+//            });
+//        }
+//    }
+//}

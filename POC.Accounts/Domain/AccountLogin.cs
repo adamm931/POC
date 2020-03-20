@@ -17,16 +17,10 @@ namespace POC.Accounts.Domain
 
         public static AccountLogin CreateAndInitializeAccount(string username)
         {
-            var login = new AccountLogin(username);
-
-            login.SetAccount(Account.Empty());
-
-            return login;
-        }
-
-        public void SetAccount(Account account)
-        {
-            Account = account;
+            return new AccountLogin(username)
+            {
+                Account = Account.Empty()
+            };
         }
 
         public void UpdateUsername(string username)
