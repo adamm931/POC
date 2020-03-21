@@ -1,8 +1,11 @@
-﻿using POC.Common.Service;
+﻿using FluentValidation;
+using POC.Common.Service;
 using POC.Configuration.Mapping;
 using POC.Identity.Contracts;
-using POC.Identity.Models;
 using POC.Identity.Service.UseCases.Base;
+using POC.Identity.Service.UseCases.Validation;
+using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace POC.Identity.Service.UseCases.Login
@@ -15,18 +18,32 @@ namespace POC.Identity.Service.UseCases.Login
 
         public class Handler : IdentityServiceHandler<UserLoginServiceRequest, UserLoginServiceResponse>
         {
-            public Handler(IIdentityApi identityApi, IMapping mapper) : base(identityApi, mapper)
+            public Handler(IIdentityContext identityContext, IMapping mapper) : base(identityContext, mapper)
             {
             }
 
             public override async Task<UserLoginServiceResponse> Handle(UserLoginServiceRequest request)
             {
-                var apiRequest = Mapper.Map<UserLoginRequest>(request);
+                var logins = await IdentityContext.Logins.ToListAsync();
 
-                var response = await IdentityApi.LoginAsync(apiRequest);
-
-                return Mapper.Map<UserLoginServiceResponse>(response);
+                return new UserLoginServiceResponse
+                {
+                    IsAuthenticated = logins.Any(login => login.Challenge(request.Username, request.Password))
+                };
             }
         }
+
+        public class Validator : AbstractValidator<UserLoginServiceRequest>
+        {
+            public Validator(ICredentialRequirmentValidator credentialRequirmentValidator)
+            {
+                RuleFor(model => model.Password)
+                    .SetValidator(new PasswordValidator(credentialRequirmentValidator));
+
+                RuleFor(model => model.Username)
+                    .SetValidator(new UsernameValidator(credentialRequirmentValidator));
+            }
+        }
+
     }
 }

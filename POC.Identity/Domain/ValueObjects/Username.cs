@@ -1,16 +1,9 @@
-﻿using System;
-
-namespace POC.Identity.Domain.ValueObjects
+﻿namespace POC.Identity.Domain.ValueObjects
 {
     public class Username
     {
         public Username(string value)
         {
-            if (string.IsNullOrEmpty(value))
-            {
-                throw new ArgumentNullException(nameof(value));
-            }
-
             Value = value;
         }
 
@@ -30,7 +23,7 @@ namespace POC.Identity.Domain.ValueObjects
 
         public static bool operator ==(Username left, Username right)
         {
-            return left.Value == right.Value;
+            return left?.Value == right?.Value;
         }
 
         public static bool operator !=(Username left, Username right)

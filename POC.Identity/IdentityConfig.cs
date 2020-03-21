@@ -5,18 +5,8 @@ namespace POC.Identity
 {
     public class IdentityConfig
     {
-        public static IEncoder EncoderProvider;
+        public static IEncoder EncoderProvider = Encoder.Base64;
 
-        public static IEncryption EncryptionProvider;
-
-        public static void UseBase64Encryption()
-        {
-            EncoderProvider = Encoder.Base64;
-        }
-
-        public static void UseSha256ManagedHashing()
-        {
-            EncryptionProvider = Encryption.Sha256;
-        }
+        public static IEncryption EncryptionProvider = Encryption.Sha256;
     }
 }

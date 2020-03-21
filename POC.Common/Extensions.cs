@@ -41,5 +41,11 @@ namespace POC.Common
             return assembly.GetExportedTypes()
                 .FirstOrDefault(type => typeof(TType).IsAssignableFrom(type));
         }
+
+        public static IEnumerable<Type> GetTypesOf<TType>(this Assembly assembly)
+        {
+            return assembly.GetExportedTypes()
+                .Where(type => typeof(TType).IsAssignableFrom(type));
+        }
     }
 }

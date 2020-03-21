@@ -1,8 +1,10 @@
-﻿using POC.Common.Service;
+﻿using FluentValidation;
+using POC.Common.Service;
 using POC.Configuration.Mapping;
 using POC.Identity.Contracts;
-using POC.Identity.Models;
 using POC.Identity.Service.UseCases.Base;
+using POC.Identity.Service.UseCases.Validation;
+using System.Data.Entity;
 using System.Threading.Tasks;
 
 namespace POC.Identity.Service.UseCases.UpdateLogin
@@ -17,15 +19,34 @@ namespace POC.Identity.Service.UseCases.UpdateLogin
 
         public class Handler : IdentityServiceHandler<UpdateUserLoginServiceRequest>
         {
-            public Handler(IIdentityApi identityApi, IMapping mapper) : base(identityApi, mapper)
+            public Handler(IIdentityContext identityContext, IMapping mapper) : base(identityContext, mapper)
             {
             }
 
             public override async Task Handle(UpdateUserLoginServiceRequest request)
             {
-                var apiRequest = Mapper.Map<UpdateUserLoginRequest>(request);
+                var login = await IdentityContext
+                    .Logins
+                    .SingleAsync(item => item.Username.Value == request.Username);
 
-                await IdentityApi.UpdateLoginAsync(apiRequest);
+                login.Update(request.NewUsername, request.NewPassword);
+
+                await IdentityContext.Save();
+            }
+        }
+
+        public class Validator : AbstractValidator<UpdateUserLoginServiceRequest>
+        {
+            public Validator(ICredentialRequirmentValidator credentialRequirmentValidator, IIdentityContext identityContext)
+            {
+                RuleFor(model => model.NewPassword)
+                    .SetValidator(new PasswordValidator(credentialRequirmentValidator));
+
+                RuleFor(model => model.Username)
+                    .SetValidator(new UsernameValidator(credentialRequirmentValidator));
+
+                RuleFor(model => model.NewUsername)
+                    .SetValidator(new UniqueUsernameValidator(credentialRequirmentValidator, identityContext));
             }
         }
     }

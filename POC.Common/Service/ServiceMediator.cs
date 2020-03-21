@@ -1,4 +1,6 @@
-﻿using POC.Configuration.DI;
+﻿using FluentValidation;
+using POC.Common.Service.Validation;
+using POC.Configuration.DI;
 using System;
 using System.Threading.Tasks;
 
@@ -7,10 +9,12 @@ namespace POC.Common.Service
     public class ServiceMediator : IServiceMediator
     {
         private readonly IContainer _container;
+        private readonly IServiceRequestValidator _requestValidator;
 
         public ServiceMediator(IContainer container)
         {
             _container = container;
+            _requestValidator = new ServiceRequestValidator(container);
         }
 
         public async Task<ServiceResponse<TResponse>> Handle<TRequest, TResponse>(TRequest request)
@@ -18,11 +22,18 @@ namespace POC.Common.Service
         {
             try
             {
+                await _requestValidator.ValidateAsync(request);
+
                 var handler = GetHandler<TRequest, TResponse>();
 
                 var response = await handler.Handle(request);
 
                 return ServiceResponse<TResponse>.Success(response);
+            }
+
+            catch (ValidationException exception)
+            {
+                return ServiceResponse<TResponse>.Fail(exception.Message);
             }
 
             catch (Exception exception)
@@ -36,11 +47,18 @@ namespace POC.Common.Service
         {
             try
             {
+                await _requestValidator.ValidateAsync(request);
+
                 var handler = GetHandler<TRequest>();
 
                 await handler.Handle(request);
 
                 return ServiceResponse.Success();
+            }
+
+            catch (ValidationException exception)
+            {
+                return ServiceResponse.Fail(exception.Message);
             }
 
             catch (Exception exception)

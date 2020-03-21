@@ -1,6 +1,10 @@
-﻿using POC.Configuration.DI;
+﻿using POC.Common.Connection;
+using POC.Configuration.DI;
 using POC.Configuration.Mapping;
 using POC.Identity.Contracts;
+using POC.Identity.Data;
+using POC.Identity.Internal;
+using System.Data.Entity;
 
 namespace POC.Identity.Service.DI
 {
@@ -9,7 +13,10 @@ namespace POC.Identity.Service.DI
         public void Configure(IContainer container)
         {
             container.RegisterMapping(GetType().Assembly);
-            container.RegisterInstance<IIdentityApi>(new IdentityApi());
+            container.Register<IIdentityContext, IdentityContext>();
+            container.RegisterInstance(ConnectionStringFactory.GetSqlConnectionString("PocIdentity"));
+            container.Register<ICredentialRequirmentValidator, CredentialRequirmentValidator>();
+            container.Register<IDatabaseInitializer<IdentityContext>, IdentityContextSeeder>();
         }
     }
 }

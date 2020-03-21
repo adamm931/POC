@@ -13,10 +13,10 @@ namespace POC.Logging.Data
 
         public LoggingContext()
         {
-            var connectionString = ConnectionStringFactory.GetMongoConnnectionString("Logging");
+            var connectionString = ConnectionStringFactory.GetMongoConnnectionString("POC.Logging");
             var client = new MongoClient(connectionString.Value);
 
-            var databse = client.GetDatabase("Logging");
+            var databse = client.GetDatabase("POC.Logging");
 
             LogEntries = databse.GetCollection<LogEntry>(nameof(LogEntries));
             AuditEntries = databse.GetCollection<AuditEntry>(nameof(AuditEntries));

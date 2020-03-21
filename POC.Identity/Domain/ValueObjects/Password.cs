@@ -35,7 +35,7 @@
 
         public static bool operator ==(Password left, Password right)
         {
-            return left.Hash == right.Hash;
+            return left?.Hash == right?.Hash;
         }
 
         public static bool operator !=(Password left, Password right)

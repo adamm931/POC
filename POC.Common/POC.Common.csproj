@@ -37,7 +37,16 @@
     <Reference Include="AutoMapper, Version=9.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.9.0.0\lib\net461\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentValidation.8.6.2\lib\net45\FluentValidation.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.4.1\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
@@ -67,6 +76,7 @@
     <Compile Include="Connection\ConnectionStringTemplate.cs" />
     <Compile Include="Connection\MongoConnectionStringTemplate.cs" />
     <Compile Include="Connection\SqlServerConnectionStringTemplate.cs" />
+    <Compile Include="Data\BaseDbContext.cs" />
     <Compile Include="Domain\Entity.cs" />
     <Compile Include="Domain\IUnitOfWork.cs" />
     <Compile Include="Enviroment\EnviromentVariables.cs" />
@@ -84,6 +94,8 @@
     <Compile Include="Service\ServiceMediator.cs" />
     <Compile Include="Service\ServiceRequest.cs" />
     <Compile Include="Service\ServiceResponse.cs" />
+    <Compile Include="Service\Validation\IServiceRequestValidator.cs" />
+    <Compile Include="Service\Validation\ServiceRequestValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -95,6 +107,7 @@
       <Name>POC.Configuration.DI</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

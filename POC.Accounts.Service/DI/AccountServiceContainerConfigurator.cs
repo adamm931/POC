@@ -13,7 +13,7 @@ namespace POC.Accounts.Service.DI
         {
             container.RegisterMapping(GetType().Assembly);
             container.Register<IAccountContext, AccountContext>();
-            container.RegisterInstance(ConnectionStringFactory.GetSqlConnectionString("Accounts"));
+            container.RegisterInstance(ConnectionStringFactory.GetSqlConnectionString("PocAccounts"));
             container.Register<IDatabaseInitializer<AccountContext>, AccountContextSeeder>();
         }
     }

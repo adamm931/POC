@@ -8,13 +8,13 @@ namespace POC.Identity.Service.UseCases.Base
     public abstract class IdentityServiceHandler<TRequest> : IServiceHandler<TRequest>
         where TRequest : IServiceRequest
     {
-        protected readonly IIdentityApi IdentityApi;
+        protected readonly IIdentityContext IdentityContext;
 
         protected readonly IMapping Mapper;
 
-        public IdentityServiceHandler(IIdentityApi identityApi, IMapping mapper)
+        public IdentityServiceHandler(IIdentityContext identityContext, IMapping mapper)
         {
-            IdentityApi = identityApi;
+            IdentityContext = identityContext;
             Mapper = mapper;
         }
 
@@ -25,13 +25,13 @@ namespace POC.Identity.Service.UseCases.Base
     public abstract class IdentityServiceHandler<TRequest, TResponse> : IServiceHandler<TRequest, TResponse>
         where TRequest : IServiceRequest<TResponse>
     {
-        protected readonly IIdentityApi IdentityApi;
+        protected readonly IIdentityContext IdentityContext;
 
         protected readonly IMapping Mapper;
 
-        public IdentityServiceHandler(IIdentityApi identityApi, IMapping mapper)
+        public IdentityServiceHandler(IIdentityContext identityContext, IMapping mapper)
         {
-            IdentityApi = identityApi;
+            IdentityContext = identityContext;
             Mapper = mapper;
         }
 

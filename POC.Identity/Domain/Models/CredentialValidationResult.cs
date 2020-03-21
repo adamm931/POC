@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace POC.Identity.Domain.Models
 {
-    public class CredentialValidationResult
+    public class CredentialRequirmentValidationResult
     {
         private readonly List<string> _validationError = new List<string>();
 
@@ -14,7 +14,7 @@ namespace POC.Identity.Domain.Models
 
         public IReadOnlyList<string> ValidationErrors => _validationError.AsReadOnly();
 
-        public CredentialValidationResult(CredentialType credentailType)
+        public CredentialRequirmentValidationResult(CredentialType credentailType)
         {
             CredentailType = credentailType;
         }

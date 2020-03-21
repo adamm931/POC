@@ -55,6 +55,7 @@
     <Compile Include="Data\Configurations\TodoItemConfiguration.cs" />
     <Compile Include="Data\Configurations\UserItemsConfiguration.cs" />
     <Compile Include="Data\TodoContext.cs" />
+    <Compile Include="Data\TodoContextSeeder.cs" />
     <Compile Include="Domain\TodoItem.cs" />
     <Compile Include="Domain\UserTodoItems.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

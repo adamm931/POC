@@ -1,5 +1,4 @@
 ﻿using POC.Identity.Contracts;
-using POC.Identity.Data;
 using POC.Identity.Domain.Enums;
 using POC.Identity.Domain.Models;
 using System.Data.Entity;
@@ -8,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace POC.Identity.Internal
 {
-    public class CredentialValidator : ICredentialValidator
+    public class CredentialRequirmentValidator : ICredentialRequirmentValidator
     {
-        public CredentialValidator(IdentityContext context)
+        public CredentialRequirmentValidator(IIdentityContext identityContext)
         {
-            Context = context;
+            IdentityContext = identityContext;
         }
 
-        public IdentityContext Context { get; }
+        public IIdentityContext IdentityContext { get; }
 
-        public async Task<CredentialValidationResult> Validate(CredentialType credentialType, string value)
+        public async Task<CredentialRequirmentValidationResult> ValidateAsync(CredentialType credentialType, string value)
         {
-            var credentialRules = await Context
+            var credentialRules = await IdentityContext
                 .CredentialRules
                 .Include(model => model.Attributes)
                 .ToListAsync();
@@ -29,7 +28,7 @@ namespace POC.Identity.Internal
                 .Select(rule => rule.Validate(value))
                 .Where(ret => !ret.IsValid);
 
-            var result = new CredentialValidationResult(credentialType);
+            var result = new CredentialRequirmentValidationResult(credentialType);
 
             foreach (var ret in invalidResults)
             {
