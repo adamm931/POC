@@ -6,6 +6,7 @@ using POC.Todos.Service.UseCases.DeleteTodo;
 using POC.Todos.Service.UseCases.ListTodos;
 using POC.Todos.Service.UseCases.OpenTodo;
 using POC.Todos.Service.UseCases.UpdateUser;
+using System.Collections.Generic;
 using System.ServiceModel;
 using System.Threading.Tasks;
 
@@ -27,7 +28,7 @@ namespace POC.Todos.Service.Contracts
         Task<ServiceResponse> DeleteAsync(DeleteTodoServiceRequest serviceRequest);
 
         [OperationContract]
-        Task<ServiceResponse<ListTodosServiceResponse>> ListAsync(ListTodosServiceRequest serviceRequest);
+        Task<ServiceResponse<IEnumerable<ListTodosItemServiceResponse>>> ListAsync(ListTodosServiceRequest serviceRequest);
 
         [OperationContract]
         Task<ServiceResponse> AddUserAsync(AddUserServiceRequest serviceRequest);

@@ -1,8 +1,10 @@
 ﻿using POC.Accounts.Contracts;
-using POC.Accounts.Model;
+using POC.Accounts.Domain;
 using POC.Accounts.Service.UseCases.Base;
 using POC.Common.Service;
 using POC.Configuration.Mapping;
+using System;
+using System.Data.Entity;
 using System.Threading.Tasks;
 
 namespace POC.Accounts.Service.Model
@@ -15,17 +17,40 @@ namespace POC.Accounts.Service.Model
 
         public class Handler : AccountServiceHandler<UpdateAccountLoginServiceRequest, UpdateAccountLoginServiceResponse>
         {
-            public Handler(IAccountApi accountApi, IMapping mapper) : base(accountApi, mapper)
+            public Handler(IAccountContext accountContext, IMapping mapper) : base(accountContext, mapper)
             {
             }
 
             public async override Task<UpdateAccountLoginServiceResponse> Handle(UpdateAccountLoginServiceRequest request)
             {
-                var updateLoginRequest = Mapper.Map<UpdateAccountLoginRequest>(request);
+                await CheckUsername(request.AccountNewUsername);
 
-                var updateLoginResponse = await AccountApi.UpdateAccountLoginAsync(updateLoginRequest);
+                var account = await GetAccount(request.AccountUsername);
 
-                return Mapper.Map<UpdateAccountLoginServiceResponse>(updateLoginResponse);
+                account.UpdateLogin(request.AccountNewUsername);
+
+                await AccountContext.Save();
+
+                return Mapper.Map<UpdateAccountLoginServiceResponse>(account.Login);
+            }
+
+            private async Task<Account> GetAccount(string accountUsername)
+            {
+                return await AccountContext.Accounts
+                    .Include(model => model.Address)
+                    .Include(model => model.Login)
+                    .SingleAsync(model => model.Login.Username == accountUsername);
+            }
+
+            private async Task CheckUsername(string accountNewUsername)
+            {
+                var exists = await AccountContext.AccountLogins
+                    .AnyAsync(login => login.Username == accountNewUsername);
+
+                if (exists)
+                {
+                    throw new InvalidOperationException($"Username: {accountNewUsername} is not available");
+                }
             }
         }
     }

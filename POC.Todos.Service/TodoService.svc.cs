@@ -8,6 +8,7 @@ using POC.Todos.Service.UseCases.DeleteTodo;
 using POC.Todos.Service.UseCases.ListTodos;
 using POC.Todos.Service.UseCases.OpenTodo;
 using POC.Todos.Service.UseCases.UpdateUser;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace POC.Todos.Service
@@ -37,8 +38,8 @@ namespace POC.Todos.Service
         public async Task<ServiceResponse> DeleteAsync(DeleteTodoServiceRequest serviceRequest)
             => await _serviceMediator.Handle(serviceRequest);
 
-        public async Task<ServiceResponse<ListTodosServiceResponse>> ListAsync(ListTodosServiceRequest serviceRequest)
-            => await _serviceMediator.Handle<ListTodosServiceRequest, ListTodosServiceResponse>(serviceRequest);
+        public async Task<ServiceResponse<IEnumerable<ListTodosItemServiceResponse>>> ListAsync(ListTodosServiceRequest serviceRequest)
+            => await _serviceMediator.Handle<ListTodosServiceRequest, IEnumerable<ListTodosItemServiceResponse>>(serviceRequest);
 
         public async Task<ServiceResponse> AddUserAsync(AddUserServiceRequest serviceRequest)
             => await _serviceMediator.Handle(serviceRequest);

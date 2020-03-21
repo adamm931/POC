@@ -1,5 +1,5 @@
 ﻿using POC.Accounts.Contracts;
-using POC.Accounts.Model;
+using POC.Accounts.Domain;
 using POC.Accounts.Service.UseCases.Base;
 using POC.Common.Service;
 using POC.Configuration.Mapping;
@@ -13,17 +13,19 @@ namespace POC.Accounts.Service.Model
 
         public class Handler : AccountServiceHandler<AddAccountLoginServiceRequest, AddAccountLoginServiceResponse>
         {
-            public Handler(IAccountApi accountApi, IMapping mapper) : base(accountApi, mapper)
+            public Handler(IAccountContext accountContext, IMapping mapper) : base(accountContext, mapper)
             {
             }
 
             public override async Task<AddAccountLoginServiceResponse> Handle(AddAccountLoginServiceRequest request)
             {
-                var addLoginRequest = Mapper.Map<AccountLoginRequest>(request);
+                var accountLogin = AccountLogin.CreateAndInitializeAccount(request.Username);
 
-                var addLoginResponse = await AccountApi.AddAccountLoginAsync(addLoginRequest);
+                AccountContext.AccountLogins.Add(accountLogin);
 
-                return Mapper.Map<AddAccountLoginServiceResponse>(addLoginResponse);
+                await AccountContext.Save();
+
+                return Mapper.Map<AddAccountLoginServiceResponse>(accountLogin);
             }
         }
     }

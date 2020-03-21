@@ -9,7 +9,7 @@ namespace POC.Todos.Service.MappingProfiles
     {
         public TodoServiceMappingProfile()
         {
-            CreateMap<TodoItem, ListTodosServiceResponse.Item>();
+            CreateMap<TodoItem, ListTodosItemServiceResponse>();
             CreateMap<TodoItem, AddTodoServiceResponse>();
         }
     }

@@ -1,7 +1,7 @@
 ﻿using POC.Accounts.Domain;
 using System.Data.Entity.ModelConfiguration;
 
-namespace POC.Accounts.Configuration
+namespace POC.Accounts.Data.Configuration
 {
     public class AccountConfiguration : EntityTypeConfiguration<Account>
     {

@@ -68,6 +68,7 @@
     <Compile Include="Connection\MongoConnectionStringTemplate.cs" />
     <Compile Include="Connection\SqlServerConnectionStringTemplate.cs" />
     <Compile Include="Domain\Entity.cs" />
+    <Compile Include="Domain\IUnitOfWork.cs" />
     <Compile Include="Enviroment\EnviromentVariables.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Connection\IConnectionStringBuilder.cs" />

@@ -8,28 +8,23 @@ using System.Threading.Tasks;
 
 namespace POC.Todos.Service.UseCases.ListTodos
 {
-    public class ListTodosServiceRequest : IServiceRequest<ListTodosServiceResponse>
+    public class ListTodosServiceRequest : IServiceRequest<IEnumerable<ListTodosItemServiceResponse>>
     {
         public string Username { get; set; }
 
-        public class Handler : TodoServiceHandler<ListTodosServiceRequest, ListTodosServiceResponse>
+        public class Handler : TodoServiceHandler<ListTodosServiceRequest, IEnumerable<ListTodosItemServiceResponse>>
         {
             public Handler(ITodoContext context, IMapping mapper) : base(context, mapper)
             {
             }
 
-            public override async Task<ListTodosServiceResponse> Handle(ListTodosServiceRequest request)
+            public override async Task<IEnumerable<ListTodosItemServiceResponse>> Handle(ListTodosServiceRequest request)
             {
                 var userTodos = await Context.UserTodos
                     .Include(item => item.TodoItems)
                     .FirstOrDefaultAsync(userItems => userItems.Username == request.Username);
 
-                var items = Mapper.Map<List<ListTodosServiceResponse.Item>>(userTodos.TodoItems);
-
-                return new ListTodosServiceResponse
-                {
-                    Items = items
-                };
+                return Mapper.Map<IEnumerable<ListTodosItemServiceResponse>>(userTodos.TodoItems);
             }
         }
     }

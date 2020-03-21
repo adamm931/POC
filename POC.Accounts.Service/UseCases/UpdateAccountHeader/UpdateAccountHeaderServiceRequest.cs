@@ -1,9 +1,9 @@
 ﻿using POC.Accounts.Contracts;
-using POC.Accounts.Model;
 using POC.Accounts.Service.UseCases.Base;
 using POC.Common.Service;
 using POC.Configuration.Mapping;
 using System;
+using System.Data.Entity;
 using System.Threading.Tasks;
 
 namespace POC.Accounts.Service.UseCases.UpdateAccountHeader
@@ -24,15 +24,25 @@ namespace POC.Accounts.Service.UseCases.UpdateAccountHeader
 
         public class Handler : AccountServiceHandler<UpdateAccountHeaderServiceRequest>
         {
-            public Handler(IAccountApi accountApi, IMapping mapper) : base(accountApi, mapper)
+            public Handler(IAccountContext accountContext, IMapping mapper) : base(accountContext, mapper)
             {
             }
 
             public async override Task Handle(UpdateAccountHeaderServiceRequest request)
             {
-                var apiRequest = Mapper.Map<AccountHeaderRequest>(request);
+                var account = await AccountConext.Accounts
+                    .Include(model => model.Address)
+                    .Include(model => model.Login)
+                    .SingleAsync(model => model.Login.Username == request.AccountUsername);
 
-                await AccountApi.UpdateAccountHeaderAsync(apiRequest);
+                account.UpdateHeader(
+                    request.FirstName,
+                    request.MiddleName,
+                    request.LastName,
+                    request.BirthDay,
+                    request.Gender);
+
+                await AccountConext.Save();
             }
         }
     }

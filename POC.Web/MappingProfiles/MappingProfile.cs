@@ -32,7 +32,7 @@ namespace POC.Web.MappingProfiles
                 .ForMember(dst => dst.NewUsername, opt => opt.MapFrom(src => src.Username))
                 .ForMember(dst => dst.NewPassword, opt => opt.MapFrom(src => src.Password));
 
-            CreateMap<ListTodosServiceResponse.Item, TodoListItemViewModel>();
+            CreateMap<ListTodosItemServiceResponse, TodoListItemViewModel>();
         }
     }
 }

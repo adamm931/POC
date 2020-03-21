@@ -1,8 +1,8 @@
 ﻿using POC.Accounts.Contracts;
-using POC.Accounts.Model;
 using POC.Accounts.Service.UseCases.Base;
 using POC.Common.Service;
 using POC.Configuration.Mapping;
+using System.Data.Entity;
 using System.Threading.Tasks;
 
 namespace POC.Accounts.Service.UseCases.UpdateAccountAddress
@@ -25,15 +25,26 @@ namespace POC.Accounts.Service.UseCases.UpdateAccountAddress
 
         public class Handler : AccountServiceHandler<UpdateAccountAddressServiceRequest>
         {
-            public Handler(IAccountApi accountApi, IMapping mapper) : base(accountApi, mapper)
+            public Handler(IAccountContext accountContext, IMapping mapper) : base(accountContext, mapper)
             {
             }
 
             public override async Task Handle(UpdateAccountAddressServiceRequest request)
             {
-                var apiRequest = Mapper.Map<AccountAddressRequest>(request);
+                var account = await AccountConext.Accounts
+                    .Include(model => model.Address)
+                    .Include(model => model.Login)
+                    .SingleAsync(model => model.Login.Username == request.AccountUsername);
 
-                await AccountApi.UpdateAccountAddressAsync(apiRequest);
+                account.UpdatetAddress(
+                    request.Street,
+                    request.City,
+                    request.ZipCode,
+                    request.Region,
+                    request.Phone,
+                    request.Email);
+
+                await AccountConext.Save();
             }
         }
 

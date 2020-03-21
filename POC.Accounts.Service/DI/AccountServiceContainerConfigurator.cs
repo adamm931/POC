@@ -1,6 +1,9 @@
-﻿using POC.Accounts.Factory;
+﻿using POC.Accounts.Contracts;
+using POC.Accounts.Data;
+using POC.Common.Connection;
 using POC.Configuration.DI;
 using POC.Configuration.Mapping;
+using System.Data.Entity;
 
 namespace POC.Accounts.Service.DI
 {
@@ -8,8 +11,10 @@ namespace POC.Accounts.Service.DI
     {
         public void Configure(IContainer container)
         {
-            container.RegisterInstance(AccountApiFactory.GetAccountApi());
             container.RegisterMapping(GetType().Assembly);
+            container.Register<IAccountContext, AccountContext>();
+            container.RegisterInstance(ConnectionStringFactory.GetSqlConnectionString("Accounts"));
+            container.Register<IDatabaseInitializer<AccountContext>, AccountContextSeeder>();
         }
     }
 }

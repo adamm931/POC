@@ -92,7 +92,7 @@
     <Compile Include="UseCases\CompleteTodo\CompleteTodoServiceRequest.cs" />
     <Compile Include="UseCases\DeleteTodo\DeleteTodoServiceRequest.cs" />
     <Compile Include="UseCases\ListTodos\ListTodosServiceRequest.cs" />
-    <Compile Include="UseCases\ListTodos\ListTodosServiceResponse.cs" />
+    <Compile Include="UseCases\ListTodos\ListTodosItemServiceResponse.cs" />
     <Compile Include="UseCases\OpenTodo\OpenTodoServiceRequest.cs" />
     <Compile Include="UseCases\UpdateUser\UpdateUserServiceRequest.cs" />
   </ItemGroup>

@@ -30,14 +30,16 @@ namespace POC.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> Index()
         {
-            var todos = await TodoService.ListAsync(new ListTodosServiceRequest
+            var serviceResponse = await TodoService.ListAsync(new ListTodosServiceRequest
             {
                 Username = Username
             });
 
+            var items = serviceResponse.EnsureSuccessfull();
+
             var model = new TodoListViewModel
             {
-                Items = Mapper.Map<IEnumerable<TodoListItemViewModel>>(todos)
+                Items = Mapper.Map<IEnumerable<TodoListItemViewModel>>(items)
             };
 
             return View(model);

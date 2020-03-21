@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
-using POC.Accounts.Model;
+using POC.Accounts.Domain;
 using POC.Accounts.Service.Model;
 using POC.Accounts.Service.UseCases.Model;
-using POC.Accounts.Service.UseCases.UpdateAccountAddress;
-using POC.Accounts.Service.UseCases.UpdateAccountHeader;
 
 namespace POC.Accounts.Service.MappingProfiles
 {
@@ -11,17 +9,14 @@ namespace POC.Accounts.Service.MappingProfiles
     {
         public AccountMappingProfile()
         {
-            // service -> api
-            CreateMap<AddAccountLoginServiceRequest, AccountLoginRequest>();
-            CreateMap<UpdateAccountHeaderServiceRequest, AccountHeaderRequest>();
-            CreateMap<UpdateAccountAddressServiceRequest, AccountAddressRequest>();
-            CreateMap<UpdateAccountLoginServiceRequest, UpdateAccountLoginRequest>();
+            CreateMap<AccountLogin, AddAccountLoginServiceResponse>();
 
-            // api -> service
-            CreateMap<AccountLoginResponse, AddAccountLoginServiceResponse>();
-            CreateMap<AccountResponse, AccountServiceResponse>();
-            CreateMap<AccountAddressResponse, AccountAddressServiceResponse>();
-            CreateMap<UpdateAccountLoginResponse, UpdateAccountLoginServiceResponse>();
+            CreateMap<Account, AccountServiceResponse>()
+                .ForMember(dst => dst.Username, opt => opt.MapFrom(src => src.Login.Username));
+
+            CreateMap<AccountAddress, AccountAddressServiceResponse>();
+
+            CreateMap<AccountLogin, UpdateAccountLoginServiceResponse>();
         }
     }
 }

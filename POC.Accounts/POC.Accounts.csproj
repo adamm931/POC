@@ -56,26 +56,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\AccountLoginConfiguration.cs" />
-    <Compile Include="Contracts\IAccountApi.cs" />
+    <Compile Include="Data\Configuration\AccountLoginConfiguration.cs" />
+    <Compile Include="Contracts\IAccountContext.cs" />
     <Compile Include="Data\AccountContext.cs" />
-    <Compile Include="Configuration\AccountConfiguration.cs" />
+    <Compile Include="Data\Configuration\AccountConfiguration.cs" />
+    <Compile Include="Data\AccountContextSeeder.cs" />
     <Compile Include="Domain\Account.cs" />
     <Compile Include="Domain\AccountAddress.cs" />
     <Compile Include="Domain\AccountLogin.cs" />
     <Compile Include="Domain\Gender.cs" />
-    <Compile Include="Internal\AccountApi.cs" />
-    <Compile Include="MappingProfiles\AccountMappingProfile.cs" />
-    <Compile Include="Model\AccountAddressRequest.cs" />
-    <Compile Include="Model\AccountAddressResponse.cs" />
-    <Compile Include="Model\AccountHeaderRequest.cs" />
-    <Compile Include="Model\AccountLoginRequest.cs" />
-    <Compile Include="Model\AccountLoginResponse.cs" />
-    <Compile Include="Model\UpdateAccountLoginResponse.cs" />
-    <Compile Include="Model\UpdateAccountLoginRequest.cs" />
-    <Compile Include="Model\AccountResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Factory\AccountApiFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -1,6 +1,7 @@
 ﻿using POC.Channel;
 using POC.Configuration.DI;
 using POC.Configuration.Mapping;
+using POC.Identity.Web.Authentication.Extensions;
 
 namespace POC.Web.DI
 {
@@ -13,6 +14,7 @@ namespace POC.Web.DI
             container.RegisterIdentityService();
             container.RegisterTodoService();
             container.RegisterAccountService();
+            container.RegisterAuthenticationServices();
         }
     }
 }

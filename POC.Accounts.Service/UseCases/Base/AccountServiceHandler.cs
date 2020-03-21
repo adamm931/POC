@@ -8,12 +8,12 @@ namespace POC.Accounts.Service.UseCases.Base
     public abstract class AccountServiceHandler<TRequest, TResponse> : IServiceHandler<TRequest, TResponse>
         where TRequest : IServiceRequest<TResponse>
     {
-        protected readonly IAccountApi AccountApi;
+        protected readonly IAccountContext AccountContext;
         protected readonly IMapping Mapper;
 
-        public AccountServiceHandler(IAccountApi accountApi, IMapping mapper)
+        public AccountServiceHandler(IAccountContext accountContext, IMapping mapper)
         {
-            AccountApi = accountApi;
+            AccountContext = accountContext;
             Mapper = mapper;
         }
 
@@ -23,12 +23,12 @@ namespace POC.Accounts.Service.UseCases.Base
     public abstract class AccountServiceHandler<TRequest> : IServiceHandler<TRequest>
         where TRequest : IServiceRequest
     {
-        protected readonly IAccountApi AccountApi;
+        protected readonly IAccountContext AccountConext;
         protected readonly IMapping Mapper;
 
-        public AccountServiceHandler(IAccountApi accountApi, IMapping mapper)
+        public AccountServiceHandler(IAccountContext accountContext, IMapping mapper)
         {
-            AccountApi = accountApi;
+            AccountConext = accountContext;
             Mapper = mapper;
         }
 
