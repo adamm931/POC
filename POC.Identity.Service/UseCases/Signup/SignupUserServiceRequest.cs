@@ -31,13 +31,11 @@ namespace POC.Identity.Service.UseCases.Signup
 
         public class Validator : AbstractValidator<SignupUserServiceRequest>
         {
-            public Validator(ICredentialRequirmentValidator credentialRequirmentValidator, IIdentityContext identityContext)
+            public Validator(ICredentialRequirmentValidator validator, IIdentityContext context)
             {
-                RuleFor(model => model.Username)
-                    .SetValidator(new UniqueUsernameValidator(credentialRequirmentValidator, identityContext));
+                RuleFor(model => model.Username).UniqueUsername(validator, context);
 
-                RuleFor(model => model.Password)
-                    .SetValidator(new PasswordValidator(credentialRequirmentValidator));
+                RuleFor(model => model.Password).Password(validator);
             }
         }
 

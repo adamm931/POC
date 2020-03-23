@@ -10,6 +10,10 @@ namespace POC.Todos.Contracts
 
         DbSet<UserTodoItems> UserTodos { get; }
 
+        Task<bool> UserExists(string user);
+
+        Task<UserTodoItems> GetUserTodos(string user);
+
         Task Save();
     }
 }

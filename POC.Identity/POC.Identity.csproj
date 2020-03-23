@@ -89,6 +89,10 @@
       <Project>{0FAEE2E1-706A-4EEC-A81C-D7A0AD32763E}</Project>
       <Name>POC.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\POC.Configuration.DI\POC.Configuration.DI.csproj">
+      <Project>{E5935973-174E-46AF-B297-BC4123035519}</Project>
+      <Name>POC.Configuration.DI</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

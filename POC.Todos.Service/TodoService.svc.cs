@@ -1,5 +1,5 @@
 ﻿using POC.Common.Service;
-using POC.Configuration.DI;
+using POC.Common.Service.Factory;
 using POC.Todos.Service.Contracts;
 using POC.Todos.Service.UseCases.AddTodo;
 using POC.Todos.Service.UseCases.AddUser;
@@ -15,16 +15,7 @@ namespace POC.Todos.Service
 {
     public class TodoService : ITodoService
     {
-        private readonly IServiceMediator _serviceMediator;
-
-        public TodoService() : this(new ServiceMediator(Container<TodoService>.Instance))
-        {
-        }
-
-        private TodoService(IServiceMediator serviceMediator)
-        {
-            _serviceMediator = serviceMediator;
-        }
+        private readonly IServiceMediator _serviceMediator = ServiceMediatorFactory.CreateMediator<TodoService>();
 
         public async Task<ServiceResponse<AddTodoServiceResponse>> AddAsync(AddTodoServiceRequest serviceRequest)
             => await _serviceMediator.Handle<AddTodoServiceRequest, AddTodoServiceResponse>(serviceRequest);

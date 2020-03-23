@@ -1,10 +1,11 @@
-﻿using POC.Accounts.Contracts;
+﻿using FluentValidation;
+using POC.Accounts.Contracts;
 using POC.Accounts.Service.UseCases.Base;
 using POC.Accounts.Service.UseCases.Model;
+using POC.Accounts.Service.UseCases.Validation;
 using POC.Common.Service;
 using POC.Configuration.Mapping;
 using System;
-using System.Data.Entity;
 using System.Threading.Tasks;
 
 namespace POC.Accounts.Service.UseCases.GetAccountById
@@ -21,12 +22,17 @@ namespace POC.Accounts.Service.UseCases.GetAccountById
 
             public override async Task<AccountServiceResponse> Handle(GetAccountByIdServiceRequest request)
             {
-                var account = await AccountContext.Accounts
-                    .Include(model => model.Address)
-                    .Include(model => model.Login)
-                    .SingleAsync(model => model.Id == request.Id);
+                var account = await AccountContext.GetAccountById(request.Id);
 
                 return Mapper.Map<AccountServiceResponse>(account);
+            }
+        }
+
+        public class Validator : AbstractValidator<GetAccountByIdServiceRequest>
+        {
+            public Validator(IAccountContext context)
+            {
+                RuleFor(model => model.Id).ExistingAccountById(context);
             }
         }
     }

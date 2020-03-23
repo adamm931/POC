@@ -1,9 +1,10 @@
-﻿using POC.Common.Service;
+﻿using FluentValidation;
+using POC.Common.Service;
 using POC.Configuration.Mapping;
 using POC.Todos.Contracts;
 using POC.Todos.Service.UseCases.Base;
+using POC.Todos.Service.UseCases.Validation;
 using System;
-using System.Data.Entity;
 using System.Threading.Tasks;
 
 namespace POC.Todos.Service.UseCases.DeleteTodo
@@ -22,15 +23,23 @@ namespace POC.Todos.Service.UseCases.DeleteTodo
 
             public override async Task Handle(DeleteTodoServiceRequest request)
             {
-                var userTodos = await Context.UserTodos
-                    .Include(item => item.TodoItems)
-                    .FirstOrDefaultAsync(userItems => userItems.Username == request.Username);
+                var userTodos = await Context.GetUserTodos(request.Username);
 
                 var todoToRemove = userTodos.DeleteTodo(request.Id);
 
                 Context.Todos.Remove(todoToRemove);
 
                 await Context.Save();
+            }
+        }
+
+        public class Validator : AbstractValidator<DeleteTodoServiceRequest>
+        {
+            public Validator(ITodoContext context)
+            {
+                RuleFor(model => model.Username).ExistingUser(context);
+
+                RuleFor(model => model.Id).ExistingTodo(context);
             }
         }
     }

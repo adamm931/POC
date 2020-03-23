@@ -19,10 +19,10 @@ namespace POC.Accounts.Service.Contracts
         Task<ServiceResponse> UpdateAccountAddressAsync(UpdateAccountAddressServiceRequest serviceRequest);
 
         [OperationContract]
-        Task<ServiceResponse<AccountServiceResponse>> GetAccountAsync(Guid id);
+        Task<ServiceResponse<AccountServiceResponse>> GetAccountByIdAsync(Guid id);
 
         [OperationContract]
-        Task<ServiceResponse<AccountServiceResponse>> GetAccountByUsername(string username);
+        Task<ServiceResponse<AccountServiceResponse>> GetAccountByUsernameAsync(string username);
 
         [OperationContract]
         Task<ServiceResponse<AddAccountLoginServiceResponse>> AddAccountLoginAsync(AddAccountLoginServiceRequest serviceRequest);

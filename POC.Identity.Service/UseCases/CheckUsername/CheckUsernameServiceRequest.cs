@@ -31,9 +31,9 @@ namespace POC.Identity.Service.UseCases.CheckUsername
 
         public class Validator : AbstractValidator<CheckUsernameServiceRequest>
         {
-            public Validator(ICredentialRequirmentValidator credentialRequirmentValidator)
+            public Validator(ICredentialRequirmentValidator context)
             {
-                RuleFor(model => model.Username).SetValidator(new UsernameValidator(credentialRequirmentValidator));
+                RuleFor(model => model.Username).Username(context);
             }
         }
     }

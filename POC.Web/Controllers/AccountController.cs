@@ -26,7 +26,7 @@ namespace POC.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> Index()
         {
-            var serviceResponse = await AccountService.GetAccountByUsername(Username);
+            var serviceResponse = await AccountService.GetAccountByUsernameAsync(Username);
             var account = serviceResponse.Response;
 
             var model = Mapper.Map<AccountViewModel>(account);

@@ -1,7 +1,9 @@
-﻿using POC.Common.Service;
+﻿using FluentValidation;
+using POC.Common.Service;
 using POC.Configuration.Mapping;
 using POC.Todos.Contracts;
 using POC.Todos.Service.UseCases.Base;
+using POC.Todos.Service.UseCases.Validation;
 using System.Data.Entity;
 using System.Threading.Tasks;
 
@@ -30,6 +32,16 @@ namespace POC.Todos.Service.UseCases.AddTodo
                 await Context.Save();
 
                 return Mapper.Map<AddTodoServiceResponse>(todo);
+            }
+        }
+
+        public class Validator : AbstractValidator<AddTodoServiceRequest>
+        {
+            public Validator(ITodoContext context)
+            {
+                RuleFor(model => model.Title).NotEmpty();
+
+                RuleFor(model => model.Username).ExistingUser(context);
             }
         }
     }

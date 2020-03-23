@@ -9,8 +9,6 @@ namespace POC.Identity.Service.UseCases.Validation
     {
         public UsernameValidator(ICredentialRequirmentValidator credentialValidator)
         {
-            RuleFor(model => model).NotEmpty();
-
             var reason = "Username doesn't meet requirments";
 
             RuleFor(model => model)

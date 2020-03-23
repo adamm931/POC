@@ -1,5 +1,5 @@
 ﻿using POC.Common.Service;
-using POC.Configuration.DI;
+using POC.Common.Service.Factory;
 using POC.Identity.Service.Contracts;
 using POC.Identity.Service.UseCases.CheckUsername;
 using POC.Identity.Service.UseCases.Login;
@@ -11,16 +11,7 @@ namespace POC.Identity.Service
 {
     internal class IdentityService : IIdentityService
     {
-        private readonly IServiceMediator _serviceMediator;
-
-        private IdentityService(IServiceMediator serviceMediator)
-        {
-            _serviceMediator = serviceMediator;
-        }
-
-        public IdentityService() : this(new ServiceMediator(Container<IdentityService>.Instance))
-        {
-        }
+        private readonly IServiceMediator _serviceMediator = ServiceMediatorFactory.CreateMediator<IdentityService>();
 
         public async Task<ServiceResponse<CheckUsernameServiceResponse>> CheckUsernameAsync(CheckUsernameServiceRequest serviceRequest)
             => await _serviceMediator.Handle<CheckUsernameServiceRequest, CheckUsernameServiceResponse>(serviceRequest);

@@ -1,0 +1,1 @@
+﻿Remove AddUser and UpdateUser use cases when implemented RabbitMQ

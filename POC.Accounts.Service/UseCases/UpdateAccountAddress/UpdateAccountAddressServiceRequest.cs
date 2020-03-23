@@ -1,5 +1,7 @@
-﻿using POC.Accounts.Contracts;
+﻿using FluentValidation;
+using POC.Accounts.Contracts;
 using POC.Accounts.Service.UseCases.Base;
+using POC.Accounts.Service.UseCases.Validation;
 using POC.Common.Service;
 using POC.Configuration.Mapping;
 using System.Data.Entity;
@@ -48,5 +50,17 @@ namespace POC.Accounts.Service.UseCases.UpdateAccountAddress
             }
         }
 
+        public class Validator : AbstractValidator<UpdateAccountAddressServiceRequest>
+        {
+            public Validator(IAccountContext context)
+            {
+                RuleFor(model => model.AccountUsername).ExistingAccountByUsername(context);
+                RuleFor(model => model.City).NotEmpty();
+                RuleFor(model => model.Email).EmailAddress();
+                RuleFor(model => model.Phone).NotEmpty();
+                RuleFor(model => model.Region).NotEmpty();
+                RuleFor(model => model.ZipCode).NotEmpty();
+            }
+        }
     }
 }

@@ -37,16 +37,13 @@ namespace POC.Identity.Service.UseCases.UpdateLogin
 
         public class Validator : AbstractValidator<UpdateUserLoginServiceRequest>
         {
-            public Validator(ICredentialRequirmentValidator credentialRequirmentValidator, IIdentityContext identityContext)
+            public Validator(ICredentialRequirmentValidator validator, IIdentityContext context)
             {
-                RuleFor(model => model.NewPassword)
-                    .SetValidator(new PasswordValidator(credentialRequirmentValidator));
+                RuleFor(model => model.NewPassword).Password(validator);
 
-                RuleFor(model => model.Username)
-                    .SetValidator(new UsernameValidator(credentialRequirmentValidator));
+                RuleFor(model => model.Username).ExistingUsername(validator, context);
 
-                RuleFor(model => model.NewUsername)
-                    .SetValidator(new UniqueUsernameValidator(credentialRequirmentValidator, identityContext));
+                RuleFor(model => model.NewUsername).UniqueUsername(validator, context);
             }
         }
     }

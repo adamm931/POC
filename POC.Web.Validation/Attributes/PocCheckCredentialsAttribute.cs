@@ -1,8 +1,9 @@
-﻿using POC.Channel;
+﻿using POC.Identity.Service.Contracts;
 using POC.Identity.Service.UseCases.Login;
 using POC.Web.Common.Validation.Extensions;
 using POC.Web.Validation.Resources;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace POC.Web.Validation.Attributes
 {
@@ -29,7 +30,7 @@ namespace POC.Web.Validation.Attributes
             var username = value as string;
             var password = passwordResolution.Value;
 
-            var identityService = ChannelManager.Instance.GetIdentityService();
+            var identityService = DependencyResolver.Current.GetService<IIdentityService>();
 
             var response = identityService.LoginAsync(new UserLoginServiceRequest
             {

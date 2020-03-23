@@ -1,5 +1,7 @@
-﻿using POC.Accounts.Contracts;
+﻿using FluentValidation;
+using POC.Accounts.Contracts;
 using POC.Accounts.Service.UseCases.Base;
+using POC.Accounts.Service.UseCases.Validation;
 using POC.Common.Service;
 using POC.Configuration.Mapping;
 using System;
@@ -43,6 +45,23 @@ namespace POC.Accounts.Service.UseCases.UpdateAccountHeader
                     request.Gender);
 
                 await AccountConext.Save();
+            }
+        }
+
+        public class Validator : AbstractValidator<UpdateAccountHeaderServiceRequest>
+        {
+            public Validator(IAccountContext context)
+            {
+                RuleFor(model => model.AccountUsername).ExistingAccountByUsername(context);
+                RuleFor(model => model.FirstName).NotEmpty();
+                RuleFor(model => model.LastName).NotEmpty();
+                RuleFor(model => model.MiddleName).NotEmpty();
+                RuleFor(model => model.BirthDay).NotEmpty().LessThan(model => DateTime.UtcNow);
+
+                RuleFor(model => model.Gender)
+                    .NotEmpty()
+                    .Must(model => Domain.Gender.IsValidGender(model))
+                    .WithMessage(model => $"Invalid value: {model.Gender} for gender. The value can be: {string.Join(", ", Domain.Gender.AllNames)}");
             }
         }
     }

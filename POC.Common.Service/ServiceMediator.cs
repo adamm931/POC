@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace POC.Common.Service
 {
-    public class ServiceMediator : IServiceMediator
+    internal class ServiceMediator : IServiceMediator
     {
         private readonly IContainer _container;
         private readonly IServiceRequestValidator _requestValidator;
 
-        public ServiceMediator(IContainer container)
+        internal ServiceMediator(IContainer container)
         {
             _container = container;
             _requestValidator = new ServiceRequestValidator(container);

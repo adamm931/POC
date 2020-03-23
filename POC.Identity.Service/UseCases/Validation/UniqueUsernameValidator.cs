@@ -9,11 +9,9 @@ namespace POC.Identity.Service.UseCases.Validation
             ICredentialRequirmentValidator credentialValidator,
             IIdentityContext identityContext)
         {
-            RuleFor(model => model).SetValidator(new UsernameValidator(credentialValidator));
-
             RuleFor(model => model)
-                .Must(model => !identityContext.UsernameExists(model).Result)
-                .WithMessage(value => $"Username: {value} is not available");
+                .MustAsync(async (model, token) => !await identityContext.UsernameExists(model))
+                .WithMessage((model, value) => $"Username: {value} is not available");
         }
     }
 }

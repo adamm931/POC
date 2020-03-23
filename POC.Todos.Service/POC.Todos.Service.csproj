@@ -53,7 +53,13 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="FluentValidation, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentValidation.8.6.2\lib\net45\FluentValidation.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.4.1\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -75,6 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="TodoService.svc" />
+    <Content Include="UseCases\TODO.txt" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -95,6 +102,9 @@
     <Compile Include="UseCases\ListTodos\ListTodosItemServiceResponse.cs" />
     <Compile Include="UseCases\OpenTodo\OpenTodoServiceRequest.cs" />
     <Compile Include="UseCases\UpdateUser\UpdateUserServiceRequest.cs" />
+    <Compile Include="UseCases\Validation\RuleBuilderExtensions.cs" />
+    <Compile Include="UseCases\Validation\ExistingTodoValidator.cs" />
+    <Compile Include="UseCases\Validation\ExistingUserValidator.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -108,6 +118,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\POC.Common.Service\POC.Common.Service.csproj">
+      <Project>{B2A0F0DF-B41A-4F1A-A563-D398757768A4}</Project>
+      <Name>POC.Common.Service</Name>
+    </ProjectReference>
     <ProjectReference Include="..\POC.Common\POC.Common.csproj">
       <Project>{0FAEE2E1-706A-4EEC-A81C-D7A0AD32763E}</Project>
       <Name>POC.Common</Name>

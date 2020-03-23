@@ -135,6 +135,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\POC.Common.Service\POC.Common.Service.csproj">
+      <Project>{B2A0F0DF-B41A-4F1A-A563-D398757768A4}</Project>
+      <Name>POC.Common.Service</Name>
+    </ProjectReference>
     <ProjectReference Include="..\POC.Common\POC.Common.csproj">
       <Project>{0FAEE2E1-706A-4EEC-A81C-D7A0AD32763E}</Project>
       <Name>POC.Common</Name>

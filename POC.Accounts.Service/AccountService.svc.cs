@@ -6,7 +6,7 @@ using POC.Accounts.Service.UseCases.Model;
 using POC.Accounts.Service.UseCases.UpdateAccountAddress;
 using POC.Accounts.Service.UseCases.UpdateAccountHeader;
 using POC.Common.Service;
-using POC.Configuration.DI;
+using POC.Common.Service.Factory;
 using System;
 using System.Threading.Tasks;
 
@@ -14,54 +14,53 @@ namespace POC.Accounts.Service
 {
     public class AccountService : IAccountService
     {
-        private readonly IServiceMediator ServiceMediator =
-            new ServiceMediator(Container<AccountService>.Instance);
+        private readonly IServiceMediator _serviceMediator = ServiceMediatorFactory.CreateMediator<AccountService>();
 
         public async Task<ServiceResponse<AddAccountLoginServiceResponse>> AddAccountLoginAsync(
             AddAccountLoginServiceRequest serviceRequest)
         {
-            return await ServiceMediator
+            return await _serviceMediator
                 .Handle<AddAccountLoginServiceRequest, AddAccountLoginServiceResponse>(serviceRequest);
         }
 
-        public async Task<ServiceResponse<AccountServiceResponse>> GetAccountAsync(Guid id)
+        public async Task<ServiceResponse<AccountServiceResponse>> GetAccountByIdAsync(Guid id)
         {
             var serviceRequest = new GetAccountByIdServiceRequest
             {
                 Id = id
             };
 
-            return await ServiceMediator
+            return await _serviceMediator
                 .Handle<GetAccountByIdServiceRequest, AccountServiceResponse>(serviceRequest);
         }
 
-        public async Task<ServiceResponse<AccountServiceResponse>> GetAccountByUsername(string username)
+        public async Task<ServiceResponse<AccountServiceResponse>> GetAccountByUsernameAsync(string username)
         {
             var serviceRequest = new GetAccountByUsernameServiceRequest
             {
                 Username = username
             };
 
-            return await ServiceMediator
+            return await _serviceMediator
                 .Handle<GetAccountByUsernameServiceRequest, AccountServiceResponse>(serviceRequest);
         }
 
         public async Task<ServiceResponse> UpdateAccountAddressAsync(UpdateAccountAddressServiceRequest serviceRequest)
         {
-            return await ServiceMediator
+            return await _serviceMediator
                 .Handle(serviceRequest);
         }
 
         public async Task<ServiceResponse> UpdateAccountHeaderAsync(UpdateAccountHeaderServiceRequest serviceRequest)
         {
-            return await ServiceMediator
+            return await _serviceMediator
                 .Handle(serviceRequest);
         }
 
         public async Task<ServiceResponse<UpdateAccountLoginServiceResponse>> UpdateAccountLoginAsync(
             UpdateAccountLoginServiceRequest serviceRequest)
         {
-            return await ServiceMediator
+            return await _serviceMediator
                 .Handle<UpdateAccountLoginServiceRequest, UpdateAccountLoginServiceResponse>(serviceRequest);
         }
     }

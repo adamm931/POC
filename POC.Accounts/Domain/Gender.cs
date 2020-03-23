@@ -5,17 +5,27 @@ namespace POC.Accounts.Domain
 {
     public class Gender
     {
-        public static Gender Male = new Gender(nameof(Male));
 
-        public static Gender Female = new Gender(nameof(Female));
+        public const string MaleName = "Male";
 
-        public static Gender Undefined = new Gender(nameof(Undefined));
+        public const string FemaleName = "Female";
+
+        public const string UndefinedName = "Undefined";
+
+        public static string[] AllNames => new[] { MaleName, FemaleName, UndefinedName };
+
+
+        public static Gender Male = new Gender(MaleName);
+
+        public static Gender Female = new Gender(FemaleName);
+
+        public static Gender Undefined = new Gender(UndefinedName);
 
         public Gender(string value)
         {
-            if (value != nameof(Male) && value != nameof(Female) && value != nameof(Undefined))
+            if (!IsValidGender(value))
             {
-                throw new ArgumentException($"Gender value is invalid");
+                throw new ArgumentException($"Gender: {value} is invalid");
             }
 
             Value = value;
@@ -54,6 +64,11 @@ namespace POC.Accounts.Domain
         public override int GetHashCode()
         {
             return -1937169414 + EqualityComparer<string>.Default.GetHashCode(Value);
+        }
+
+        public static bool IsValidGender(string value)
+        {
+            return value == MaleName || value == FemaleName || value == UndefinedName;
         }
     }
 }
