@@ -2,8 +2,10 @@
 using POC.Common.Service;
 using POC.Configuration.Mapping;
 using POC.Identity.Contracts;
+using POC.Identity.Service.Events;
 using POC.Identity.Service.UseCases.Base;
 using POC.Identity.Service.UseCases.Validation;
+using POC.MQ.Contracts;
 using System.Data.Entity;
 using System.Threading.Tasks;
 
@@ -19,8 +21,14 @@ namespace POC.Identity.Service.UseCases.UpdateLogin
 
         public class Handler : IdentityServiceHandler<UpdateUserLoginServiceRequest>
         {
-            public Handler(IIdentityContext identityContext, IMapping mapper) : base(identityContext, mapper)
+            private readonly IBusPublisher _busPublisher;
+
+            public Handler(
+                IIdentityContext identityContext,
+                IMapping mapper,
+                IBusPublisher busPublisher) : base(identityContext, mapper)
             {
+                _busPublisher = busPublisher;
             }
 
             public override async Task Handle(UpdateUserLoginServiceRequest request)
@@ -32,6 +40,8 @@ namespace POC.Identity.Service.UseCases.UpdateLogin
                 login.Update(request.NewUsername, request.NewPassword);
 
                 await IdentityContext.Save();
+
+                await _busPublisher.PublishAsync(new UserUpdated(request.Username, request.NewUsername));
             }
         }
 

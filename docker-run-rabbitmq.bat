@@ -1,0 +1,1 @@
+docker run -d --hostname poc-rabbitmq micdenny/rabbitmq-windows

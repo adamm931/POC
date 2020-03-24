@@ -4,6 +4,7 @@ using POC.Configuration.Mapping;
 using POC.Identity.Contracts;
 using POC.Identity.Data;
 using POC.Identity.Internal;
+using POC.MQ.DI;
 using System.Data.Entity;
 
 namespace POC.Identity.Service.DI
@@ -17,6 +18,7 @@ namespace POC.Identity.Service.DI
             container.RegisterInstance(ConnectionStringFactory.GetSqlConnectionString("PocIdentity"));
             container.Register<ICredentialRequirmentValidator, CredentialRequirmentValidator>();
             container.Register<IDatabaseInitializer<IdentityContext>, IdentityContextSeeder>();
+            container.RegisterPocMQ();
         }
     }
 }

@@ -86,6 +86,8 @@
   <ItemGroup>
     <Compile Include="Contracts\IIdentityService.cs" />
     <Compile Include="DI\IdentityServiceContainerConfigurator.cs" />
+    <Compile Include="Events\UserSignuped.cs" />
+    <Compile Include="Events\UserUpdated.cs" />
     <Compile Include="IdentityService.svc.cs">
       <DependentUpon>IdentityService.svc</DependentUpon>
     </Compile>
@@ -124,6 +126,10 @@
     <ProjectReference Include="..\POC.Identity\POC.Identity.csproj">
       <Project>{EDA15DE6-9F6B-40B9-A9AA-159645425DBA}</Project>
       <Name>POC.Identity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\POC.MQ\POC.MQ.csproj">
+      <Project>{0982C731-5E1D-4312-8D69-539FDEAD1D94}</Project>
+      <Name>POC.MQ</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
