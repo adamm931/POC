@@ -1,31 +1,30 @@
-﻿using POC.Configuration.DI.Internal;
+﻿using POC.Common;
+using POC.Configuration.DI.Internal;
 using System;
-using System.Linq;
 using System.Reflection;
 using Unity;
 
 namespace POC.Configuration.DI
 {
-    public class ContainerFactory
+    public class ContainerConfigurator
     {
-        public static IContainer GetContainer(Assembly assembly)
+        public static IContainer GetEmpty()
         {
-            var containerConfiguratorType = assembly
-                .GetExportedTypes()
-                .FirstOrDefault(type => typeof(IContainerConfigurator).IsAssignableFrom(type));
+            return new UnityContainerImpl(new UnityContainer());
+        }
 
-            var container = new UnityContainerImpl(new UnityContainer());
+        public static void ConfigureFrom(Assembly assembly, IContainer container)
+        {
+            var containerConfiguratorType = assembly.GetTypeOf<IContainerConfigurator>();
 
             if (containerConfiguratorType == null)
             {
-                return container;
+                return;
             }
 
-            var configurator = Activator.CreateInstance(containerConfiguratorType) as IContainerConfigurator;
+            var configurator = (IContainerConfigurator)Activator.CreateInstance(containerConfiguratorType);
 
             configurator.Configure(container);
-
-            return container;
         }
     }
 }

@@ -11,7 +11,7 @@ namespace POC.Identity.Service
 {
     internal class IdentityService : IIdentityService
     {
-        private readonly IServiceMediator _serviceMediator = ServiceMediatorFactory.CreateMediator<IdentityService>();
+        private readonly IServiceMediator _serviceMediator = ServiceMediatorFactory.CreateMediator();
 
         public async Task<ServiceResponse<CheckUsernameServiceResponse>> CheckUsernameAsync(CheckUsernameServiceRequest serviceRequest)
             => await _serviceMediator.Handle<CheckUsernameServiceRequest, CheckUsernameServiceResponse>(serviceRequest);

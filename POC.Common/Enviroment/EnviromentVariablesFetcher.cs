@@ -16,5 +16,19 @@ namespace POC.Common.Enviroment
 
             return value;
         }
+
+        public static TValue GetVaraiable<TValue>(string name)
+        {
+            var value = GetVaraiable(name);
+
+            object obj = value;
+
+            if (typeof(TValue) == typeof(int))
+            {
+                obj = int.Parse(value);
+            }
+
+            return (TValue)Convert.ChangeType(obj, typeof(TValue));
+        }
     }
 }

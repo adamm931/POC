@@ -93,12 +93,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\POC.Configuration.DI\POC.Configuration.DI.csproj">
-      <Project>{E5935973-174E-46AF-B297-BC4123035519}</Project>
-      <Name>POC.Configuration.DI</Name>
-    </ProjectReference>
-  </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -46,7 +46,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContainerControllerFactory.cs" />
-    <Compile Include="ContainerExtensions.cs" />
     <Compile Include="PocDependancyResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

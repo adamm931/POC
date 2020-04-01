@@ -1,5 +1,4 @@
-﻿using POC.Accounts.Service.Model;
-using POC.Accounts.Service.UseCases.Model;
+﻿using POC.Accounts.Service.UseCases.Model;
 using POC.Accounts.Service.UseCases.UpdateAccountAddress;
 using POC.Accounts.Service.UseCases.UpdateAccountHeader;
 using POC.Common.Service;
@@ -23,11 +22,5 @@ namespace POC.Accounts.Service.Contracts
 
         [OperationContract]
         Task<ServiceResponse<AccountServiceResponse>> GetAccountByUsernameAsync(string username);
-
-        [OperationContract]
-        Task<ServiceResponse<AddAccountLoginServiceResponse>> AddAccountLoginAsync(AddAccountLoginServiceRequest serviceRequest);
-
-        [OperationContract]
-        Task<ServiceResponse<UpdateAccountLoginServiceResponse>> UpdateAccountLoginAsync(UpdateAccountLoginServiceRequest serviceRequest);
     }
 }

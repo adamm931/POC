@@ -73,14 +73,7 @@ namespace POC.Common.Service
             var handlerType = typeof(TRequest).Assembly
                 .GetTypeOf<IServiceHandler<TRequest>>();
 
-            if (!_container.IsRegistered(handlerType))
-            {
-                _container.Register(handlerType);
-            }
-
-            var handler = _container.Resolve(handlerType) as IServiceHandler<TRequest>;
-
-            return handler;
+            return _container.RegisterThanResolve(handlerType) as IServiceHandler<TRequest>;
         }
 
         private IServiceHandler<TRequest, TResponse> GetHandler<TRequest, TResponse>()
@@ -89,14 +82,7 @@ namespace POC.Common.Service
             var handlerType = typeof(TRequest).Assembly
                 .GetTypeOf<IServiceHandler<TRequest, TResponse>>();
 
-            if (!_container.IsRegistered(handlerType))
-            {
-                _container.Register(handlerType);
-            }
-
-            var handler = _container.Resolve(handlerType) as IServiceHandler<TRequest, TResponse>;
-
-            return handler;
+            return _container.RegisterThanResolve(handlerType) as IServiceHandler<TRequest, TResponse>;
         }
     }
 }

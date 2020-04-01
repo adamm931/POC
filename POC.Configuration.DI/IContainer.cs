@@ -7,6 +7,8 @@ namespace POC.Configuration.DI
     {
         void Register<TFrom, TTo>() where TTo : TFrom;
 
+        void RegisterSingleton<TFrom, TTo>() where TTo : TFrom;
+
         void Register(Type type);
 
         void RegisterInstance<TInstance>(TInstance instance);
@@ -19,6 +21,8 @@ namespace POC.Configuration.DI
 
         bool IsRegistered(Type type);
 
+        object RegisterThanResolve(Type type);
 
+        TType RegisterThanResolve<TType>();
     }
 }

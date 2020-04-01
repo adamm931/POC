@@ -1,4 +1,5 @@
-﻿using POC.Configuration.DI.Mvc;
+﻿using POC.Configuration.DI;
+using POC.Configuration.DI.Mvc;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -15,6 +16,7 @@ namespace POC.Identity.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
+            ContainerProvider.ApplyConfigurationFromAssembly(typeof(MvcApplication));
             DependencyResolver.SetResolver(new PocDependancyResolver<MvcApplication>());
         }
     }

@@ -25,5 +25,9 @@
         public const string UserCookieDomain = "UserCookieDomain";
 
         public const string LoggingServiceUrl = "LoggingServiceUrl";
+
+        public const string RabbitMQHost = "RabbitMQHost";
+
+        public const string RabbitMQPort = "RabbitMQPort";
     }
 }

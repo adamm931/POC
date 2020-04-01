@@ -9,7 +9,7 @@ namespace POC.Logging.Service
 {
     public class LoggingService : ILoggingService
     {
-        private readonly IServiceMediator _serviceMediator = ServiceMediatorFactory.CreateMediator<LoggingService>();
+        private readonly IServiceMediator _serviceMediator = ServiceMediatorFactory.CreateMediator();
 
         public async Task<ServiceResponse> AddLogEntryAsync(AddLogEntryServiceRequest request)
         {

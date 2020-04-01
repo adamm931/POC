@@ -4,11 +4,9 @@ namespace POC.Common.Service.Factory
 {
     public class ServiceMediatorFactory
     {
-        public static IServiceMediator CreateMediator<TService>()
+        public static IServiceMediator CreateMediator()
         {
-            var container = Container<TService>.Instance;
-
-            return new ServiceMediator(container);
+            return new ServiceMediator(ContainerProvider.Container);
         }
     }
 }

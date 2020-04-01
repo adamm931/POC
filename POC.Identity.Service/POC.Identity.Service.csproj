@@ -80,14 +80,16 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Global.asax" />
     <Content Include="IdentityService.svc" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contracts\IIdentityService.cs" />
     <Compile Include="DI\IdentityServiceContainerConfigurator.cs" />
-    <Compile Include="Events\UserSignuped.cs" />
-    <Compile Include="Events\UserUpdated.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="IdentityService.svc.cs">
       <DependentUpon>IdentityService.svc</DependentUpon>
     </Compile>
@@ -127,9 +129,9 @@
       <Project>{EDA15DE6-9F6B-40B9-A9AA-159645425DBA}</Project>
       <Name>POC.Identity</Name>
     </ProjectReference>
-    <ProjectReference Include="..\POC.MQ\POC.MQ.csproj">
-      <Project>{0982C731-5E1D-4312-8D69-539FDEAD1D94}</Project>
-      <Name>POC.MQ</Name>
+    <ProjectReference Include="..\POC.RabbitMQ\POC.RabbitMQ.csproj">
+      <Project>{0982c731-5e1d-4312-8d69-539fdead1d94}</Project>
+      <Name>POC.RabbitMQ</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

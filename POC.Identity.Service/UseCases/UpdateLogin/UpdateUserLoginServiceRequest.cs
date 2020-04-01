@@ -2,10 +2,10 @@
 using POC.Common.Service;
 using POC.Configuration.Mapping;
 using POC.Identity.Contracts;
-using POC.Identity.Service.Events;
 using POC.Identity.Service.UseCases.Base;
 using POC.Identity.Service.UseCases.Validation;
-using POC.MQ.Contracts;
+using POC.RabbitMQ.Contracts;
+using POC.RabbitMQ.Events;
 using System.Data.Entity;
 using System.Threading.Tasks;
 
@@ -21,12 +21,12 @@ namespace POC.Identity.Service.UseCases.UpdateLogin
 
         public class Handler : IdentityServiceHandler<UpdateUserLoginServiceRequest>
         {
-            private readonly IBusPublisher _busPublisher;
+            private readonly IMessageBus _busPublisher;
 
             public Handler(
                 IIdentityContext identityContext,
                 IMapping mapper,
-                IBusPublisher busPublisher) : base(identityContext, mapper)
+                IMessageBus busPublisher) : base(identityContext, mapper)
             {
                 _busPublisher = busPublisher;
             }
@@ -41,7 +41,7 @@ namespace POC.Identity.Service.UseCases.UpdateLogin
 
                 await IdentityContext.Save();
 
-                await _busPublisher.PublishAsync(new UserUpdated(request.Username, request.NewUsername));
+                _busPublisher.Publish(new UserUpdated(request.Username, request.NewUsername));
             }
         }
 

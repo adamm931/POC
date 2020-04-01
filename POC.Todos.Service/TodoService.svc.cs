@@ -2,12 +2,10 @@
 using POC.Common.Service.Factory;
 using POC.Todos.Service.Contracts;
 using POC.Todos.Service.UseCases.AddTodo;
-using POC.Todos.Service.UseCases.AddUser;
 using POC.Todos.Service.UseCases.CompleteTodo;
 using POC.Todos.Service.UseCases.DeleteTodo;
 using POC.Todos.Service.UseCases.ListTodos;
 using POC.Todos.Service.UseCases.OpenTodo;
-using POC.Todos.Service.UseCases.UpdateUser;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -15,7 +13,7 @@ namespace POC.Todos.Service
 {
     public class TodoService : ITodoService
     {
-        private readonly IServiceMediator _serviceMediator = ServiceMediatorFactory.CreateMediator<TodoService>();
+        private readonly IServiceMediator _serviceMediator = ServiceMediatorFactory.CreateMediator();
 
         public async Task<ServiceResponse<AddTodoServiceResponse>> AddAsync(AddTodoServiceRequest serviceRequest)
             => await _serviceMediator.Handle<AddTodoServiceRequest, AddTodoServiceResponse>(serviceRequest);
@@ -31,11 +29,5 @@ namespace POC.Todos.Service
 
         public async Task<ServiceResponse<IEnumerable<ListTodosItemServiceResponse>>> ListAsync(ListTodosServiceRequest serviceRequest)
             => await _serviceMediator.Handle<ListTodosServiceRequest, IEnumerable<ListTodosItemServiceResponse>>(serviceRequest);
-
-        public async Task<ServiceResponse> AddUserAsync(AddUserServiceRequest serviceRequest)
-            => await _serviceMediator.Handle(serviceRequest);
-
-        public async Task<ServiceResponse> UpdateUserAsync(UpdateUserServiceRequest serviceRequest)
-            => await _serviceMediator.Handle(serviceRequest);
     }
 }

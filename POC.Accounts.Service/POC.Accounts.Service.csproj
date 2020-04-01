@@ -81,6 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AccountService.svc" />
+    <Content Include="Global.asax" />
     <Content Include="UseCases\TODO.txt" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -90,7 +91,13 @@
     </Compile>
     <Compile Include="DI\AccountServiceContainerConfigurator.cs" />
     <Compile Include="Contracts\IAccountService.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="MappingProfiles\AccountMappingProfile.cs" />
+    <Compile Include="MessageBusConfigurator\AccountServiceMessageBusConfigurator.cs" />
+    <Compile Include="MessageHandlers\UserUpdatedMessageHandler.cs" />
+    <Compile Include="MessageHandlers\UserSignupedMessageHandler.cs" />
     <Compile Include="UseCases\Model\AccountAddressServiceRequest.cs" />
     <Compile Include="UseCases\Model\AccountAddressServiceResponse.cs" />
     <Compile Include="UseCases\Model\AccountHeaderServiceRequest.cs" />
@@ -129,6 +136,10 @@
     <ProjectReference Include="..\POC.Configuration.Mapping\POC.Configuration.Mapping.csproj">
       <Project>{8f25e1f4-1b8e-4883-8480-60b9cc373d86}</Project>
       <Name>POC.Configuration.Mapping</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\POC.RabbitMQ\POC.RabbitMQ.csproj">
+      <Project>{0982C731-5E1D-4312-8D69-539FDEAD1D94}</Project>
+      <Name>POC.RabbitMQ</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

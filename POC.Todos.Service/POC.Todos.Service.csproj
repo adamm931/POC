@@ -80,6 +80,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Global.asax" />
     <Content Include="TodoService.svc" />
     <Content Include="UseCases\TODO.txt" />
     <Content Include="Web.config" />
@@ -87,7 +88,13 @@
   <ItemGroup>
     <Compile Include="Contracts\ITodoService.cs" />
     <Compile Include="DI\TodoServiceContainerConfigurator.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="MappingProfiles\TodoServiceMappingProfile.cs" />
+    <Compile Include="MessageBusConfigurator\TodosServiceMessageBusConfigurator.cs" />
+    <Compile Include="MessageHandlers\UserUpdatedMessageHandler.cs" />
+    <Compile Include="MessageHandlers\UserSignupedMessageHandler.cs" />
     <Compile Include="TodoService.svc.cs">
       <DependentUpon>TodoService.svc</DependentUpon>
     </Compile>
@@ -133,6 +140,10 @@
     <ProjectReference Include="..\POC.Configuration.Mapping\POC.Configuration.Mapping.csproj">
       <Project>{8F25E1F4-1B8E-4883-8480-60B9CC373D86}</Project>
       <Name>POC.Configuration.Mapping</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\POC.RabbitMQ\POC.RabbitMQ.csproj">
+      <Project>{0982C731-5E1D-4312-8D69-539FDEAD1D94}</Project>
+      <Name>POC.RabbitMQ</Name>
     </ProjectReference>
     <ProjectReference Include="..\POC.Todos\POC.Todos.csproj">
       <Project>{939418EF-F3E5-461F-A3B3-CFAF86FD3835}</Project>

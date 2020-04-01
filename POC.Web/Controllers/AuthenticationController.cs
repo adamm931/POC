@@ -1,12 +1,10 @@
 ﻿using POC.Accounts.Service.Contracts;
-using POC.Accounts.Service.Model;
 using POC.Common.Enviroment;
 using POC.Configuration.Mapping;
 using POC.Identity.Service.Contracts;
 using POC.Identity.Service.UseCases.UpdateLogin;
 using POC.Identity.Web.AuthenticationService.Contracts;
 using POC.Todos.Service.Contracts;
-using POC.Todos.Service.UseCases.UpdateUser;
 using POC.Web.Models;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -48,18 +46,6 @@ namespace POC.Web.Controllers
             var updateUserLoginRequest = Mapper.Map<UpdateUserLoginServiceRequest>(model);
             updateUserLoginRequest.Username = Username;
             await IdentityService.UpdateLoginAsync(updateUserLoginRequest);
-
-            // update todos user
-            await TodoService.UpdateUserAsync(new UpdateUserServiceRequest
-            {
-                Username = Username,
-                NewUsername = model.Username
-            });
-
-            // update account user
-            var updateAccountLoginRequest = Mapper.Map<UpdateAccountLoginServiceRequest>(model);
-            updateAccountLoginRequest.AccountUsername = Username;
-            await AccountService.UpdateAccountLoginAsync(updateAccountLoginRequest);
 
             return RedirectToAction("Logout");
         }

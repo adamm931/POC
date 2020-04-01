@@ -1,6 +1,7 @@
 ﻿using POC.Common.Connection;
 using POC.Configuration.DI;
 using POC.Configuration.Mapping;
+using POC.RabbitMQ.DI;
 using POC.Todos.Contracts;
 using POC.Todos.Data;
 using System.Data.Entity;
@@ -15,6 +16,7 @@ namespace POC.Todos.Service.DI
             container.Register<ITodoContext, TodoContext>();
             container.Register<IDatabaseInitializer<TodoContext>, TodoContextSeeder>();
             container.RegisterMapping(GetType().Assembly);
+            container.RegisterRabbitMQ(options => options.Client = "todos", configuratorAssemblyType: GetType());
         }
     }
 }

@@ -8,13 +8,11 @@ namespace POC.Configuration.DI.Mvc
     {
         private readonly IContainer _container;
 
-        private PocDependancyResolver(IContainer container)
+        public PocDependancyResolver()
         {
-            _container = container;
-        }
+            ContainerProvider.ApplyConfigurationFromAssembly(typeof(TType));
+            _container = ContainerProvider.Container;
 
-        public PocDependancyResolver() : this(Container<TType>.Instance)
-        {
             _container.RegisterInstance<IControllerFactory>(new ContainerControllerFactory(_container));
         }
 

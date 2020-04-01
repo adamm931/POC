@@ -3,10 +3,10 @@ using POC.Common.Service;
 using POC.Configuration.Mapping;
 using POC.Identity.Contracts;
 using POC.Identity.Domain.Entities;
-using POC.Identity.Service.Events;
 using POC.Identity.Service.UseCases.Base;
 using POC.Identity.Service.UseCases.Validation;
-using POC.MQ.Contracts;
+using POC.RabbitMQ.Contracts;
+using POC.RabbitMQ.Events;
 using System.Threading.Tasks;
 
 namespace POC.Identity.Service.UseCases.Signup
@@ -19,14 +19,14 @@ namespace POC.Identity.Service.UseCases.Signup
 
         public class Handler : IdentityServiceHandler<SignupUserServiceRequest>
         {
-            private readonly IBusPublisher _busPublisher;
+            private readonly IMessageBus _messageBus;
 
             public Handler(
                 IIdentityContext identityContext,
                 IMapping mapper,
-                IBusPublisher busPublisher) : base(identityContext, mapper)
+                IMessageBus messageBus) : base(identityContext, mapper)
             {
-                _busPublisher = busPublisher;
+                _messageBus = messageBus;
             }
 
             public override async Task Handle(SignupUserServiceRequest request)
@@ -35,7 +35,7 @@ namespace POC.Identity.Service.UseCases.Signup
 
                 await IdentityContext.Save();
 
-                await _busPublisher.PublishAsync(new UserSignuped(request.Username));
+                _messageBus.Publish(new UserSignuped(request.Username));
             }
         }
 

@@ -1,5 +1,4 @@
 ﻿using POC.Accounts.Service.Contracts;
-using POC.Accounts.Service.Model;
 using POC.Accounts.Service.UseCases.GetAccountById;
 using POC.Accounts.Service.UseCases.GetAccountByUsername;
 using POC.Accounts.Service.UseCases.Model;
@@ -14,14 +13,7 @@ namespace POC.Accounts.Service
 {
     public class AccountService : IAccountService
     {
-        private readonly IServiceMediator _serviceMediator = ServiceMediatorFactory.CreateMediator<AccountService>();
-
-        public async Task<ServiceResponse<AddAccountLoginServiceResponse>> AddAccountLoginAsync(
-            AddAccountLoginServiceRequest serviceRequest)
-        {
-            return await _serviceMediator
-                .Handle<AddAccountLoginServiceRequest, AddAccountLoginServiceResponse>(serviceRequest);
-        }
+        private readonly IServiceMediator _serviceMediator = ServiceMediatorFactory.CreateMediator();
 
         public async Task<ServiceResponse<AccountServiceResponse>> GetAccountByIdAsync(Guid id)
         {
@@ -55,13 +47,6 @@ namespace POC.Accounts.Service
         {
             return await _serviceMediator
                 .Handle(serviceRequest);
-        }
-
-        public async Task<ServiceResponse<UpdateAccountLoginServiceResponse>> UpdateAccountLoginAsync(
-            UpdateAccountLoginServiceRequest serviceRequest)
-        {
-            return await _serviceMediator
-                .Handle<UpdateAccountLoginServiceRequest, UpdateAccountLoginServiceResponse>(serviceRequest);
         }
     }
 }

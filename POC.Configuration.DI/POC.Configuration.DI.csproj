@@ -50,7 +50,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Container.cs" />
+    <Compile Include="ContainerProvider.cs" />
     <Compile Include="ContainerFactory.cs" />
     <Compile Include="IContainer.cs" />
     <Compile Include="IContainerConfigurator.cs" />
@@ -61,7 +61,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Mvc\" />
+    <ProjectReference Include="..\POC.Common\POC.Common.csproj">
+      <Project>{0FAEE2E1-706A-4EEC-A81C-D7A0AD32763E}</Project>
+      <Name>POC.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

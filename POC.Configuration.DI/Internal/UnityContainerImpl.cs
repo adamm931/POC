@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Unity;
+using Unity.Lifetime;
 
 namespace POC.Configuration.DI.Internal
 {
@@ -31,6 +32,26 @@ namespace POC.Configuration.DI.Internal
         public void RegisterInstance<TInstance>(TInstance instance)
         {
             _container.RegisterInstance(instance);
+        }
+
+        public void RegisterSingleton<TFrom, TTo>() where TTo : TFrom
+        {
+            _container.RegisterType<TFrom, TTo>(new SingletonLifetimeManager());
+        }
+
+        public TType RegisterThanResolve<TType>()
+        {
+            return (TType)RegisterThanResolve(typeof(TType));
+        }
+
+        public object RegisterThanResolve(Type type)
+        {
+            if (!_container.IsRegistered(type))
+            {
+                _container.RegisterType(type);
+            }
+
+            return _container.Resolve(type);
         }
 
         public TType Resolve<TType>()
