@@ -5,9 +5,9 @@ using System;
 
 namespace POC.Identity.Service.UseCases.Validation
 {
-    public class UsernameValidator : AbstractValidator<string>
+    public class UsernameRequirmentValidator : AbstractValidator<string>
     {
-        public UsernameValidator(ICredentialRequirmentValidator credentialValidator)
+        public UsernameRequirmentValidator(ICredentialRequirmentValidator credentialValidator)
         {
             var reason = "Username doesn't meet requirments";
 

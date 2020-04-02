@@ -13,7 +13,7 @@ namespace POC.Identity.Service.UseCases.Validation
             builder
                 .Cascade(CascadeMode.StopOnFirstFailure)
                 .NotEmpty()
-                .SetValidator(new UsernameValidator(validator))
+                .SetValidator(new UsernameRequirmentValidator(validator))
                 .SetValidator(new UniqueUsernameValidator(validator, context));
         }
 
@@ -24,7 +24,7 @@ namespace POC.Identity.Service.UseCases.Validation
             builder
                 .Cascade(CascadeMode.StopOnFirstFailure)
                 .NotEmpty()
-                .SetValidator(new UsernameValidator(validator));
+                .SetValidator(new UsernameRequirmentValidator(validator));
         }
 
         public static void ExistingUsername<TRequest>(
@@ -35,7 +35,7 @@ namespace POC.Identity.Service.UseCases.Validation
             builder
                 .Cascade(CascadeMode.StopOnFirstFailure)
                 .NotEmpty()
-                .SetValidator(new UsernameValidator(validator))
+                .SetValidator(new UsernameRequirmentValidator(validator))
                 .SetValidator(new ExistingUsernameValidator(validator, context));
         }
 
@@ -46,7 +46,7 @@ namespace POC.Identity.Service.UseCases.Validation
             builder
                 .Cascade(CascadeMode.StopOnFirstFailure)
                 .NotEmpty()
-                .SetValidator(new PasswordValidator(validator));
+                .SetValidator(new PasswordRequirmentValidator(validator));
         }
     }
 }

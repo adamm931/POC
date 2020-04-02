@@ -5,11 +5,11 @@ using System;
 
 namespace POC.Identity.Service.UseCases.Validation
 {
-    public class PasswordValidator : AbstractValidator<string>
+    public class PasswordRequirmentValidator : AbstractValidator<string>
     {
         private readonly ICredentialRequirmentValidator _credentialValidator;
 
-        public PasswordValidator(ICredentialRequirmentValidator credentialValidator)
+        public PasswordRequirmentValidator(ICredentialRequirmentValidator credentialValidator)
         {
             _credentialValidator = credentialValidator;
 

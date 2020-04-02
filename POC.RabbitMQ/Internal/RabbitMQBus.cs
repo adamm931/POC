@@ -1,9 +1,13 @@
-﻿using POC.Configuration.DI;
+﻿using Newtonsoft.Json;
+using POC.Configuration.DI;
 using POC.RabbitMQ.Common;
 using POC.RabbitMQ.Contracts;
 using POC.RabbitMQ.Extensions;
+using POC.RabbitMQ.Models;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace POC.RabbitMQ.Internal
 {
@@ -19,6 +23,8 @@ namespace POC.RabbitMQ.Internal
 
         private readonly IModel _channel;
 
+        private static readonly SubscriptionManager _subscriptionManager = new SubscriptionManager();
+
         public RabbitMQBus(
             IRabbitMQConnector connector,
             BusOptions busOptions,
@@ -31,36 +37,34 @@ namespace POC.RabbitMQ.Internal
         }
 
         public void Publish<TMessage>(TMessage message)
-            where TMessage : IMessagePayload
+            where TMessage : BusMessage
         {
-            var props = _channel.CreateBasicProperties();
-            props.DeliveryMode = DeliveryMode.Persistant;
+            _channelConnector.EnsureConnected();
 
-            var body = new BusMessage<TMessage>(message);
+            using (var channel = _channelConnector.GetChannel())
+            {
+                var props = channel.CreateBasicProperties();
+                props.DeliveryMode = DeliveryMode.Persistant;
 
-            _channel.BasicPublish(
-                exchange: _exchange,
-                routingKey: GetRoutingKey<TMessage>(),
-                basicProperties: props,
-                body: body.GetBytes());
+                channel.BasicPublish(
+                    exchange: _exchange,
+                    routingKey: GetRoutingKey<TMessage>(),
+                    basicProperties: props,
+                    body: message.GetBytes());
+            }
         }
 
         public void Subscribe<TMessage, THandler>()
-            where TMessage : IMessagePayload
+            where TMessage : BusMessage
             where THandler : IMessageHandler<TMessage>
         {
-            _channel.QueueBind(
-                queue: _busOptions.Client,
-                exchange: _exchange,
-                routingKey: GetRoutingKey<TMessage>());
+            var routingKey = GetRoutingKey<TMessage>();
 
-            var consumer = new EventingBasicConsumer(_channel);
-            consumer.Received += OnMessageRecieved<TMessage, THandler>;
+            // add subscription
+            _subscriptionManager.AddSubscription(routingKey, typeof(TMessage), typeof(THandler));
 
-            _channel.BasicConsume(
-                queue: _busOptions.Client,
-                autoAck: false,
-                consumer: consumer);
+            // start consume
+            StartConsuming(routingKey);
         }
 
         public void Dispose()
@@ -68,18 +72,39 @@ namespace POC.RabbitMQ.Internal
             _channel?.Dispose();
         }
 
-        private void OnMessageRecieved<TMessage, THandler>(object sender, BasicDeliverEventArgs args)
-            where TMessage : IMessagePayload
-            where THandler : IMessageHandler<TMessage>
+        private void OnMessageRecieved(object sender, BasicDeliverEventArgs args)
         {
-            var message = BusMessage<TMessage>.FromBytes(args.Body);
+            var subscription = _subscriptionManager.GetSubscriptionByName(
+                name: args.RoutingKey);
 
-            _container
-                .RegisterThanResolve<THandler>()
-                .HandleAsync(message.Payload)
-                .Wait();
+            foreach (var handlerType in subscription.HandlerTypes)
+            {
+                var argsBody = Encoding.UTF8.GetString(args.Body);
+                var message = JsonConvert.DeserializeObject(argsBody, subscription.MessageType);
+                var handler = _container.RegisterThanResolve(handlerType);
 
-            _channel.BasicAck(args.DeliveryTag, false);
+                var task = (Task)handler.GetType()
+                    .GetMethod("HandleAsync")
+                    .Invoke(handler, new[] { message });
+
+                task.Wait();
+            }
+        }
+
+        private void StartConsuming(string routingKey)
+        {
+            _channel.QueueBind(
+                queue: _busOptions.Client,
+                exchange: _exchange,
+                routingKey: routingKey);
+
+            var consumer = new EventingBasicConsumer(_channel);
+            consumer.Received += OnMessageRecieved;
+
+            _channel.BasicConsume(
+                queue: _busOptions.Client,
+                autoAck: true,
+                consumer: consumer);
         }
 
         private IModel CreateChannel()

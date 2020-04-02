@@ -1,11 +1,11 @@
 ﻿using POC.RabbitMQ.Attributes;
 using POC.RabbitMQ.Common;
-using POC.RabbitMQ.Contracts;
+using POC.RabbitMQ.Models;
 
 namespace POC.RabbitMQ.Events
 {
     [MessageNamespace(RoutesKeys.UserUpdated)]
-    public class UserUpdated : IMessagePayload
+    public class UserUpdated : BusMessage
     {
         public UserUpdated(string oldUsername, string newUsername)
         {

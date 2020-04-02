@@ -106,7 +106,7 @@
     <Compile Include="UseCases\Validation\PasswordValidator.cs" />
     <Compile Include="UseCases\Validation\RuleBuilderExtensions.cs" />
     <Compile Include="UseCases\Validation\UniqueUsernameValidator.cs" />
-    <Compile Include="UseCases\Validation\UsernameValidator.cs" />
+    <Compile Include="UseCases\Validation\UsernameRequirmentsValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\POC.Common.Service\POC.Common.Service.csproj">

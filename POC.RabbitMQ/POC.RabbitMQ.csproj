@@ -51,14 +51,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\MessageNamespaceAttribute.cs" />
-    <Compile Include="BusMessage.cs" />
+    <Compile Include="Models\BusMessage.cs" />
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Contracts\IMessageBusConfigurator.cs" />
     <Compile Include="Contracts\IRabbitMQConnector.cs" />
     <Compile Include="Contracts\IMessageBus.cs" />
     <Compile Include="Contracts\IMessageBody.cs" />
     <Compile Include="Contracts\IMessageHandler.cs" />
-    <Compile Include="Contracts\ISubscriptionManager.cs" />
     <Compile Include="DI\DIContainerExtensions.cs" />
     <Compile Include="DI\MQContainerConfigurator.cs" />
     <Compile Include="Events\UserSignuped.cs" />
@@ -68,7 +67,7 @@
     <Compile Include="Internal\RabbitMQConnector.cs" />
     <Compile Include="Internal\BusOptions.cs" />
     <Compile Include="Internal\RabbitMQBus.cs" />
-    <Compile Include="Internal\SubscriptionManager.cs" />
+    <Compile Include="Models\Subscription.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

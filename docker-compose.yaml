@@ -1,37 +1,41 @@
 version: '3.7'
 services:        
-    poc_web:
-        image: poc-web
-        restart: always
+    poc_portal:
+        image: poc-portal
         build:
             context: .
             dockerfile: POC.Publish.dockerfile
             args:
                 - "publish_folder=POC.Web.Publish"
         depends_on:
-            - "poc_service"
+            - "poc_todos_service"
         environment: 
             - "TodoServiceUrl=http://172.28.1.2/TodoService.svc"
             - "AccountServiceUrl=http://172.28.1.6/AccountService.svc"
             - "IdentityServiceUrl=http://172.28.1.4/IdentityService.svc"
             - "IdentityUrl=http://login.poc.net"
+            - "RabbitMQHost=172.28.1.7"
+            - "RabbitMQPort=5672"
         networks:
             poc_network:
                 ipv4_address: 172.28.1.1
-    poc_service:
+    poc_todos_service:
         image: poc-service
         restart: always
         build:
             context: .
             dockerfile: POC.Publish.Wcf.dockerfile
             args:
-                - "publish_folder=POC.Service.Publish"
+                - "publish_folder=POC.Todos.Service.Publish"
         depends_on:
             - "poc_db"
+            - "poc_rabbitmq"
         environment:
             - "DbHost=172.28.1.3"
             - "DbPort=1433"
             - "DbPassword=@dam93!Nis1323"
+            - "RabbitMQHost=172.28.1.7"
+            - "RabbitMQPort=5672"
         networks:
             poc_network:
                 ipv4_address: 172.28.1.2
@@ -46,6 +50,16 @@ services:
         networks:
             poc_network:
                 ipv4_address: 172.28.1.3
+    poc_rabbitmq:
+        image: micdenny/rabbitmq-windows
+        hostname: poc-rabbitmq
+        restart: always
+        ports:
+            - "5672:5672"
+            - "15672:15672"
+        networks:
+            poc_network:
+                ipv4_address: 172.28.1.7
     poc_identity_service:
         image: poc-identity-service
         restart: always
@@ -56,10 +70,13 @@ services:
                 - "publish_folder=POC.Identity.Service.Publish"
         depends_on:
             - "poc_db"
+            - "poc_rabbitmq"
         environment: 
             - "DbHost=172.28.1.3"
             - "DbPort=1433"
             - "DbPassword=@dam93!Nis1323"
+            - "RabbitMQHost=172.28.1.7"
+            - "RabbitMQPort=5672"
         networks:
             poc_network:
                 ipv4_address: 172.28.1.4
@@ -73,13 +90,15 @@ services:
                 - "publish_folder=POC.Identity.Web.Publish"
         depends_on:
             - "poc_identity_service"
-            - "poc_service"
+            - "poc_todos_service"
         environment:
             - "TodoServiceUrl=http://172.28.1.2/TodoService.svc"        
             - "IdentityServiceUrl=http://172.28.1.4/IdentityService.svc"
             - "AccountServiceUrl=http://172.28.1.6/AccountService.svc"
             - "IdentityRedirectUrl=http://portal.poc.net"
             - "UserCookieDomain=.poc.net"
+            - "RabbitMQHost=172.28.1.7"
+            - "RabbitMQPort=5672"
         networks:
             poc_network:
                 ipv4_address: 172.28.1.5
@@ -93,17 +112,19 @@ services:
                 - "publish_folder=POC.Accounts.Service.Publish"
         depends_on:
             - "poc_db"
+            - "poc_rabbitmq"
         environment:
             - "DbHost=172.28.1.3"
             - "DbPort=1433"
             - "DbPassword=@dam93!Nis1323"
+            - "RabbitMQHost=172.28.1.7"
+            - "RabbitMQPort=5672"
         networks:
             poc_network:
                 ipv4_address: 172.28.1.6
 networks:
     poc_network:
         ipam:
-            driver: default
             config:
                 - subnet: 172.28.0.0/16
          
